@@ -1,0 +1,23 @@
+Emulated Device                            | Key Keyboard Key
+===========================================|=================================================
+Home                                       | HOME
+Menu (left softkey)                        | F2 or Page-up button
+Star (right softkey)                       | Shift-F2 or Page Down
+Back                                       | ESC
+Call/dial button                           | F3
+Hangup/end call button                     | F4
+Search                                     | F5
+Power button                               | F7
+Audio volume up button                     | KEYPAD_PLUS, Ctrl-5
+Audio volume down button                   | KEYPAD_MINUS, Ctrl-F6
+Camera button                              | Ctrl-KEYPAD_5, Ctrl-F3
+Switch to previous layout orientation      | KEYPAD_7, Ctrl-F11
+Switch to next layout orientation          | KEYPAD_9, Ctrl-F12
+Toggle cell networking on/off              | F8
+Toggle code profiling*                     | F9 *(only with -trace startup option)
+Toggle fullscreen mode                     | Alt-Enter
+Toggle trackball mode                      | F6
+Enter trackball mode temporarily*          | Delete *(while key is pressed)
+DPad left/up/right/down                    | KEYPAD_4/8/6/2
+DPad center click                          | KEYPAD_5
+Onion alpha increase/decrease              | KEYPAD_MULTIPLY(*) / KEYPAD_DIVIDE(/)
