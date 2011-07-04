@@ -6,9 +6,9 @@ import android.graphics.Color;
 
 import com.badlogic.androidgames.framework.Game;
 import com.badlogic.androidgames.framework.Graphics;
-import com.badlogic.androidgames.framework.Input.TouchEvent;
 import com.badlogic.androidgames.framework.Pixmap;
 import com.badlogic.androidgames.framework.Screen;
+import com.badlogic.androidgames.framework.Input.TouchEvent;
 
 public class GameScreen extends Screen {
     enum GameState {
