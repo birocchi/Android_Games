@@ -20,9 +20,9 @@ public class Assets {
     public static Pixmap headDown;
     public static Pixmap headRight;
     public static Pixmap tail;
-    public static Pixmap stain1;
-    public static Pixmap stain2;
-    public static Pixmap stain3;   
+    public static Pixmap fruit1;
+    public static Pixmap fruit2;
+    public static Pixmap fruit3;   
     
     public static Sound click;
     public static Sound eat;

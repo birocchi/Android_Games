@@ -29,9 +29,9 @@ public class LoadingScreen extends Screen {
         Assets.headDown = g.newPixmap("headdown.png", PixmapFormat.ARGB4444);
         Assets.headRight = g.newPixmap("headright.png", PixmapFormat.ARGB4444);
         Assets.tail = g.newPixmap("tail.png", PixmapFormat.ARGB4444);
-        Assets.stain1 = g.newPixmap("stain1.png", PixmapFormat.ARGB4444);
-        Assets.stain2 = g.newPixmap("stain2.png", PixmapFormat.ARGB4444);
-        Assets.stain3 = g.newPixmap("stain3.png", PixmapFormat.ARGB4444);
+        Assets.fruit1 = g.newPixmap("fruit1.png", PixmapFormat.ARGB4444);
+        Assets.fruit2 = g.newPixmap("fruit2.png", PixmapFormat.ARGB4444);
+        Assets.fruit3 = g.newPixmap("fruit3.png", PixmapFormat.ARGB4444);
         Assets.click = game.getAudio().newSound("click.ogg");
         Assets.eat = game.getAudio().newSound("eat.ogg");
         Assets.bitten = game.getAudio().newSound("bitten.ogg");

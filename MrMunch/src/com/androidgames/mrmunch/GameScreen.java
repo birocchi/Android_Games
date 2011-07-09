@@ -163,11 +163,11 @@ public class GameScreen extends Screen {
         
         Pixmap stainPixmap = null;
         if(stain.type == Stain.TYPE_1)
-            stainPixmap = Assets.stain1;
+            stainPixmap = Assets.fruit1;
         if(stain.type == Stain.TYPE_2)
-            stainPixmap = Assets.stain2;
+            stainPixmap = Assets.fruit2;
         if(stain.type == Stain.TYPE_3)
-            stainPixmap = Assets.stain3;
+            stainPixmap = Assets.fruit3;
         int x = stain.x * 32;
         int y = stain.y * 32;      
         g.drawPixmap(stainPixmap, x, y);             
