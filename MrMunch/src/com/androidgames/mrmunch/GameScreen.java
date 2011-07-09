@@ -22,6 +22,7 @@ public class GameScreen extends Screen {
     World world;
     int oldScore = 0;
     String score = "0";
+    boolean speedingUp = false;
     
     public GameScreen(Game game) {
         super(game);
@@ -69,6 +70,15 @@ public class GameScreen extends Screen {
                 	if(!world.snake.already_turned)
                 		world.snake.turnRight();
                 }
+                if(event.x > 256 && event.y < 64) {
+                	speedingUp = true;
+                	if(World.tick - World.TICK_DECREMENT > 0)
+                		World.tick /= 2;
+                }
+            }
+            if(((event.type == TouchEvent.TOUCH_UP && event.x > 256 && event.y < 64) || (event.type == TouchEvent.TOUCH_DRAGGED && !(event.x > 256 && event.y < 64))) && speedingUp){
+            	speedingUp = false;
+        		World.tick *= 2;
             }
         }
         
@@ -198,6 +208,7 @@ public class GameScreen extends Screen {
         g.drawLine(0, 416, 480, 416, Color.BLACK);
         g.drawPixmap(Assets.buttons, 0, 416, 64, 64, 64, 64);
         g.drawPixmap(Assets.buttons, 256, 416, 0, 64, 64, 64);
+        g.drawPixmap(Assets.buttons, 256, 0, 0, 192, 64, 64);
     }
     
     private void drawPausedUI() {
