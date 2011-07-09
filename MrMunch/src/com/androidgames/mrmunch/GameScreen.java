@@ -151,7 +151,10 @@ public class GameScreen extends Screen {
         if(state == GameState.GameOver)
             drawGameOverUI();
         
-        drawText(g, score, g.getWidth() / 2 - score.length()*20 / 2, g.getHeight() - 42);                
+        String gameName = "Mr. Munch";
+        drawText(g, gameName, g.getWidth() / 2 - gameName.length()*20 / 2, 10);
+        
+        drawText(g, score, g.getWidth() / 2 - score.length()*20 / 2, g.getHeight() - 42);
     }
     
     private void drawWorld(World world) {
@@ -241,12 +244,22 @@ public class GameScreen extends Screen {
             if (character == '.') {
                 srcX = 200;
                 srcWidth = 10;
-            } else {
+                g.drawPixmap(Assets.numbers, x, y, srcX, 0, srcWidth, 32);
+            } else if (character >='0' && character <= '9') {
                 srcX = (character - '0') * 20;
                 srcWidth = 20;
+                g.drawPixmap(Assets.numbers, x, y, srcX, 0, srcWidth, 32);
+            } else if (character >='a' && character <= 'z') { 
+            	srcX = (character - 'a') * 20;
+                srcWidth = 20;
+                g.drawPixmap(Assets.letters, x, y, srcX, 0, srcWidth, 32);
+            } else if (character >='A' && character <= 'Z') {
+            	srcX = (character - 'A') * 20;
+                srcWidth = 20;
+                g.drawPixmap(Assets.letters, x, y, srcX, 0, srcWidth, 32);
             }
 
-            g.drawPixmap(Assets.numbers, x, y, srcX, 0, srcWidth, 32);
+            
             x += srcWidth;
         }
     }
