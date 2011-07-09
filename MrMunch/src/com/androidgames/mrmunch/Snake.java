@@ -10,25 +10,30 @@ public class Snake {
     public static final int RIGHT = 3;
     
     public List<SnakePart> parts = new ArrayList<SnakePart>();
-    public int direction;    
+    public int direction;
+    public boolean already_turned;
     
     public Snake() {        
         direction = UP;
         parts.add(new SnakePart(5, 6));
         parts.add(new SnakePart(5, 7));
         parts.add(new SnakePart(5, 8));
+        already_turned= false;
+        
     }
     
     public void turnLeft() {
         direction += 1;
         if(direction > RIGHT)
             direction = UP;
+        already_turned = true;
     }
     
     public void turnRight() {
         direction -= 1;
         if(direction < UP)
             direction = RIGHT;
+        already_turned = true;
     }
     
     public void eat() {
@@ -64,6 +69,8 @@ public class Snake {
             head.y = 12;
         if(head.y > 12)
             head.y = 0;
+        
+        already_turned = false;
     }
     
     public boolean checkBitten() {

@@ -26,6 +26,7 @@ public class AndroidFastRenderView extends SurfaceView implements Runnable {
         renderThread.start();         
     }      
     
+    @Override
     public void run() {
         Rect dstRect = new Rect();
         long startTime = System.nanoTime();

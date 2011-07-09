@@ -62,10 +62,12 @@ public class GameScreen extends Screen {
             }
             if(event.type == TouchEvent.TOUCH_DOWN) {
                 if(event.x < 64 && event.y > 416) {
-                    world.snake.turnLeft();
+                	if(!world.snake.already_turned)
+                		world.snake.turnLeft();
                 }
                 if(event.x > 256 && event.y > 416) {
-                    world.snake.turnRight();
+                	if(!world.snake.already_turned)
+                		world.snake.turnRight();
                 }
             }
         }
