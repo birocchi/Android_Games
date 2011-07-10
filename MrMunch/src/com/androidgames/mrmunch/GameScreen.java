@@ -151,9 +151,6 @@ public class GameScreen extends Screen {
         if(state == GameState.GameOver)
             drawGameOverUI();
         
-        String gameName = "Mr. Munch";
-        drawText(g, gameName, g.getWidth() / 2 - gameName.length()*20 / 2, 10);
-        
         drawText(g, score, g.getWidth() / 2 - score.length()*20 / 2, g.getHeight() - 42);
     }
     
