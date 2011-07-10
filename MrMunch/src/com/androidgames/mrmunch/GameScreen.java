@@ -70,13 +70,13 @@ public class GameScreen extends Screen {
                 	if(!world.snake.already_turned)
                 		world.snake.turnRight();
                 }
-                if(event.x > 256 && event.y < 64) {
+                if(event.x > 256 && event.y > 350 && event.y < 416) {
                 	speedingUp = true;
                 	if(World.tick - World.TICK_DECREMENT > 0)
                 		World.tick /= 2;
                 }
             }
-            if(((event.type == TouchEvent.TOUCH_UP && event.x > 256 && event.y < 64) || (event.type == TouchEvent.TOUCH_DRAGGED && !(event.x > 256 && event.y < 64))) && speedingUp){
+            if(((event.type == TouchEvent.TOUCH_UP && event.x > 256 && event.y > 350 && event.y < 416) || (event.type == TouchEvent.TOUCH_DRAGGED && !(event.x > 256 && event.y > 350 && event.y < 416))) && speedingUp){
             	speedingUp = false;
         		World.tick *= 2;
             }
@@ -198,24 +198,27 @@ public class GameScreen extends Screen {
         Graphics g = game.getGraphics();
         
         g.drawPixmap(Assets.ready, 47, 100);
-        g.drawLine(0, 416, 480, 416, Color.BLACK);
+        g.drawRect(0, 416, 480, 64, Color.BLACK);
+        g.drawLine(0, 415, 480, 415, Color.GREEN);
     }
     
     private void drawRunningUI() {
         Graphics g = game.getGraphics();
 
         g.drawPixmap(Assets.buttons, 0, 0, 64, 128, 64, 64);
-        g.drawLine(0, 416, 480, 416, Color.BLACK);
+        g.drawRect(0, 416, 480, 64, Color.BLACK);
+        g.drawLine(0, 415, 480, 415, Color.GREEN);
         g.drawPixmap(Assets.buttons, 0, 416, 64, 64, 64, 64);
         g.drawPixmap(Assets.buttons, 256, 416, 0, 64, 64, 64);
-        g.drawPixmap(Assets.buttons, 256, 0, 0, 192, 64, 64);
+        g.drawPixmap(Assets.buttons, 256, 350, 0, 192, 64, 64);
     }
     
     private void drawPausedUI() {
         Graphics g = game.getGraphics();
         
         g.drawPixmap(Assets.pause, 80, 100);
-        g.drawLine(0, 416, 480, 416, Color.BLACK);
+        g.drawRect(0, 416, 480, 64, Color.BLACK);
+        g.drawLine(0, 415, 480, 415, Color.GREEN);
     }
 
     private void drawGameOverUI() {
@@ -223,7 +226,8 @@ public class GameScreen extends Screen {
         
         g.drawPixmap(Assets.gameOver, 62, 100);
         g.drawPixmap(Assets.buttons, 128, 200, 0, 128, 64, 64);
-        g.drawLine(0, 416, 480, 416, Color.BLACK);
+        g.drawRect(0, 416, 480, 64, Color.BLACK);
+        g.drawLine(0, 415, 480, 415, Color.GREEN);
     }
     
     public void drawText(Graphics g, String line, int x, int y) {

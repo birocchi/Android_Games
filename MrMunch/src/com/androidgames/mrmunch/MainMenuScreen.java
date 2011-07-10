@@ -2,6 +2,8 @@ package com.androidgames.mrmunch;
 
 import java.util.List;
 
+import android.graphics.Color;
+
 import com.androidgames.framework.Game;
 import com.androidgames.framework.Graphics;
 import com.androidgames.framework.Screen;
@@ -61,7 +63,7 @@ public class MainMenuScreen extends Screen {
     public void present(float deltaTime) {
         Graphics g = game.getGraphics();
         
-        g.drawPixmap(Assets.background, 0, 0);
+        g.clear(Color.BLACK);
         g.drawPixmap(Assets.logo, 32, 20);
         g.drawPixmap(Assets.mainMenu, 64, 220);
         if(Settings.soundEnabled)
