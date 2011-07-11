@@ -2,6 +2,8 @@ package com.androidgames.mrmunch;
 
 import java.util.List;
 
+import android.graphics.Color;
+
 import com.androidgames.framework.Game;
 import com.androidgames.framework.Graphics;
 import com.androidgames.framework.Screen;
@@ -34,7 +36,7 @@ public class HelpScreen extends Screen {
     @Override
     public void present(float deltaTime) {
         Graphics g = game.getGraphics();      
-        g.drawPixmap(Assets.background, 0, 0);
+        g.clear(Color.BLACK);
         g.drawPixmap(Assets.help1, 64, 100);
         g.drawPixmap(Assets.buttons, 256, 416, 0, 64, 64, 64);
     }
