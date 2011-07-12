@@ -11,6 +11,8 @@ public class World {
 
     public Snake snake;
     public Stain stain;
+    public Stain extraStain = null;
+    private int stainsEaten = 0;
     public boolean gameOver = false;;
     public int score = 0;
 
@@ -18,6 +20,7 @@ public class World {
     Random random = new Random();
     float tickTime = 0;
     static float tick = TICK_INITIAL;
+    int deltaTick = 0;
 
     public World() {
         snake = new Snake();
@@ -52,6 +55,26 @@ public class World {
             }
         }
         stain = new Stain(stainX, stainY, random.nextInt(3));
+        fields[stainX][stainY] = true;
+        
+        if(stainsEaten >= 10 && extraStain == null) {
+        	stainX = random.nextInt(WORLD_WIDTH);
+        	stainY = random.nextInt(WORLD_HEIGHT);
+        	while (true) {
+                if (fields[stainX][stainY] == false)
+                    break;
+                stainX += 1;
+                if (stainX >= WORLD_WIDTH) {
+                    stainX = 0;
+                    stainY += 1;
+                    if (stainY >= WORLD_HEIGHT) {
+                        stainY = 0;
+                    }
+                }
+            }
+        	extraStain = new Stain(stainX, stainY, Stain.TYPE_4);
+        	stainsEaten = 0;
+        }
     }
 
     public void update(float deltaTime) {
@@ -71,6 +94,7 @@ public class World {
             SnakePart head = snake.parts.get(0);
             if (head.x == stain.x && head.y == stain.y) {
                 score += SCORE_INCREMENT;
+                stainsEaten++;
                 snake.eat();
                 if (snake.parts.size() == WORLD_WIDTH * WORLD_HEIGHT) {
                     gameOver = true;
@@ -82,6 +106,19 @@ public class World {
                 if (score % 100 == 0 && tick - TICK_DECREMENT > 0) {
                     tick -= TICK_DECREMENT;
                 }
+            }
+            if (extraStain != null){
+	            if (head.x == extraStain.x && head.y == extraStain.y) {
+	            	snake.shrink();
+	            	extraStain = null;
+	            }
+	            
+	            if (deltaTick >= 20){
+	            	extraStain = null;
+	            	deltaTick = 0;
+	            } else { 
+	            	deltaTick++;
+	            }
             }
         }
     }

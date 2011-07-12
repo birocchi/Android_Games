@@ -82,5 +82,12 @@ public class Snake {
                 return true;
         }        
         return false;
-    }      
+    }   
+    
+    public void shrink() {
+    	for (int i = 0; i < 5; i++) {
+    		SnakePart end = parts.get(parts.size()-1);
+    		parts.remove(end);
+    	}
+    }
 }

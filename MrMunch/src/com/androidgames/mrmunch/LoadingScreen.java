@@ -33,6 +33,7 @@ public class LoadingScreen extends Screen {
         Assets.fruit1 = g.newPixmap("fruit1.png", PixmapFormat.ARGB4444);
         Assets.fruit2 = g.newPixmap("fruit2.png", PixmapFormat.ARGB4444);
         Assets.fruit3 = g.newPixmap("fruit3.png", PixmapFormat.ARGB4444);
+        Assets.candy = g.newPixmap("candy.png", PixmapFormat.ARGB4444);
         Assets.click = game.getAudio().newSound("click.ogg");
         Assets.eat = game.getAudio().newSound("eat.ogg");
         Assets.bitten = game.getAudio().newSound("bitten.ogg");

@@ -23,7 +23,8 @@ public class Assets {
     public static Pixmap tail;
     public static Pixmap fruit1;
     public static Pixmap fruit2;
-    public static Pixmap fruit3;   
+    public static Pixmap fruit3;  
+    public static Pixmap candy;  
     
     public static Sound click;
     public static Sound eat;

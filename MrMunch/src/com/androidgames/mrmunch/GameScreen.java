@@ -159,9 +159,11 @@ public class GameScreen extends Screen {
         Snake snake = world.snake;
         SnakePart head = snake.parts.get(0);
         Stain stain = world.stain;
+        Stain extraStain = world.extraStain;
         
         
         Pixmap stainPixmap = null;
+        Pixmap extraStainPixmap = null;
         if(stain.type == Stain.TYPE_1)
             stainPixmap = Assets.fruit1;
         if(stain.type == Stain.TYPE_2)
@@ -170,7 +172,14 @@ public class GameScreen extends Screen {
             stainPixmap = Assets.fruit3;
         int x = stain.x * 32;
         int y = stain.y * 32;      
-        g.drawPixmap(stainPixmap, x, y);             
+        g.drawPixmap(stainPixmap, x, y);   
+        
+        if(extraStain != null) {
+            extraStainPixmap = Assets.candy;
+            x = extraStain.x * 32;
+            y = extraStain.y * 32;
+            g.drawPixmap(extraStainPixmap, x, y);
+        }
         
         int len = snake.parts.size();
         for(int i = 1; i < len; i++) {
