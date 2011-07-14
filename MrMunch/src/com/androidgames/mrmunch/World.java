@@ -109,15 +109,17 @@ public class World {
             }
             if (extraStain != null){
 	            if (head.x == extraStain.x && head.y == extraStain.y) {
+	            	score += 5 * SCORE_INCREMENT;
 	            	snake.shrink();
 	            	extraStain = null;
-	            }
-	            
-	            if (deltaTick >= 20){
-	            	extraStain = null;
 	            	deltaTick = 0;
-	            } else { 
-	            	deltaTick++;
+	            } else {
+	                if (deltaTick >= 20){
+	            	    extraStain = null;
+	            	    deltaTick = 0;
+	                } else { 
+	            	    deltaTick++;
+	                }
 	            }
             }
         }

@@ -45,8 +45,10 @@ public class GameScreen extends Screen {
     }
     
     private void updateReady(List<TouchEvent> touchEvents) {
-        if(touchEvents.size() > 0)
+        if(touchEvents.size() > 0){
             state = GameState.Running;
+            World.tick = World.TICK_INITIAL;
+        }
     }
     
     private void updateRunning(List<TouchEvent> touchEvents, float deltaTime) {        

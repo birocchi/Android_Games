@@ -2,6 +2,7 @@ package com.androidgames.mrmunch;
 
 import java.util.ArrayList;
 import java.util.List;
+import android.util.Log;
 
 public class Snake {
     public static final int UP = 0;
@@ -37,6 +38,7 @@ public class Snake {
     }
     
     public void eat() {
+    	Log.e("DEBUG","World tick = " + World.tick);
         SnakePart end = parts.get(parts.size()-1); 
         parts.add(new SnakePart(end.x, end.y));
     }
