@@ -29,23 +29,34 @@ public class MainMenuScreen extends Screen {
                     if(Settings.soundEnabled)
                         Assets.click.play(1);
                 }
-                if(inBounds(event, 64, 220, 192, 42) ) {
+                if(inBounds(event, 64, 220, 192, 43) ) {
                     game.setScreen(new GameScreen(game));
                     if(Settings.soundEnabled)
                         Assets.click.play(1);
                     return;
                 }
-                if(inBounds(event, 64, 220 + 42, 192, 42) ) {
+                if(inBounds(event, 64, 220 + 43, 192, 43) ) {
                     game.setScreen(new HighscoreScreen(game));
                     if(Settings.soundEnabled)
                         Assets.click.play(1);
                     return;
                 }
-                if(inBounds(event, 64, 220 + 84, 192, 42) ) {
+                if(inBounds(event, 64, 220 + 86, 192, 43) ) {
+                    game.setScreen(new SettingsScreen(game));
+                    if(Settings.soundEnabled)
+                        Assets.click.play(1);
+                    return;
+                }
+                if(inBounds(event, 64, 220 + 129, 192, 43) ) {
                     game.setScreen(new HelpScreen(game));
                     if(Settings.soundEnabled)
                         Assets.click.play(1);
                     return;
+                }
+                if(inBounds(event, 64, 220 + 172, 192, 43) ) {
+                    if(Settings.soundEnabled)
+                        Assets.click.play(1);
+                    ((MrMunchGame)game).finish();
                 }
             }
         }
