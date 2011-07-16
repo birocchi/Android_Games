@@ -11,6 +11,7 @@ import com.androidgames.framework.FileIO;
 public class Settings {
     public static boolean soundEnabled = true;
     public static int[] highscores = new int[] { 100, 80, 50, 30, 10 };
+    public static float gameSpeed = 1;
 
     public static void load(FileIO files) {
         BufferedReader in = null;

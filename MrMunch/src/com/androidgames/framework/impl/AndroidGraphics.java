@@ -15,6 +15,7 @@ import android.graphics.Rect;
 
 import com.androidgames.framework.Graphics;
 import com.androidgames.framework.Pixmap;
+import com.androidgames.mrmunch.Assets;
 
 public class AndroidGraphics implements Graphics {
     AssetManager assets;
@@ -97,6 +98,42 @@ public class AndroidGraphics implements Graphics {
         paint.setColor(color);
         paint.setStyle(Style.FILL);
         canvas.drawRect(x, y, x + width - 1, y + width - 1, paint);
+    }
+    
+    @Override
+    public void drawText(Graphics g, String line, int x, int y) {
+        int len = line.length();
+        for (int i = 0; i < len; i++) {
+            char character = line.charAt(i);
+
+            if (character == ' ') {
+                x += 20;
+                continue;
+            }
+
+            int srcX = 0;
+            int srcWidth = 0;
+            if (character == '.') {
+                srcX = 200;
+                srcWidth = 10;
+                g.drawPixmap(Assets.numbers, x, y, srcX, 0, srcWidth, 32);
+            } else if (character >='0' && character <= '9') {
+                srcX = (character - '0') * 20;
+                srcWidth = 20;
+                g.drawPixmap(Assets.numbers, x, y, srcX, 0, srcWidth, 32);
+            } else if (character >='a' && character <= 'z') { 
+            	srcX = (character - 'a') * 20;
+                srcWidth = 20;
+                g.drawPixmap(Assets.letters, x, y, srcX, 0, srcWidth, 32);
+            } else if (character >='A' && character <= 'Z') {
+            	srcX = (character - 'A') * 20;
+                srcWidth = 20;
+                g.drawPixmap(Assets.letters, x, y, srcX, 0, srcWidth, 32);
+            }
+
+            
+            x += srcWidth;
+        }
     }
 
     @Override
