@@ -19,7 +19,7 @@ public class World {
     boolean fields[][] = new boolean[WORLD_WIDTH][WORLD_HEIGHT];
     Random random = new Random();
     float tickTime = 0;
-    static float tick = TICK_INITIAL;
+    static float tick = TICK_INITIAL - 1.5f * Settings.gameSpeed * World.TICK_DECREMENT;
     int deltaTick = 0;
 
     public World() {

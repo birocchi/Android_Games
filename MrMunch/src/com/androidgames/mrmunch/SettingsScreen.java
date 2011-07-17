@@ -36,7 +36,7 @@ public class SettingsScreen extends Screen {
         	
         	int y = g.getHeight()/2;
         	if (event.type == TouchEvent.TOUCH_UP) {
-        		int x = 1*(g.getWidth()-20)/5 - 20;
+        		int x = 1*(g.getWidth()-30)/5 - 20;
                 if (event.x > x && event.x < x+20 && event.y > y && event.y < y+32) {
                     if(Settings.soundEnabled)
                         Assets.click.play(1);
@@ -46,7 +46,7 @@ public class SettingsScreen extends Screen {
             }
         	
         	if (event.type == TouchEvent.TOUCH_UP) {
-        		int x = 2*(g.getWidth()-20)/5 - 20;
+        		int x = 2*(g.getWidth()-30)/5 - 20;
         		if (event.x > x && event.x < x+20 && event.y > y && event.y < y+32) {
                     if(Settings.soundEnabled)
                         Assets.click.play(1);
@@ -56,7 +56,7 @@ public class SettingsScreen extends Screen {
             }
         	
         	if (event.type == TouchEvent.TOUCH_UP) {
-        		int x = 3*(g.getWidth()-20)/5 - 20;
+        		int x = 3*(g.getWidth()-30)/5 - 20;
         		if (event.x > x && event.x < x+20 && event.y > y && event.y < y+32) {
                     if(Settings.soundEnabled)
                         Assets.click.play(1);
@@ -66,7 +66,7 @@ public class SettingsScreen extends Screen {
             }
         	
         	if (event.type == TouchEvent.TOUCH_UP) {
-        		int x = 4*(g.getWidth()-20)/5 - 20;
+        		int x = 4*(g.getWidth()-30)/5 - 20;
         		if (event.x > x && event.x < x+20 && event.y > y && event.y < y+32) {
                     if(Settings.soundEnabled)
                         Assets.click.play(1);
@@ -76,7 +76,7 @@ public class SettingsScreen extends Screen {
             }
         	
         	if (event.type == TouchEvent.TOUCH_UP) {
-        		int x = 5*(g.getWidth()-20)/5 - 20;
+        		int x = 5*(g.getWidth()-30)/5 - 20;
         		if (event.x > x && event.x < x+20 && event.y > y && event.y < y+32) {
                     if(Settings.soundEnabled)
                         Assets.click.play(1);

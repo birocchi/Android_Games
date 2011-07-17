@@ -11,7 +11,7 @@ import com.androidgames.framework.FileIO;
 public class Settings {
     public static boolean soundEnabled = true;
     public static int[] highscores = new int[] { 100, 80, 50, 30, 10 };
-    public static float gameSpeed = 1;
+    public static int gameSpeed = 1;
 
     public static void load(FileIO files) {
         BufferedReader in = null;
@@ -22,6 +22,8 @@ public class Settings {
             for (int i = 0; i < 5; i++) {
                 highscores[i] = Integer.parseInt(in.readLine());
             }
+            gameSpeed = Integer.parseInt(in.readLine());
+            
         } catch (IOException e) {
             // :( It's ok we have defaults
         } catch (NumberFormatException e) {
@@ -46,6 +48,8 @@ public class Settings {
                 out.write(Integer.toString(highscores[i]));
                 out.write("\n");
             }
+            out.write(Integer.toString(gameSpeed));
+            out.write("\n");
 
         } catch (IOException e) {
         } finally {
