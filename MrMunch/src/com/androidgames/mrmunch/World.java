@@ -100,11 +100,10 @@ public class World {
                     gameOver = true;
                     return;
                 } else {
+                	if (stainsEaten >= 10 && tick - TICK_DECREMENT > 0) {
+                        tick -= TICK_DECREMENT;
+                    }
                     placeStain();
-                }
-
-                if (score % 100 == 0 && tick - TICK_DECREMENT > 0) {
-                    tick -= TICK_DECREMENT;
                 }
             }
             if (extraStain != null){
