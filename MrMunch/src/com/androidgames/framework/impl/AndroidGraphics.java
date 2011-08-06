@@ -12,7 +12,6 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Paint.Style;
 import android.graphics.Rect;
-
 import com.androidgames.framework.Graphics;
 import com.androidgames.framework.Pixmap;
 import com.androidgames.mrmunch.Assets;
@@ -101,6 +100,13 @@ public class AndroidGraphics implements Graphics {
     }
     
     @Override
+    public void drawCircle(int cx, int cy, int radius, int color) {
+        paint.setColor(color);
+        paint.setStyle(Style.FILL);
+        canvas.drawCircle(cx, cy, radius, paint);
+    }
+    
+    @Override
     public void drawText(Graphics g, String line, int x, int y) {
         int len = line.length();
         for (int i = 0; i < len; i++) {
@@ -131,7 +137,6 @@ public class AndroidGraphics implements Graphics {
                 g.drawPixmap(Assets.letters, x, y, srcX, 0, srcWidth, 32);
             }
 
-            
             x += srcWidth;
         }
     }

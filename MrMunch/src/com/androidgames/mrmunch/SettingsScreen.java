@@ -97,7 +97,8 @@ public class SettingsScreen extends Screen {
         for(int i = 1; i <= 5; i++) {
         	if(Settings.gameSpeed == i){
         		g.drawText(g, ""+i, i * (g.getWidth()-30)/5 - 20 , g.getHeight()/2);
-        		g.drawRect(i * (g.getWidth()-20)/5, g.getHeight()/2+13, 6, 6, Color.GREEN);
+        		//g.drawRect(i * (g.getWidth()-20)/5, g.getHeight()/2+13, 6, 6, Color.GREEN);
+        		g.drawCircle(i * (g.getWidth()-20)/5, g.getHeight()/2+13, 3, Color.GREEN);
         	}
         	else
         		g.drawText(g, ""+i, i * (g.getWidth()-30)/5 - 20 , g.getHeight()/2);
