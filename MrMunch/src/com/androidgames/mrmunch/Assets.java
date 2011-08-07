@@ -30,13 +30,17 @@ public class Assets {
 	public static int BUTTON_SPEEDUP_SCRX = 0;
 	public static int BUTTON_SPEEDUP_SCRY = 192;
 	
+    public static Pixmap numbers;
+    public static int NUMBER_WIDTH = 20;
+    public static int NUMBER_HEIGHT = 32;
+    public static int DOT_WIDTH = 10;
+
 	public static Pixmap initialspeed;
     public static Pixmap background;
     public static Pixmap logo;
     public static Pixmap help1;
     public static Pixmap help2;
     public static Pixmap help3;
-    public static Pixmap numbers;
     public static Pixmap letters;
     public static Pixmap ready;
     public static Pixmap pause;
