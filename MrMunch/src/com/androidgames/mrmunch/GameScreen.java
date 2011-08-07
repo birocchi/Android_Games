@@ -11,6 +11,33 @@ import com.androidgames.framework.Screen;
 import com.androidgames.framework.Input.TouchEvent;
 
 public class GameScreen extends Screen {
+	
+	private final int BUTTON_PAUSE_X = 0;
+	private final int BUTTON_PAUSE_Y = 0;
+	
+	private final int BUTTON_LEFT_X = 0;
+	private final int BUTTON_LEFT_Y = 416;
+	
+	private final int BUTTON_RIGHT_X = 256;
+	private final int BUTTON_RIGHT_Y = 416;
+	
+	private final int BUTTON_SPEEDUP_X = 256;
+	private final int BUTTON_SPEEDUP_Y = 350;
+	
+	private final int BUTTON_CANCEL_X = 128;
+	private final int BUTTON_CANCEL_Y = 200;
+	
+	private final int READY_IMAGE_X = 47;
+	private final int READY_IMAGE_Y = 100;
+	
+	private final int PAUSE_IMAGE_X = 80;
+	private final int PAUSE_IMAGE_Y = 100;
+	
+	private final int GAME_OVER_IMAGE_X = 62;
+	private final int GAME_OVER_IMAGE_Y = 100;
+	
+	private final int SCALING_FACTOR = 32;
+	
     enum GameState {
         Ready,
         Running,
@@ -51,12 +78,14 @@ public class GameScreen extends Screen {
         }
     }
     
-    private void updateRunning(List<TouchEvent> touchEvents, float deltaTime) {        
+    private void updateRunning(List<TouchEvent> touchEvents, float deltaTime) {
+    	
+    	Graphics g = game.getGraphics();
         int len = touchEvents.size();
         for(int i = 0; i < len; i++) {
             TouchEvent event = touchEvents.get(i);
             if(event.type == TouchEvent.TOUCH_UP) {
-                if(event.x < 64 && event.y < 64) {
+                if(event.x < Assets.BUTTON_WIDTH && event.y < Assets.BUTTON_HEIGHT) {
                     if(Settings.soundEnabled)
                         Assets.click.play(1);
                     state = GameState.Paused;
@@ -64,21 +93,22 @@ public class GameScreen extends Screen {
                 }
             }
             if(event.type == TouchEvent.TOUCH_DOWN) {
-                if(event.x < 64 && event.y > 416) {
+                if(event.x < Assets.BUTTON_WIDTH && event.y > g.getHeight() - Assets.BUTTON_HEIGHT) {
                 	if(!world.snake.already_turned)
                 		world.snake.turnLeft();
                 }
-                if(event.x > 256 && event.y > 416) {
+                if(event.x > BUTTON_RIGHT_X && event.y > g.getHeight() - Assets.BUTTON_HEIGHT) {
                 	if(!world.snake.already_turned)
                 		world.snake.turnRight();
                 }
-                if(event.x > 256 && event.y > 350 && event.y < 416) {
+                if(event.x > BUTTON_SPEEDUP_X && event.y > BUTTON_SPEEDUP_Y && event.y < g.getHeight() - Assets.BUTTON_HEIGHT) {
                 	speedingUp = true;
                 	if(World.tick - World.TICK_DECREMENT > 0)
                 		World.tick /= 2;
                 }
             }
-            if(((event.type == TouchEvent.TOUCH_UP && event.x > 256 && event.y > 350 && event.y < 416) || (event.type == TouchEvent.TOUCH_DRAGGED && !(event.x > 256 && event.y > 350 && event.y < 416))) && speedingUp){
+            if(((event.type == TouchEvent.TOUCH_UP && event.x > BUTTON_SPEEDUP_X && event.y > BUTTON_SPEEDUP_Y && event.y < g.getHeight() - Assets.BUTTON_HEIGHT) || 
+                (event.type == TouchEvent.TOUCH_DRAGGED && !(event.x > BUTTON_SPEEDUP_X && event.y > BUTTON_SPEEDUP_Y && event.y < g.getHeight() - Assets.BUTTON_HEIGHT))) && speedingUp){
             	speedingUp = false;
         		World.tick *= 2;
             }
@@ -103,14 +133,14 @@ public class GameScreen extends Screen {
         for(int i = 0; i < len; i++) {
             TouchEvent event = touchEvents.get(i);
             if(event.type == TouchEvent.TOUCH_UP) {
-                if(event.x > 80 && event.x <= 240) {
-                    if(event.y > 100 && event.y <= 148) {
+                if(event.x > PAUSE_IMAGE_X && event.x <= PAUSE_IMAGE_X + Assets.PAUSE_MENU_ITEM_WIDTH) {
+                    if(event.y > PAUSE_IMAGE_Y && event.y <= PAUSE_IMAGE_Y + Assets.PAUSE_MENU_ITEM_HEIGHT) {
                         if(Settings.soundEnabled)
                             Assets.click.play(1);
                         state = GameState.Running;
                         return;
                     }                    
-                    if(event.y > 148 && event.y < 196) {
+                    if(event.y > PAUSE_IMAGE_Y + Assets.PAUSE_MENU_ITEM_HEIGHT && event.y < PAUSE_IMAGE_Y + 2*Assets.PAUSE_MENU_ITEM_HEIGHT) {
                         if(Settings.soundEnabled)
                             Assets.click.play(1);
                         game.setScreen(new MainMenuScreen(game));                        
@@ -126,8 +156,8 @@ public class GameScreen extends Screen {
         for(int i = 0; i < len; i++) {
             TouchEvent event = touchEvents.get(i);
             if(event.type == TouchEvent.TOUCH_UP) {
-                if(event.x >= 128 && event.x <= 192 &&
-                   event.y >= 200 && event.y <= 264) {
+                if(event.x >= BUTTON_CANCEL_X && event.x <= BUTTON_CANCEL_X + Assets.BUTTON_WIDTH &&
+                   event.y >= BUTTON_CANCEL_Y && event.y <= BUTTON_CANCEL_Y + Assets.BUTTON_HEIGHT) {
                     if(Settings.soundEnabled)
                         Assets.click.play(1);
                     game.setScreen(new MainMenuScreen(game));
@@ -153,41 +183,41 @@ public class GameScreen extends Screen {
         if(state == GameState.GameOver)
             drawGameOverUI();
         
-        g.drawText(g, score, g.getWidth() / 2 - score.length()*20 / 2, g.getHeight() - 42);
+        g.drawText(g, score, g.getWidth() / 2 - score.length()*Assets.NUMBER_WIDTH / 2, g.getHeight() - 42);
     }
     
     private void drawWorld(World world) {
         Graphics g = game.getGraphics();
         Snake snake = world.snake;
         SnakePart head = snake.parts.get(0);
-        Stain stain = world.stain;
-        Stain extraStain = world.extraStain;
+        Fruit fruit = world.fruit;
+        Fruit extraFruit = world.extraFruit;
         
         
-        Pixmap stainPixmap = null;
-        Pixmap extraStainPixmap = null;
-        if(stain.type == Stain.TYPE_1)
-            stainPixmap = Assets.fruit1;
-        if(stain.type == Stain.TYPE_2)
-            stainPixmap = Assets.fruit2;
-        if(stain.type == Stain.TYPE_3)
-            stainPixmap = Assets.fruit3;
-        int x = stain.x * 32;
-        int y = stain.y * 32;      
-        g.drawPixmap(stainPixmap, x, y);   
+        Pixmap fruitPixmap = null;
+        Pixmap extraFruitPixmap = null;
+        if(fruit.type == Fruit.TYPE_1)
+            fruitPixmap = Assets.fruit1;
+        if(fruit.type == Fruit.TYPE_2)
+            fruitPixmap = Assets.fruit2;
+        if(fruit.type == Fruit.TYPE_3)
+            fruitPixmap = Assets.fruit3;
+        int x = fruit.x * SCALING_FACTOR;
+        int y = fruit.y * SCALING_FACTOR;      
+        g.drawPixmap(fruitPixmap, x, y);   
         
-        if(extraStain != null) {
-            extraStainPixmap = Assets.candy;
-            x = extraStain.x * 32;
-            y = extraStain.y * 32;
-            g.drawPixmap(extraStainPixmap, x, y);
+        if(extraFruit != null) {
+            extraFruitPixmap = Assets.candy;
+            x = extraFruit.x * SCALING_FACTOR;
+            y = extraFruit.y * SCALING_FACTOR;
+            g.drawPixmap(extraFruitPixmap, x, y);
         }
         
         int len = snake.parts.size();
         for(int i = 1; i < len; i++) {
             SnakePart part = snake.parts.get(i);
-            x = part.x * 32;
-            y = part.y * 32;
+            x = part.x * SCALING_FACTOR;
+            y = part.y * SCALING_FACTOR;
             g.drawPixmap(Assets.tail, x, y);
         }
         
@@ -200,45 +230,45 @@ public class GameScreen extends Screen {
             headPixmap = Assets.headDown;
         if(snake.direction == Snake.RIGHT) 
             headPixmap = Assets.headRight;        
-        x = head.x * 32 + 16;
-        y = head.y * 32 + 16;
+        x = head.x * SCALING_FACTOR + 16;
+        y = head.y * SCALING_FACTOR + 16;
         g.drawPixmap(headPixmap, x - headPixmap.getWidth() / 2, y - headPixmap.getHeight() / 2);
     }
     
     private void drawReadyUI() {
         Graphics g = game.getGraphics();
         
-        g.drawPixmap(Assets.ready, 47, 100);
-        g.drawRect(0, 416, 480, 64, Color.BLACK);
-        g.drawLine(0, 415, 480, 415, Color.GREEN);
+        g.drawPixmap(Assets.ready, READY_IMAGE_X, READY_IMAGE_Y);
+        g.drawRect(0, g.getHeight() - Assets.BUTTON_HEIGHT, g.getWidth(), Assets.BUTTON_HEIGHT, Color.BLACK);
+        g.drawLine(0, g.getHeight() - Assets.BUTTON_HEIGHT - 1, g.getWidth(), g.getHeight() - Assets.BUTTON_HEIGHT - 1, Color.GREEN);
     }
     
     private void drawRunningUI() {
         Graphics g = game.getGraphics();
 
-        g.drawPixmap(Assets.buttons, 0, 0, 64, 128, 64, 64);
-        g.drawRect(0, 416, 480, 64, Color.BLACK);
-        g.drawLine(0, 415, 480, 415, Color.GREEN);
-        g.drawPixmap(Assets.buttons, 0, 416, 64, 64, 64, 64);
-        g.drawPixmap(Assets.buttons, 256, 416, 0, 64, 64, 64);
-        g.drawPixmap(Assets.buttons, 256, 350, 0, 192, 64, 64);
+        g.drawPixmap(Assets.buttons, BUTTON_PAUSE_X, BUTTON_PAUSE_Y, Assets.BUTTON_PAUSE_SCRX, Assets.BUTTON_PAUSE_SCRY, Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT);
+        g.drawRect(0, g.getHeight() - Assets.BUTTON_HEIGHT, g.getWidth(), Assets.BUTTON_HEIGHT, Color.BLACK);
+        g.drawLine(0, g.getHeight() - Assets.BUTTON_HEIGHT - 1, g.getWidth(), g.getHeight() - Assets.BUTTON_HEIGHT - 1, Color.GREEN);
+        g.drawPixmap(Assets.buttons, BUTTON_LEFT_X, BUTTON_LEFT_Y, Assets.BUTTON_PREV_SCRX, Assets.BUTTON_PREV_SCRY, Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT);
+        g.drawPixmap(Assets.buttons, BUTTON_RIGHT_X, BUTTON_RIGHT_Y, Assets.BUTTON_NEXT_SCRX, Assets.BUTTON_NEXT_SCRY, Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT);
+        g.drawPixmap(Assets.buttons, BUTTON_SPEEDUP_X, BUTTON_SPEEDUP_Y, Assets.BUTTON_SPEEDUP_SCRX, Assets.BUTTON_SPEEDUP_SCRY, Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT);
     }
     
     private void drawPausedUI() {
         Graphics g = game.getGraphics();
         
-        g.drawPixmap(Assets.pause, 80, 100);
-        g.drawRect(0, 416, 480, 64, Color.BLACK);
-        g.drawLine(0, 415, 480, 415, Color.GREEN);
+        g.drawPixmap(Assets.pause, PAUSE_IMAGE_X, PAUSE_IMAGE_Y);
+        g.drawRect(0, g.getHeight() - Assets.BUTTON_HEIGHT, g.getWidth(), Assets.BUTTON_HEIGHT, Color.BLACK);
+        g.drawLine(0, g.getHeight() - Assets.BUTTON_HEIGHT - 1, g.getWidth(), g.getHeight() - Assets.BUTTON_HEIGHT - 1, Color.GREEN);
     }
 
     private void drawGameOverUI() {
         Graphics g = game.getGraphics();
         
-        g.drawPixmap(Assets.gameOver, 62, 100);
-        g.drawPixmap(Assets.buttons, 128, 200, 0, 128, 64, 64);
-        g.drawRect(0, 416, 480, 64, Color.BLACK);
-        g.drawLine(0, 415, 480, 415, Color.GREEN);
+        g.drawPixmap(Assets.gameOver, GAME_OVER_IMAGE_X, GAME_OVER_IMAGE_Y);
+        g.drawPixmap(Assets.buttons, BUTTON_CANCEL_X, BUTTON_CANCEL_Y,  Assets.BUTTON_CANCEL_SCRX,  Assets.BUTTON_CANCEL_SCRY, Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT);
+        g.drawRect(0, g.getHeight() - Assets.BUTTON_HEIGHT, g.getWidth(), Assets.BUTTON_HEIGHT, Color.BLACK);
+        g.drawLine(0, g.getHeight() - Assets.BUTTON_HEIGHT - 1, g.getWidth(), g.getHeight() - Assets.BUTTON_HEIGHT - 1, Color.GREEN);
     }
             
     @Override

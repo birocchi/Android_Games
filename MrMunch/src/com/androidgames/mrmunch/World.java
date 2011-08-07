@@ -10,9 +10,9 @@ public class World {
     static final float TICK_DECREMENT = 0.05f;
 
     public Snake snake;
-    public Stain stain;
-    public Stain extraStain = null;
-    private int stainsEaten = 0;
+    public Fruit fruit;
+    public Fruit extraFruit = null;
+    private int fruitsEaten = 0;
     public boolean gameOver = false;;
     public int score = 0;
 
@@ -24,10 +24,10 @@ public class World {
 
     public World() {
         snake = new Snake();
-        placeStain();
+        placeFruit();
     }
 
-    private void placeStain() {
+    private void placeFruit() {
         for (int x = 0; x < WORLD_WIDTH; x++) {
             for (int y = 0; y < WORLD_HEIGHT; y++) {
                 fields[x][y] = false;
@@ -40,40 +40,40 @@ public class World {
             fields[part.x][part.y] = true;
         }
 
-        int stainX = random.nextInt(WORLD_WIDTH);
-        int stainY = random.nextInt(WORLD_HEIGHT);
+        int fruitX = random.nextInt(WORLD_WIDTH);
+        int fruitY = random.nextInt(WORLD_HEIGHT);
         while (true) {
-            if (fields[stainX][stainY] == false)
+            if (fields[fruitX][fruitY] == false)
                 break;
-            stainX += 1;
-            if (stainX >= WORLD_WIDTH) {
-                stainX = 0;
-                stainY += 1;
-                if (stainY >= WORLD_HEIGHT) {
-                    stainY = 0;
+            fruitX += 1;
+            if (fruitX >= WORLD_WIDTH) {
+                fruitX = 0;
+                fruitY += 1;
+                if (fruitY >= WORLD_HEIGHT) {
+                    fruitY = 0;
                 }
             }
         }
-        stain = new Stain(stainX, stainY, random.nextInt(3));
-        fields[stainX][stainY] = true;
+        fruit = new Fruit(fruitX, fruitY, random.nextInt(3));
+        fields[fruitX][fruitY] = true;
         
-        if(stainsEaten >= 10 && extraStain == null) {
-        	stainX = random.nextInt(WORLD_WIDTH);
-        	stainY = random.nextInt(WORLD_HEIGHT);
+        if(fruitsEaten >= 10 && extraFruit == null) {
+        	fruitX = random.nextInt(WORLD_WIDTH);
+        	fruitY = random.nextInt(WORLD_HEIGHT);
         	while (true) {
-                if (fields[stainX][stainY] == false)
+                if (fields[fruitX][fruitY] == false)
                     break;
-                stainX += 1;
-                if (stainX >= WORLD_WIDTH) {
-                    stainX = 0;
-                    stainY += 1;
-                    if (stainY >= WORLD_HEIGHT) {
-                        stainY = 0;
+                fruitX += 1;
+                if (fruitX >= WORLD_WIDTH) {
+                    fruitX = 0;
+                    fruitY += 1;
+                    if (fruitY >= WORLD_HEIGHT) {
+                        fruitY = 0;
                     }
                 }
             }
-        	extraStain = new Stain(stainX, stainY, Stain.TYPE_4);
-        	stainsEaten = 0;
+        	extraFruit = new Fruit(fruitX, fruitY, Fruit.TYPE_4);
+        	fruitsEaten = 0;
         }
     }
 
@@ -92,29 +92,29 @@ public class World {
             }
 
             SnakePart head = snake.parts.get(0);
-            if (head.x == stain.x && head.y == stain.y) {
+            if (head.x == fruit.x && head.y == fruit.y) {
                 score += SCORE_INCREMENT;
-                stainsEaten++;
+                fruitsEaten++;
                 snake.eat();
                 if (snake.parts.size() == WORLD_WIDTH * WORLD_HEIGHT) {
                     gameOver = true;
                     return;
                 } else {
-                	if (stainsEaten >= 10 && tick - TICK_DECREMENT > 0) {
+                	if (fruitsEaten >= 10 && tick - TICK_DECREMENT > 0) {
                         tick -= TICK_DECREMENT;
                     }
-                    placeStain();
+                    placeFruit();
                 }
             }
-            if (extraStain != null){
-	            if (head.x == extraStain.x && head.y == extraStain.y) {
+            if (extraFruit != null){
+	            if (head.x == extraFruit.x && head.y == extraFruit.y) {
 	            	score += 5 * SCORE_INCREMENT;
 	            	snake.shrink();
-	            	extraStain = null;
+	            	extraFruit = null;
 	            	deltaTick = 0;
 	            } else {
 	                if (deltaTick >= 20){
-	            	    extraStain = null;
+	            	    extraFruit = null;
 	            	    deltaTick = 0;
 	                } else { 
 	            	    deltaTick++;

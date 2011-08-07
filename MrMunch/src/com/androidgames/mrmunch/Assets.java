@@ -6,7 +6,7 @@ import com.androidgames.framework.Sound;
 public class Assets {
     public static Pixmap mainMenu;
     public static int MENU_ITEM_HEIGHT = 43;
-    public static int MENU_ITEM_WIDTH = 196;
+    public static int MENU_ITEM_WIDTH = 192;
     public static int HIGHSCORE_SCRX = 0;
 	public static int HIGHSCORE_SCRY = 43;
 	public static int SETTINGS_SCRX = 0;
@@ -35,6 +35,10 @@ public class Assets {
     public static int NUMBER_HEIGHT = 32;
     public static int DOT_WIDTH = 10;
 
+    public static Pixmap pause;
+    public static int PAUSE_MENU_ITEM_WIDTH = 160;
+    public static int PAUSE_MENU_ITEM_HEIGHT = 48;
+    
 	public static Pixmap initialspeed;
     public static Pixmap background;
     public static Pixmap logo;
@@ -43,7 +47,6 @@ public class Assets {
     public static Pixmap help3;
     public static Pixmap letters;
     public static Pixmap ready;
-    public static Pixmap pause;
     public static Pixmap gameOver;
     public static Pixmap headUp;
     public static Pixmap headLeft;
