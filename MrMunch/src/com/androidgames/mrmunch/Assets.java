@@ -8,7 +8,25 @@ public class Assets {
     public static Pixmap logo;
     public static Pixmap mainMenu;
     public static Pixmap initialspeed;
+    
     public static Pixmap buttons;
+    public static int BUTTON_HEIGHT = 64;
+    public static int BUTTON_WIDTH = 64;
+    public static int BUTTON_SOUND_ON_SCRX = 0;
+	public static int BUTTON_SOUND_ON_SCRY = 0;
+	public static int BUTTON_SOUND_OFF_SCRX = 64;
+	public static int BUTTON_SOUND_OFF_SCRY = 0;
+    public static int BUTTON_NEXT_SCRX = 0;
+	public static int BUTTON_NEXT_SCRY = 64;
+	public static int BUTTON_PREV_SCRX = 64;
+	public static int BUTTON_PREV_SCRY = 64;
+	public static int BUTTON_CANCEL_SCRX = 0;
+	public static int BUTTON_CANCEL_SCRY = 128;
+	public static int BUTTON_PAUSE_SCRX = 64;
+	public static int BUTTON_PAUSE_SCRY = 128;
+	public static int BUTTON_SPEEDUP_SCRX = 0;
+	public static int BUTTON_SPEEDUP_SCRY = 192;
+	
     public static Pixmap help1;
     public static Pixmap help2;
     public static Pixmap help3;
