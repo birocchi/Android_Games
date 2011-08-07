@@ -13,8 +13,10 @@ public class HelpScreen extends Screen {
 	
 	private final int BUTTON_NEXT_X = 256;
 	private final int BUTTON_NEXT_Y = 416;
+	
 	private final int BUTTON_CANCEL_X = 0;
 	private final int BUTTON_CANCEL_Y = 416;
+	
 	private final int HELP_IMAGE_X = 64;
 	private final int HELP_IMAGE_Y = 100;
 	

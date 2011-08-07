@@ -4,10 +4,13 @@ import com.androidgames.framework.Pixmap;
 import com.androidgames.framework.Sound;
 
 public class Assets {
-    public static Pixmap background;
-    public static Pixmap logo;
     public static Pixmap mainMenu;
-    public static Pixmap initialspeed;
+    public static int MENU_ITEM_HEIGHT = 43;
+    public static int MENU_ITEM_WIDTH = 196;
+    public static int HIGHSCORE_SCRX = 0;
+	public static int HIGHSCORE_SCRY = 43;
+	public static int SETTINGS_SCRX = 0;
+	public static int SETTINGS_SCRY = 86;
     
     public static Pixmap buttons;
     public static int BUTTON_HEIGHT = 64;
@@ -27,6 +30,9 @@ public class Assets {
 	public static int BUTTON_SPEEDUP_SCRX = 0;
 	public static int BUTTON_SPEEDUP_SCRY = 192;
 	
+	public static Pixmap initialspeed;
+    public static Pixmap background;
+    public static Pixmap logo;
     public static Pixmap help1;
     public static Pixmap help2;
     public static Pixmap help3;

@@ -13,8 +13,10 @@ public class HelpScreen3 extends Screen {
 	
 	private final int BUTTON_CANCEL_X = 256;
 	private final int BUTTON_CANCEL_Y = 416;
+	
 	private final int BUTTON_PREV_X = 0;
 	private final int BUTTON_PREV_Y = 416;
+	
 	private final int HELP_IMAGE_X = 64;
 	private final int HELP_IMAGE_Y = 100;
     
@@ -59,19 +61,16 @@ public class HelpScreen3 extends Screen {
 
     @Override
     public void pause() {
-        // TODO Auto-generated method stub
 
     }
 
     @Override
     public void resume() {
-        // TODO Auto-generated method stub
 
     }
 
     @Override
     public void dispose() {
-        // TODO Auto-generated method stub
 
     }
 

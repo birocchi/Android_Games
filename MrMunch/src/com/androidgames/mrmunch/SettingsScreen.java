@@ -17,10 +17,10 @@ public class SettingsScreen extends Screen {
 	
 	@Override
 	public void update(float deltaTime) {
-		Graphics g = game.getGraphics();
 		List<TouchEvent> events = game.getInput().getTouchEvents();
         game.getInput().getKeyEvents();
         
+        Graphics g = game.getGraphics();
         int len = events.size();
         for(int i=0; i<len; i++) {
         	TouchEvent event = events.get(i);
