@@ -239,16 +239,16 @@ public class GameScreen extends Screen {
         Graphics g = game.getGraphics();
         
         g.drawPixmap(Assets.ready, READY_IMAGE_X, READY_IMAGE_Y);
-        g.drawRect(0, g.getHeight() - Assets.BUTTON_HEIGHT, g.getWidth(), Assets.BUTTON_HEIGHT, Color.BLACK);
-        g.drawLine(0, g.getHeight() - Assets.BUTTON_HEIGHT - 1, g.getWidth(), g.getHeight() - Assets.BUTTON_HEIGHT - 1, Color.GREEN);
+        g.drawRect(0, g.getHeight() - 2*Assets.BUTTON_HEIGHT, g.getWidth(), 2*Assets.BUTTON_HEIGHT, Color.BLACK);
+        g.drawLine(0, g.getHeight() - 2*Assets.BUTTON_HEIGHT - 1, g.getWidth(), g.getHeight() - 2*Assets.BUTTON_HEIGHT - 1, Color.GREEN);
     }
     
     private void drawRunningUI() {
         Graphics g = game.getGraphics();
 
         g.drawPixmap(Assets.buttons, BUTTON_PAUSE_X, BUTTON_PAUSE_Y, Assets.BUTTON_PAUSE_SCRX, Assets.BUTTON_PAUSE_SCRY, Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT);
-        g.drawRect(0, g.getHeight() - Assets.BUTTON_HEIGHT, g.getWidth(), Assets.BUTTON_HEIGHT, Color.BLACK);
-        g.drawLine(0, g.getHeight() - Assets.BUTTON_HEIGHT - 1, g.getWidth(), g.getHeight() - Assets.BUTTON_HEIGHT - 1, Color.GREEN);
+        g.drawRect(0, g.getHeight() - 2*Assets.BUTTON_HEIGHT, g.getWidth(), 2*Assets.BUTTON_HEIGHT, Color.BLACK);
+        g.drawLine(0, g.getHeight() - 2*Assets.BUTTON_HEIGHT - 1, g.getWidth(), g.getHeight() - 2*Assets.BUTTON_HEIGHT - 1, Color.GREEN);
         g.drawPixmap(Assets.buttons, BUTTON_LEFT_X, BUTTON_LEFT_Y, Assets.BUTTON_PREV_SCRX, Assets.BUTTON_PREV_SCRY, Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT);
         g.drawPixmap(Assets.buttons, BUTTON_RIGHT_X, BUTTON_RIGHT_Y, Assets.BUTTON_NEXT_SCRX, Assets.BUTTON_NEXT_SCRY, Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT);
         g.drawPixmap(Assets.buttons, BUTTON_SPEEDUP_X, BUTTON_SPEEDUP_Y, Assets.BUTTON_SPEEDUP_SCRX, Assets.BUTTON_SPEEDUP_SCRY, Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT);
@@ -258,8 +258,8 @@ public class GameScreen extends Screen {
         Graphics g = game.getGraphics();
         
         g.drawPixmap(Assets.pause, PAUSE_IMAGE_X, PAUSE_IMAGE_Y);
-        g.drawRect(0, g.getHeight() - Assets.BUTTON_HEIGHT, g.getWidth(), Assets.BUTTON_HEIGHT, Color.BLACK);
-        g.drawLine(0, g.getHeight() - Assets.BUTTON_HEIGHT - 1, g.getWidth(), g.getHeight() - Assets.BUTTON_HEIGHT - 1, Color.GREEN);
+        g.drawRect(0, g.getHeight() - 2*Assets.BUTTON_HEIGHT, g.getWidth(), 2*Assets.BUTTON_HEIGHT, Color.BLACK);
+        g.drawLine(0, g.getHeight() - 2*Assets.BUTTON_HEIGHT - 1, g.getWidth(), g.getHeight() - 2*Assets.BUTTON_HEIGHT - 1, Color.GREEN);
     }
 
     private void drawGameOverUI() {
@@ -267,8 +267,8 @@ public class GameScreen extends Screen {
         
         g.drawPixmap(Assets.gameOver, GAME_OVER_IMAGE_X, GAME_OVER_IMAGE_Y);
         g.drawPixmap(Assets.buttons, BUTTON_CANCEL_X, BUTTON_CANCEL_Y,  Assets.BUTTON_CANCEL_SCRX,  Assets.BUTTON_CANCEL_SCRY, Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT);
-        g.drawRect(0, g.getHeight() - Assets.BUTTON_HEIGHT, g.getWidth(), Assets.BUTTON_HEIGHT, Color.BLACK);
-        g.drawLine(0, g.getHeight() - Assets.BUTTON_HEIGHT - 1, g.getWidth(), g.getHeight() - Assets.BUTTON_HEIGHT - 1, Color.GREEN);
+        g.drawRect(0, g.getHeight() - 2*Assets.BUTTON_HEIGHT, g.getWidth(), 2*Assets.BUTTON_HEIGHT, Color.BLACK);
+        g.drawLine(0, g.getHeight() - 2*Assets.BUTTON_HEIGHT - 1, g.getWidth(), g.getHeight() - 2*Assets.BUTTON_HEIGHT - 1, Color.GREEN);
     }
             
     @Override
