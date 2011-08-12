@@ -67,7 +67,7 @@ public class SettingsScreen extends Screen {
         	g.drawText(g, ""+i, i * (g.getWidth()-30)/5 - Assets.NUMBER_WIDTH , g.getHeight()/2);
         }
 		g.drawCircle(Settings.gameSpeed * (g.getWidth()-30)/5 + 3, g.getHeight()/2 + Assets.NUMBER_HEIGHT/2, 4, Color.GREEN);
-        g.drawPixmap(Assets.buttons, BUTTON_PREV_X, BUTTON_PREV_Y, Assets.BUTTON_PREV_SCRX, Assets.BUTTON_PREV_SCRY, Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT);
+        g.drawPixmap(Assets.buttons, BUTTON_PREV_X, BUTTON_PREV_Y, Assets.BUTTON_LEFT_SCRX, Assets.BUTTON_LEFT_SCRY, Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT);
 	}
 	
 	@Override

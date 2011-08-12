@@ -93,24 +93,23 @@ public class GameScreen extends Screen {
                 }
             }
             if(event.type == TouchEvent.TOUCH_DOWN) {
-                if(event.x < Assets.BUTTON_WIDTH && event.y > g.getHeight() - Assets.BUTTON_HEIGHT) {
+                if(inBounds(event, g.getWidth() - 3*Assets.BUTTON_WIDTH, g.getHeight() - Assets.BUTTON_HEIGHT - Assets.BUTTON_HEIGHT/2 -32/2, Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT)) {
                 	if(!world.snake.already_turned)
                 		world.snake.turnLeft();
                 }
-                if(event.x > BUTTON_RIGHT_X && event.y > g.getHeight() - Assets.BUTTON_HEIGHT) {
+                if(inBounds(event, g.getWidth() - Assets.BUTTON_WIDTH, g.getHeight() - Assets.BUTTON_HEIGHT - Assets.BUTTON_HEIGHT/2 -32/2, Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT)) {
                 	if(!world.snake.already_turned)
                 		world.snake.turnRight();
                 }
-                if(event.x > BUTTON_SPEEDUP_X && event.y > BUTTON_SPEEDUP_Y && event.y < g.getHeight() - Assets.BUTTON_HEIGHT) {
-                	speedingUp = true;
-                	if(World.tick - World.TICK_DECREMENT > 0)
-                		World.tick /= 2;
+                if(inBounds(event,g.getWidth() - 2*Assets.BUTTON_WIDTH, g.getHeight() - 2*Assets.BUTTON_HEIGHT -32, Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT)) {
+                	if(!world.snake.already_turned)
+                		world.snake.turnUp();
                 }
-            }
-            if(((event.type == TouchEvent.TOUCH_UP && event.x > BUTTON_SPEEDUP_X && event.y > BUTTON_SPEEDUP_Y && event.y < g.getHeight() - Assets.BUTTON_HEIGHT) || 
-                (event.type == TouchEvent.TOUCH_DRAGGED && !(event.x > BUTTON_SPEEDUP_X && event.y > BUTTON_SPEEDUP_Y && event.y < g.getHeight() - Assets.BUTTON_HEIGHT))) && speedingUp){
-            	speedingUp = false;
-        		World.tick *= 2;
+                if(inBounds(event,g.getWidth() - 2*Assets.BUTTON_WIDTH, g.getHeight() - Assets.BUTTON_HEIGHT, Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT)) {
+                	if(!world.snake.already_turned)
+                		world.snake.turnDown();
+                }
+                
             }
         }
         
@@ -182,8 +181,8 @@ public class GameScreen extends Screen {
             drawPausedUI();
         if(state == GameState.GameOver)
             drawGameOverUI();
-        
-        g.drawText(g, score, g.getWidth() / 2 - score.length()*Assets.NUMBER_WIDTH / 2, g.getHeight() - 42);
+        g.drawText(g, "Score", g.getWidth() / 4 - "Score".length()*Assets.LETTERS_WIDTH / 2, g.getHeight() - 2*Assets.BUTTON_HEIGHT- 28);
+        g.drawText(g, score, g.getWidth() / 4 - score.length()*Assets.NUMBER_WIDTH / 2, g.getHeight() - Assets.BUTTON_HEIGHT - Assets.NUMBER_HEIGHT/2 -32/2);
     }
     
     private void drawWorld(World world) {
@@ -239,27 +238,25 @@ public class GameScreen extends Screen {
         Graphics g = game.getGraphics();
         
         g.drawPixmap(Assets.ready, READY_IMAGE_X, READY_IMAGE_Y);
-        g.drawRect(0, g.getHeight() - 2*Assets.BUTTON_HEIGHT, g.getWidth(), 2*Assets.BUTTON_HEIGHT, Color.BLACK);
-        g.drawLine(0, g.getHeight() - 2*Assets.BUTTON_HEIGHT - 1, g.getWidth(), g.getHeight() - 2*Assets.BUTTON_HEIGHT - 1, Color.GREEN);
+        g.drawPixmap(Assets.rectangle, 0 ,g.getHeight() - 2*Assets.BUTTON_HEIGHT -32);
     }
     
     private void drawRunningUI() {
         Graphics g = game.getGraphics();
 
         g.drawPixmap(Assets.buttons, BUTTON_PAUSE_X, BUTTON_PAUSE_Y, Assets.BUTTON_PAUSE_SCRX, Assets.BUTTON_PAUSE_SCRY, Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT);
-        g.drawRect(0, g.getHeight() - 2*Assets.BUTTON_HEIGHT, g.getWidth(), 2*Assets.BUTTON_HEIGHT, Color.BLACK);
-        g.drawLine(0, g.getHeight() - 2*Assets.BUTTON_HEIGHT - 1, g.getWidth(), g.getHeight() - 2*Assets.BUTTON_HEIGHT - 1, Color.GREEN);
-        g.drawPixmap(Assets.buttons, BUTTON_LEFT_X, BUTTON_LEFT_Y, Assets.BUTTON_PREV_SCRX, Assets.BUTTON_PREV_SCRY, Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT);
-        g.drawPixmap(Assets.buttons, BUTTON_RIGHT_X, BUTTON_RIGHT_Y, Assets.BUTTON_NEXT_SCRX, Assets.BUTTON_NEXT_SCRY, Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT);
-        g.drawPixmap(Assets.buttons, BUTTON_SPEEDUP_X, BUTTON_SPEEDUP_Y, Assets.BUTTON_SPEEDUP_SCRX, Assets.BUTTON_SPEEDUP_SCRY, Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT);
+        g.drawPixmap(Assets.rectangle, 0 ,g.getHeight() - 2*Assets.BUTTON_HEIGHT -32);
+        g.drawPixmap(Assets.buttons, g.getWidth() - 3*Assets.BUTTON_WIDTH, g.getHeight() - Assets.BUTTON_HEIGHT - Assets.BUTTON_HEIGHT/2 -32/2, Assets.BUTTON_LEFT_SCRX, Assets.BUTTON_LEFT_SCRY, Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT);
+        g.drawPixmap(Assets.buttons, g.getWidth() - Assets.BUTTON_WIDTH, g.getHeight() - Assets.BUTTON_HEIGHT - Assets.BUTTON_HEIGHT/2 -32/2, Assets.BUTTON_RIGHT_SCRX, Assets.BUTTON_RIGHT_SCRY, Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT);
+        g.drawPixmap(Assets.buttons, g.getWidth() - 2*Assets.BUTTON_WIDTH, g.getHeight() - 2*Assets.BUTTON_HEIGHT -32, Assets.BUTTON_UP_SCRX, Assets.BUTTON_UP_SCRY, Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT);
+        g.drawPixmap(Assets.buttons, g.getWidth() - 2*Assets.BUTTON_WIDTH, g.getHeight() - Assets.BUTTON_HEIGHT, Assets.BUTTON_DOWN_SCRX, Assets.BUTTON_DOWN_SCRY, Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT);
     }
     
     private void drawPausedUI() {
         Graphics g = game.getGraphics();
         
         g.drawPixmap(Assets.pause, PAUSE_IMAGE_X, PAUSE_IMAGE_Y);
-        g.drawRect(0, g.getHeight() - 2*Assets.BUTTON_HEIGHT, g.getWidth(), 2*Assets.BUTTON_HEIGHT, Color.BLACK);
-        g.drawLine(0, g.getHeight() - 2*Assets.BUTTON_HEIGHT - 1, g.getWidth(), g.getHeight() - 2*Assets.BUTTON_HEIGHT - 1, Color.GREEN);
+        g.drawPixmap(Assets.rectangle, 0 ,g.getHeight() - 2*Assets.BUTTON_HEIGHT -32);
     }
 
     private void drawGameOverUI() {
@@ -267,10 +264,17 @@ public class GameScreen extends Screen {
         
         g.drawPixmap(Assets.gameOver, GAME_OVER_IMAGE_X, GAME_OVER_IMAGE_Y);
         g.drawPixmap(Assets.buttons, BUTTON_CANCEL_X, BUTTON_CANCEL_Y,  Assets.BUTTON_CANCEL_SCRX,  Assets.BUTTON_CANCEL_SCRY, Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT);
-        g.drawRect(0, g.getHeight() - 2*Assets.BUTTON_HEIGHT, g.getWidth(), 2*Assets.BUTTON_HEIGHT, Color.BLACK);
-        g.drawLine(0, g.getHeight() - 2*Assets.BUTTON_HEIGHT - 1, g.getWidth(), g.getHeight() - 2*Assets.BUTTON_HEIGHT - 1, Color.GREEN);
+        g.drawPixmap(Assets.rectangle, 0 ,g.getHeight() - 2*Assets.BUTTON_HEIGHT -32);
     }
             
+    private boolean inBounds(TouchEvent event, int x, int y, int width, int height) {
+        if(event.x > x && event.x < x + width - 1 && 
+           event.y > y && event.y < y + height - 1) 
+            return true;
+        else
+            return false;
+    }
+    
     @Override
     public void pause() {
         if(state == GameState.Running)

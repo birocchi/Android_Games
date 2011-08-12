@@ -11,8 +11,8 @@ import com.androidgames.framework.Input.TouchEvent;
 
 public class MainMenuScreen extends Screen {
 	
-	private final int LOGO_IMAGE_X = 32;
-	private final int LOGO_IMAGE_Y = 20;
+	private final int LOGO_IMAGE_X = 19;
+	private final int LOGO_IMAGE_Y = 13;
 	
 	private final int MENU_IMAGE_X = 64;
 	private final int MENU_IMAGE_Y = 220;

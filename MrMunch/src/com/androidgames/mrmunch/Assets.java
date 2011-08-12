@@ -19,16 +19,18 @@ public class Assets {
 	public static int BUTTON_SOUND_ON_SCRY = 0;
 	public static int BUTTON_SOUND_OFF_SCRX = 64;
 	public static int BUTTON_SOUND_OFF_SCRY = 0;
-    public static int BUTTON_NEXT_SCRX = 0;
-	public static int BUTTON_NEXT_SCRY = 64;
-	public static int BUTTON_PREV_SCRX = 64;
-	public static int BUTTON_PREV_SCRY = 64;
-	public static int BUTTON_CANCEL_SCRX = 0;
-	public static int BUTTON_CANCEL_SCRY = 128;
-	public static int BUTTON_PAUSE_SCRX = 64;
-	public static int BUTTON_PAUSE_SCRY = 128;
-	public static int BUTTON_SPEEDUP_SCRX = 0;
-	public static int BUTTON_SPEEDUP_SCRY = 192;
+    public static int BUTTON_RIGHT_SCRX = 0;
+	public static int BUTTON_RIGHT_SCRY = 64;
+	public static int BUTTON_LEFT_SCRX = 64;
+	public static int BUTTON_LEFT_SCRY = 64;
+	public static int BUTTON_UP_SCRX = 0;
+	public static int BUTTON_UP_SCRY = 128;
+	public static int BUTTON_DOWN_SCRX = 64;
+	public static int BUTTON_DOWN_SCRY = 128;
+	public static int BUTTON_CANCEL_SCRX = 64;
+	public static int BUTTON_CANCEL_SCRY = 192;
+	public static int BUTTON_PAUSE_SCRX = 0;
+	public static int BUTTON_PAUSE_SCRY = 192;
 	
     public static Pixmap numbers;
     public static int NUMBER_WIDTH = 20;
@@ -39,13 +41,16 @@ public class Assets {
     public static int PAUSE_MENU_ITEM_WIDTH = 160;
     public static int PAUSE_MENU_ITEM_HEIGHT = 48;
     
+    public static Pixmap letters;
+    public static int LETTERS_WIDTH = 20;
+    public static int LETTERS_HEIGHT = 32;
+    
 	public static Pixmap initialspeed;
     public static Pixmap background;
     public static Pixmap logo;
     public static Pixmap help1;
     public static Pixmap help2;
     public static Pixmap help3;
-    public static Pixmap letters;
     public static Pixmap ready;
     public static Pixmap gameOver;
     public static Pixmap headUp;
@@ -57,6 +62,7 @@ public class Assets {
     public static Pixmap fruit2;
     public static Pixmap fruit3;  
     public static Pixmap candy;  
+    public static Pixmap rectangle;
     
     public static Sound click;
     public static Sound eat;

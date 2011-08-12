@@ -12,7 +12,7 @@ public class Snake {
     
     private static final int WORLD_HORIZONTAL_UPPER_LIMIT = 9;
     private static final int WORLD_HORIZONTAL_LOWER_LIMIT = 0;
-    private static final int WORLD_VERTICAL_UPPER_LIMIT = 10;
+    private static final int WORLD_VERTICAL_UPPER_LIMIT = 9;
     private static final int WORLD_VERTICAL_LOWER_LIMIT = 0;
     
     public List<SnakePart> parts = new ArrayList<SnakePart>();
@@ -29,21 +29,26 @@ public class Snake {
     }
     
     public void turnLeft() {
-        direction += 1;
-        if(direction > RIGHT)
-            direction = UP;
+        direction = LEFT;
         already_turned = true;
     }
     
     public void turnRight() {
-        direction -= 1;
-        if(direction < UP)
-            direction = RIGHT;
+        direction = RIGHT;
+        already_turned = true;
+    }
+    
+    public void turnUp() {
+        direction = UP;
+        already_turned = true;
+    }
+    
+    public void turnDown() {
+        direction = DOWN;
         already_turned = true;
     }
     
     public void eat() {
-    	Log.e("DEBUG","World tick = " + World.tick);
         SnakePart end = parts.get(parts.size()-1); 
         parts.add(new SnakePart(end.x, end.y));
     }
