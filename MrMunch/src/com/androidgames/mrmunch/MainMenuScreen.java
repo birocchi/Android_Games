@@ -58,7 +58,7 @@ public class MainMenuScreen extends Screen {
                     return;
                 }
                 if(inBounds(event, MENU_IMAGE_X, MENU_IMAGE_Y + 3 * Assets.MENU_ITEM_HEIGHT, Assets.MENU_ITEM_WIDTH, Assets.MENU_ITEM_HEIGHT) ) {
-                    game.setScreen(new HelpScreen(game));
+                    game.setScreen(new HelpScreens(game));
                     if(Settings.soundEnabled)
                         Assets.click.play(1);
                     return;
