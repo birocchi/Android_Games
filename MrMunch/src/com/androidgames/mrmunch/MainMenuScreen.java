@@ -7,6 +7,7 @@ import android.graphics.Color;
 import com.androidgames.framework.Game;
 import com.androidgames.framework.Graphics;
 import com.androidgames.framework.Screen;
+import com.androidgames.framework.Input.KeyEvent;
 import com.androidgames.framework.Input.TouchEvent;
 
 public class MainMenuScreen extends Screen {
@@ -21,16 +22,24 @@ public class MainMenuScreen extends Screen {
 	private final int BUTTON_SOUND_Y = 416;
 	
     public MainMenuScreen(Game game) {
-        super(game);               
-    }   
+        super(game);
+    }
 
     @Override
     public void update(float deltaTime) {
         Graphics g = game.getGraphics();
+        int len;
         List<TouchEvent> touchEvents = game.getInput().getTouchEvents();
-        game.getInput().getKeyEvents();       
+        List<KeyEvent> keyEvents = game.getInput().getKeyEvents();
         
-        int len = touchEvents.size();
+        len = keyEvents.size();
+        for(int i=0; i<len; i++){
+        	KeyEvent kevent = keyEvents.get(i);
+	        if(kevent.keyCode == android.view.KeyEvent.KEYCODE_BACK  && kevent.type == kevent.KEY_UP)
+	    		game.finish();
+        }
+        
+        len = touchEvents.size();
         for(int i = 0; i < len; i++) {
             TouchEvent event = touchEvents.get(i);
             if(event.type == TouchEvent.TOUCH_UP) {

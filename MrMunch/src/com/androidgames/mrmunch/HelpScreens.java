@@ -7,6 +7,7 @@ import android.graphics.Color;
 import com.androidgames.framework.Game;
 import com.androidgames.framework.Graphics;
 import com.androidgames.framework.Screen;
+import com.androidgames.framework.Input.KeyEvent;
 import com.androidgames.framework.Input.TouchEvent;
 
 
@@ -34,11 +35,21 @@ public class HelpScreens extends Screen {
 
     @Override
     public void update(float deltaTime) {
+    	int len;
         List<TouchEvent> touchEvents = game.getInput().getTouchEvents();
-        game.getInput().getKeyEvents();
+        List<KeyEvent> keyEvents = game.getInput().getKeyEvents();
+        
+        len = keyEvents.size();
+        for(int i=0; i<len; i++){
+        	KeyEvent kevent = keyEvents.get(i);
+	        if(kevent.keyCode == android.view.KeyEvent.KEYCODE_BACK && kevent.type == kevent.KEY_UP)
+	        	screenNumber--;
+	        	if(screenNumber<1)
+	        		game.setScreen(new MainMenuScreen(game));
+        }
         
         Graphics g = game.getGraphics();
-        int len = touchEvents.size();
+        len = touchEvents.size();
         for(int i = 0; i < len; i++) {
             TouchEvent event = touchEvents.get(i);
             if(event.type == TouchEvent.TOUCH_UP) {

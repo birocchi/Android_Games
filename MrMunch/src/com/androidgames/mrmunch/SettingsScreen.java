@@ -7,6 +7,7 @@ import android.graphics.Color;
 import com.androidgames.framework.Game;
 import com.androidgames.framework.Graphics;
 import com.androidgames.framework.Screen;
+import com.androidgames.framework.Input.KeyEvent;
 import com.androidgames.framework.Input.TouchEvent;
 
 public class SettingsScreen extends Screen {
@@ -23,11 +24,19 @@ public class SettingsScreen extends Screen {
 	
 	@Override
 	public void update(float deltaTime) {
+		int len;
 		List<TouchEvent> events = game.getInput().getTouchEvents();
-        game.getInput().getKeyEvents();
+		List<KeyEvent> keyEvents = game.getInput().getKeyEvents();
+        
+        len = keyEvents.size();
+        for(int i=0; i<len; i++){
+        	KeyEvent kevent = keyEvents.get(i);
+	        if(kevent.keyCode == android.view.KeyEvent.KEYCODE_BACK && kevent.type == kevent.KEY_UP)
+	    		game.setScreen(new MainMenuScreen(game));
+        }
         
         Graphics g = game.getGraphics();
-        int len = events.size();
+        len = events.size();
         for(int i=0; i<len; i++) {
         	TouchEvent event = events.get(i);
         	

@@ -14,11 +14,6 @@ import com.androidgames.framework.Screen;
 
 public class GameScreen extends Screen {
 	
-	private final int TURN_RIGHT = 1;
-	private final int TURN_DOWN = 2;
-	private final int TURN_LEFT = 3;
-	private final int TURN_UP = 4;
-	
 	private final int BUTTON_PAUSE_X = 0;
 	private final int BUTTON_PAUSE_Y = 0;
 	
@@ -60,6 +55,7 @@ public class GameScreen extends Screen {
     String score = "0";
     boolean speedingUp = false;
     private ArrayList<Integer> bufferTurns;
+
     
     public GameScreen(Game game) {
         super(game);
@@ -72,6 +68,12 @@ public class GameScreen extends Screen {
         List<TouchEvent> touchEvents = game.getInput().getTouchEvents();
         List<KeyEvent> keyEvents = game.getInput().getKeyEvents();
         
+        int len = keyEvents.size();
+        for(int i=0; i<len; i++){
+        	KeyEvent kevent = keyEvents.get(i);
+	        if(kevent.keyCode == android.view.KeyEvent.KEYCODE_BACK && kevent.type == kevent.KEY_UP)
+	    		game.setScreen(new MainMenuScreen(game));
+        }
         
         if(state == GameState.Ready)
             updateReady(touchEvents);
@@ -124,6 +126,7 @@ public class GameScreen extends Screen {
         len = keyEvents.size();
         for(int i = 0; i < len; i++) {
         	KeyEvent kevent = keyEvents.get(i);
+        	
         	if(bufferTurns.size()<MAX_BUFFER){
         		switch(kevent.keyCode){
 	        	case android.view.KeyEvent.KEYCODE_DPAD_LEFT:
