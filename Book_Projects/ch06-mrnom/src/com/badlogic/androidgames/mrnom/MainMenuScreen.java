@@ -40,7 +40,7 @@ public class MainMenuScreen extends Screen {
                     return;
                 }
                 if(inBounds(event, 64, 220 + 84, 192, 42) ) {
-                    game.setScreen(new HelpScreens(game));
+                    game.setScreen(new HelpScreen(game));
                     if(Settings.soundEnabled)
                         Assets.click.play(1);
                     return;
