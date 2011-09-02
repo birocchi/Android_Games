@@ -29,22 +29,26 @@ public class Snake {
     }
     
     public void turnLeft() {
-        direction = LEFT;
+    	if(direction!=RIGHT)
+    		direction = LEFT;
         already_turned = true;
     }
     
     public void turnRight() {
-        direction = RIGHT;
+    	if(direction!=LEFT)
+    		direction = RIGHT;
         already_turned = true;
     }
     
     public void turnUp() {
-        direction = UP;
+    	if(direction!=DOWN)
+    		direction = UP;
         already_turned = true;
     }
     
     public void turnDown() {
-        direction = DOWN;
+    	if(direction!=UP)
+    		direction = DOWN;
         already_turned = true;
     }
     
