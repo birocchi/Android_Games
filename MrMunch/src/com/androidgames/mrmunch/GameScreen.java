@@ -1,5 +1,6 @@
 package com.androidgames.mrmunch;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.androidgames.framework.Game;
@@ -9,10 +10,14 @@ import com.androidgames.framework.Input.KeyEvent;
 import com.androidgames.framework.Input.TouchEvent;
 import com.androidgames.framework.Pixmap;
 import com.androidgames.framework.Screen;
-import com.androidgames.framework.impl.AndroidInput;
 
 
 public class GameScreen extends Screen {
+	
+	private final int TURN_RIGHT = 1;
+	private final int TURN_DOWN = 2;
+	private final int TURN_LEFT = 3;
+	private final int TURN_UP = 4;
 	
 	private final int BUTTON_PAUSE_X = 0;
 	private final int BUTTON_PAUSE_Y = 0;
@@ -40,6 +45,8 @@ public class GameScreen extends Screen {
 	
 	private final int SCALING_FACTOR = 32;
 	
+	private final int MAX_BUFFER = 1;
+	
     enum GameState {
         Ready,
         Running,
@@ -52,10 +59,12 @@ public class GameScreen extends Screen {
     int oldScore = 0;
     String score = "0";
     boolean speedingUp = false;
+    private ArrayList<Integer> bufferTurns;
     
     public GameScreen(Game game) {
         super(game);
         world = new World();
+        bufferTurns = new ArrayList<Integer>();
     }
 
     @Override
@@ -95,22 +104,18 @@ public class GameScreen extends Screen {
                     return;
                 }
             }
-            if(event.type == TouchEvent.TOUCH_DOWN) {
+            if(event.type == TouchEvent.TOUCH_DOWN && bufferTurns.size()<MAX_BUFFER) {
                 if(inBounds(event, g.getWidth() - 3*Assets.BUTTON_WIDTH, g.getHeight() - Assets.BUTTON_HEIGHT - Assets.BUTTON_HEIGHT/2 -32/2, Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT)) {
-                	if(!world.snake.already_turned)
-                		world.snake.turnLeft();
+                	bufferTurns.add(Snake.LEFT);
                 }
                 if(inBounds(event, g.getWidth() - Assets.BUTTON_WIDTH, g.getHeight() - Assets.BUTTON_HEIGHT - Assets.BUTTON_HEIGHT/2 -32/2, Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT)) {
-                	if(!world.snake.already_turned)
-                		world.snake.turnRight();
+                	bufferTurns.add(Snake.RIGHT);
                 }
                 if(inBounds(event,g.getWidth() - 2*Assets.BUTTON_WIDTH, g.getHeight() - 2*Assets.BUTTON_HEIGHT -32, Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT)) {
-                	if(!world.snake.already_turned)
-                		world.snake.turnUp();
+                	bufferTurns.add(Snake.UP);
                 }
                 if(inBounds(event,g.getWidth() - 2*Assets.BUTTON_WIDTH, g.getHeight() - Assets.BUTTON_HEIGHT, Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT)) {
-                	if(!world.snake.already_turned)
-                		world.snake.turnDown();
+                	bufferTurns.add(Snake.DOWN);
                 }
                 
             }
@@ -119,27 +124,29 @@ public class GameScreen extends Screen {
         len = keyEvents.size();
         for(int i = 0; i < len; i++) {
         	KeyEvent kevent = keyEvents.get(i);
-        	switch(kevent.keyCode){
-        	case android.view.KeyEvent.KEYCODE_DPAD_LEFT:
-            	if(!world.snake.already_turned)
-            		world.snake.turnLeft();
-            	break;
-
-        	case android.view.KeyEvent.KEYCODE_DPAD_RIGHT:
-            	if(!world.snake.already_turned)
-            		world.snake.turnRight();
-            	break;
-
-        	case android.view.KeyEvent.KEYCODE_DPAD_UP:
-            	if(!world.snake.already_turned)
-            		world.snake.turnUp();
-            	break;
-
-        	case android.view.KeyEvent.KEYCODE_DPAD_DOWN:
-            	if(!world.snake.already_turned)
-            		world.snake.turnDown();
-            	break;
+        	if(bufferTurns.size()<MAX_BUFFER){
+        		switch(kevent.keyCode){
+	        	case android.view.KeyEvent.KEYCODE_DPAD_LEFT:
+	        		bufferTurns.add(Snake.LEFT);
+	            	break;
+	
+	        	case android.view.KeyEvent.KEYCODE_DPAD_RIGHT:
+	        		bufferTurns.add(Snake.RIGHT);
+	            	break;
+	
+	        	case android.view.KeyEvent.KEYCODE_DPAD_UP:
+	        		bufferTurns.add(Snake.UP);
+	            	break;
+	
+	        	case android.view.KeyEvent.KEYCODE_DPAD_DOWN:
+	        		bufferTurns.add(Snake.DOWN);
+	            	break;
+	        	}
         	}
+        }
+        
+        if(world.snake.already_turned!=true && bufferTurns.size()>0){
+        	world.snake.turn(bufferTurns.remove(0));
         }
         
         

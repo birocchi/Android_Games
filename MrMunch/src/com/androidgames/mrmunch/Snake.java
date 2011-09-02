@@ -5,6 +5,7 @@ import java.util.List;
 import android.util.Log;
 
 public class Snake {
+	
     public static final int UP = 0;
     public static final int LEFT = 1;
     public static final int DOWN = 2;
@@ -28,29 +29,35 @@ public class Snake {
         
     }
     
-    public void turnLeft() {
-    	if(direction!=RIGHT)
-    		direction = LEFT;
-        already_turned = true;
+    public void turn(int turnDirection) {
+    	switch(turnDirection){
+    	case UP:
+    		if(direction!=DOWN){
+        		direction = UP;
+                already_turned = true;	
+    		}
+            break;
+    	case LEFT:
+        	if(direction!=RIGHT){
+        		direction = LEFT;
+            	already_turned = true;
+        	}
+            break;
+    	case DOWN:
+        	if(direction!=UP){
+        		direction = DOWN;
+                already_turned = true;
+        	}
+            break;
+    	case RIGHT:
+        	if(direction!=LEFT){
+        		direction = RIGHT;
+                already_turned = true;
+        	}
+            break;
+    	}
     }
     
-    public void turnRight() {
-    	if(direction!=LEFT)
-    		direction = RIGHT;
-        already_turned = true;
-    }
-    
-    public void turnUp() {
-    	if(direction!=DOWN)
-    		direction = UP;
-        already_turned = true;
-    }
-    
-    public void turnDown() {
-    	if(direction!=UP)
-    		direction = DOWN;
-        already_turned = true;
-    }
     
     public void eat() {
         SnakePart end = parts.get(parts.size()-1); 
