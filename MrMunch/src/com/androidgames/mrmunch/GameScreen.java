@@ -17,6 +17,7 @@ public class GameScreen extends Screen {
 	private final int BUTTON_PAUSE_X = 0;
 	private final int BUTTON_PAUSE_Y = 0;
 	
+	/* NOT USED
 	private final int BUTTON_LEFT_X = 0;
 	private final int BUTTON_LEFT_Y = 416;
 	
@@ -25,6 +26,7 @@ public class GameScreen extends Screen {
 	
 	private final int BUTTON_SPEEDUP_X = 256;
 	private final int BUTTON_SPEEDUP_Y = 350;
+	*/
 	
 	private final int BUTTON_CANCEL_X = 128;
 	private final int BUTTON_CANCEL_Y = 200;
@@ -71,7 +73,7 @@ public class GameScreen extends Screen {
         int len = keyEvents.size();
         for(int i=0; i<len; i++){
         	KeyEvent kevent = keyEvents.get(i);
-	        if(kevent.keyCode == android.view.KeyEvent.KEYCODE_BACK && kevent.type == kevent.KEY_UP)
+	        if(kevent.keyCode == android.view.KeyEvent.KEYCODE_BACK && kevent.type == KeyEvent.KEY_UP)
 	    		game.setScreen(new MainMenuScreen(game));
         }
         

@@ -35,7 +35,7 @@ public class MainMenuScreen extends Screen {
         len = keyEvents.size();
         for(int i=0; i<len; i++){
         	KeyEvent kevent = keyEvents.get(i);
-	        if(kevent.keyCode == android.view.KeyEvent.KEYCODE_BACK  && kevent.type == kevent.KEY_UP)
+	        if(kevent.keyCode == android.view.KeyEvent.KEYCODE_BACK  && kevent.type == KeyEvent.KEY_UP)
 	    		game.finish();
         }
         

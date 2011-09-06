@@ -42,10 +42,8 @@ public class HelpScreens extends Screen {
         len = keyEvents.size();
         for(int i=0; i<len; i++){
         	KeyEvent kevent = keyEvents.get(i);
-	        if(kevent.keyCode == android.view.KeyEvent.KEYCODE_BACK && kevent.type == kevent.KEY_UP)
-	        	screenNumber--;
-	        	if(screenNumber<1)
-	        		game.setScreen(new MainMenuScreen(game));
+	        if(kevent.keyCode == android.view.KeyEvent.KEYCODE_BACK && kevent.type == KeyEvent.KEY_UP)
+	        	game.setScreen(new MainMenuScreen(game));
         }
         
         Graphics g = game.getGraphics();
