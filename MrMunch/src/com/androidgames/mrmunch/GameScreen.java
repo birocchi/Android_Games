@@ -87,7 +87,7 @@ public class GameScreen extends Screen {
         for(int i=0; i<len; i++){
         	KeyEvent kevent = keyEvents.get(i);
 	        if(kevent.keyCode == android.view.KeyEvent.KEYCODE_BACK && kevent.type == KeyEvent.KEY_UP)
-	    		game.setScreen(new MainMenuScreen(game));
+	        	state = GameState.Paused;
         }
         
         if(state == GameState.Ready)
