@@ -1,7 +1,18 @@
 package com.androidgames.mrmunch;
 
+import java.security.acl.LastOwnerException;
 import java.util.ArrayList;
 import java.util.List;
+
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.os.Handler;
+import android.os.Message;
+import android.text.Editable;
+import android.text.InputFilter;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import com.androidgames.framework.Game;
 import com.androidgames.framework.Graphics;
@@ -10,6 +21,7 @@ import com.androidgames.framework.Input.KeyEvent;
 import com.androidgames.framework.Input.TouchEvent;
 import com.androidgames.framework.Pixmap;
 import com.androidgames.framework.Screen;
+import com.androidgames.framework.impl.AndroidGame;
 
 
 public class GameScreen extends Screen {
@@ -56,6 +68,7 @@ public class GameScreen extends Screen {
     int oldScore = 0;
     String score = "0";
     boolean speedingUp = false;
+    String playerName;
     private ArrayList<Integer> bufferTurns;
 
     
@@ -201,7 +214,44 @@ public class GameScreen extends Screen {
                    event.y >= BUTTON_CANCEL_Y && event.y <= BUTTON_CANCEL_Y + Assets.BUTTON_HEIGHT) {
                     if(Settings.soundEnabled)
                         Assets.click.play(1);
-                    game.setScreen(new MainMenuScreen(game));
+                    
+                    ((AndroidGame)game).runOnUiThread(new Runnable() {
+    					@Override
+    					public void run() {
+    						final AlertDialog.Builder alert = new AlertDialog.Builder((MrMunchGame)game);
+    						final EditText input = new EditText((MrMunchGame)game);
+    						//Filtering the input to accept only 5 characters
+    						int maxLength = 5;
+    						InputFilter[] FilterArray = new InputFilter[1];
+    						FilterArray[0] = new InputFilter.LengthFilter(maxLength);
+    						input.setFilters(FilterArray);
+    						//-----
+    						alert.setView(input);
+    						alert.setTitle("Top 5 Score!");
+    						alert.setMessage("Enter your nick (5 characters Max):");
+    						alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+    							public void onClick(DialogInterface dialog, int whichButton) {
+    								playerName = input.getText().toString().trim();
+    								playerName = playerName.substring(0, playerName.length());
+    								if(playerName == null || playerName.length() == 0)
+    									playerName = ".....";
+    								game.setScreen(new MainMenuScreen(game));
+    							}
+    						});
+    						
+    						alert.setNegativeButton("Cancel",
+    								new DialogInterface.OnClickListener() {
+    							public void onClick(DialogInterface dialog, int whichButton) {
+    								playerName = ".....";
+    								game.setScreen(new MainMenuScreen(game));
+    							}
+    						});
+    						
+    						alert.show();
+    					}
+    					  			
+    				});
+                    
                     return;
                 }
             }
@@ -323,7 +373,12 @@ public class GameScreen extends Screen {
             state = GameState.Paused;
         
         if(world.gameOver) {
-            Settings.addScore(world.score);
+        	
+        	//Asks for the player name if his score is higher than the last one
+        	if(world.score > Settings.highscores[4]){
+        		Settings.addScore(world.score, playerName);
+        	}
+        	
             Settings.save(game.getFileIO());
         }
     }

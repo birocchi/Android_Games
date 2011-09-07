@@ -10,7 +10,8 @@ import com.androidgames.framework.FileIO;
 
 public class Settings {
     public static boolean soundEnabled = true;
-    public static int[] highscores = new int[] { 100, 80, 50, 30, 10 };
+    public static int[] highscores = new int[] { 0, 0, 0, 0, 0 };
+    public static String[] playerNames = new String[] { "AAA", "AAA", "AAA", "AAA", "AAA" };
     public static int gameSpeed = 1;
 
     public static void load(FileIO files) {
@@ -21,6 +22,9 @@ public class Settings {
             soundEnabled = Boolean.parseBoolean(in.readLine());
             for (int i = 0; i < 5; i++) {
                 highscores[i] = Integer.parseInt(in.readLine());
+            }
+            for (int i = 0; i < 5; i++) {
+                playerNames[i] = in.readLine();
             }
             gameSpeed = Integer.parseInt(in.readLine());
             
@@ -48,6 +52,10 @@ public class Settings {
                 out.write(Integer.toString(highscores[i]));
                 out.write("\n");
             }
+            for (int i = 0; i < 5; i++) {
+                out.write(playerNames[i]);
+                out.write("\n");
+            }
             out.write(Integer.toString(gameSpeed));
             out.write("\n");
 
@@ -61,12 +69,15 @@ public class Settings {
         }
     }
 
-    public static void addScore(int score) {
+    public static void addScore(int score, String playerName) {
         for (int i = 0; i < 5; i++) {
             if (highscores[i] < score) {
-                for (int j = 4; j > i; j--)
+                for (int j = 4; j > i; j--){
                     highscores[j] = highscores[j - 1];
+                    playerNames[j] = playerNames[j - 1];
+                }
                 highscores[i] = score;
+                playerNames[i] = playerName;
                 break;
             }
         }

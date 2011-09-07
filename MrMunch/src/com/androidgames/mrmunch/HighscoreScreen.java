@@ -28,7 +28,7 @@ public class HighscoreScreen extends Screen {
         super(game);
 
         for (int i = 0; i < 5; i++) {
-            lines[i] = "" + (i + 1) + ". " + Settings.highscores[i];
+            lines[i] = "" + (i + 1) + ". " + Settings.playerNames[i] + " " + Settings.highscores[i];
         }
     }
 
