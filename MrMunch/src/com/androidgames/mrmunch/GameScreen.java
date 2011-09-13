@@ -103,7 +103,6 @@ public class GameScreen extends Screen {
     private void updateReady(List<TouchEvent> touchEvents) {
         if(touchEvents.size() > 0){
             state = GameState.Running;
-            World.tick = World.TICK_INITIAL - 1.5f * Settings.gameSpeed * World.TICK_DECREMENT;
         }
     }
     

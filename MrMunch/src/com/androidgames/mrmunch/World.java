@@ -5,9 +5,16 @@ import java.util.Random;
 public class World {
     static final int WORLD_WIDTH = 10;
     static final int WORLD_HEIGHT = 10;
+    
     static final int SCORE_INCREMENT = 10;
+    
+    static final int FRUITS_FOR_ACCELERATE = 2;
+    
+    static final int FRUITS_FOR_EXTRA_FRUIT = 10;
+    static final int EXTRA_FRUIT_DURATION = 20;
+    
     static final float TICK_INITIAL = 0.5f;
-    static final float TICK_DECREMENT = 0.05f;
+    static final float TICK_DECREMENT = 0.2f;
 
     public Snake snake;
     public Fruit fruit;
@@ -19,11 +26,15 @@ public class World {
     boolean fields[][] = new boolean[WORLD_WIDTH][WORLD_HEIGHT];
     Random random = new Random();
     float tickTime = 0;
-    static float tick = TICK_INITIAL - 1.5f * Settings.gameSpeed * World.TICK_DECREMENT;
+    static int v;
+    static float tick;
+    	
     int deltaTick = 0;
 
     public World() {
         snake = new Snake();
+        v = (Settings.gameSpeed-1)*3; //The gameSpeed 1 is the v0
+        calculateTick();
         placeFruit();
     }
 
@@ -57,7 +68,8 @@ public class World {
         fruit = new Fruit(fruitX, fruitY, random.nextInt(3));
         fields[fruitX][fruitY] = true;
         
-        if(fruitsEaten >= 10 && extraFruit == null) {
+        if(fruitsEaten!=0 && (fruitsEaten % FRUITS_FOR_EXTRA_FRUIT)==0 
+        		&& extraFruit == null) {
         	fruitX = random.nextInt(WORLD_WIDTH);
         	fruitY = random.nextInt(WORLD_HEIGHT);
         	while (true) {
@@ -73,7 +85,6 @@ public class World {
                 }
             }
         	extraFruit = new Fruit(fruitX, fruitY, Fruit.TYPE_4);
-        	fruitsEaten = 0;
         }
     }
 
@@ -100,8 +111,9 @@ public class World {
                     gameOver = true;
                     return;
                 } else {
-                	if (fruitsEaten >= 10 && tick - TICK_DECREMENT > 0) {
-                        tick -= TICK_DECREMENT;
+                	if (fruitsEaten != 0 && (fruitsEaten % FRUITS_FOR_ACCELERATE)==0) {
+                		v++;
+                		calculateTick();
                     }
                     placeFruit();
                 }
@@ -113,7 +125,7 @@ public class World {
 	            	extraFruit = null;
 	            	deltaTick = 0;
 	            } else {
-	                if (deltaTick >= 20){
+	                if (deltaTick >= EXTRA_FRUIT_DURATION){
 	            	    extraFruit = null;
 	            	    deltaTick = 0;
 	                } else { 
@@ -122,5 +134,9 @@ public class World {
 	            }
             }
         }
+    }
+    
+    static public void calculateTick(){
+    		tick = TICK_INITIAL/(1+v*TICK_DECREMENT);
     }
 }
