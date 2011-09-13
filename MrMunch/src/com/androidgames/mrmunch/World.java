@@ -6,9 +6,9 @@ public class World {
     static final int WORLD_WIDTH = 10;
     static final int WORLD_HEIGHT = 10;
     
-    static final int SCORE_INCREMENT = 10;
+    static final int FRUIT_SCORE= 2;
     
-    static final int FRUITS_FOR_ACCELERATE = 2;
+    static final int FRUITS_FOR_ACCELERATE = 5;
     
     static final int FRUITS_FOR_EXTRA_FRUIT = 10;
     static final int EXTRA_FRUIT_DURATION = 20;
@@ -104,7 +104,7 @@ public class World {
 
             SnakePart head = snake.parts.get(0);
             if (head.x == fruit.x && head.y == fruit.y) {
-                score += SCORE_INCREMENT;
+                score += Settings.gameSpeed*FRUIT_SCORE;
                 fruitsEaten++;
                 snake.eat();
                 if (snake.parts.size() == WORLD_WIDTH * WORLD_HEIGHT) {
@@ -120,7 +120,7 @@ public class World {
             }
             if (extraFruit != null){
 	            if (head.x == extraFruit.x && head.y == extraFruit.y) {
-	            	score += 5 * SCORE_INCREMENT;
+	            	score += 5 * Settings.gameSpeed * FRUIT_SCORE;
 	            	snake.shrink();
 	            	extraFruit = null;
 	            	deltaTick = 0;
