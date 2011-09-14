@@ -15,6 +15,8 @@ public interface Graphics {
 
     public void drawRect(int x, int y, int width, int height, int color);
     
+    public void drawRect(int x, int y, int width, int height, int color, int alpha);
+    
     public void drawCircle(int x, int y, int radius, int color);
     
     public void drawText(Graphics g, String line, int x, int y);
