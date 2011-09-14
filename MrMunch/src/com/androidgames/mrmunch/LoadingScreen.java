@@ -2,8 +2,8 @@ package com.androidgames.mrmunch;
 
 import com.androidgames.framework.Game;
 import com.androidgames.framework.Graphics;
-import com.androidgames.framework.Screen;
 import com.androidgames.framework.Graphics.PixmapFormat;
+import com.androidgames.framework.Screen;
 
 public class LoadingScreen extends Screen {
     public LoadingScreen(Game game) {

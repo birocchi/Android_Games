@@ -12,6 +12,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Paint.Style;
 import android.graphics.Rect;
+
 import com.androidgames.framework.Graphics;
 import com.androidgames.framework.Pixmap;
 import com.androidgames.mrmunch.Assets;

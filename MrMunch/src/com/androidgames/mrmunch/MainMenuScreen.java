@@ -6,9 +6,9 @@ import android.graphics.Color;
 
 import com.androidgames.framework.Game;
 import com.androidgames.framework.Graphics;
-import com.androidgames.framework.Screen;
 import com.androidgames.framework.Input.KeyEvent;
 import com.androidgames.framework.Input.TouchEvent;
+import com.androidgames.framework.Screen;
 
 public class MainMenuScreen extends Screen {
 	

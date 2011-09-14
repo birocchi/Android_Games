@@ -6,8 +6,8 @@ import java.util.List;
 import android.view.View;
 import android.view.View.OnKeyListener;
 
-import com.androidgames.framework.Pool;
 import com.androidgames.framework.Input.KeyEvent;
+import com.androidgames.framework.Pool;
 import com.androidgames.framework.Pool.PoolObjectFactory;
 
 public class KeyboardHandler implements OnKeyListener {

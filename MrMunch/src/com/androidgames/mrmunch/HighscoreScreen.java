@@ -6,9 +6,9 @@ import android.graphics.Color;
 
 import com.androidgames.framework.Game;
 import com.androidgames.framework.Graphics;
-import com.androidgames.framework.Screen;
 import com.androidgames.framework.Input.KeyEvent;
 import com.androidgames.framework.Input.TouchEvent;
+import com.androidgames.framework.Screen;
 
 public class HighscoreScreen extends Screen {
 	
@@ -21,14 +21,17 @@ public class HighscoreScreen extends Screen {
 	private final int HIGHSCORE_ITEM_SPACING = 50;
 	private final int HIGHSCORE_ITEM_INIT_Y = 100;
 	private final int HIGHSCORE_ITEM_X = 20;
+	private final int HIGHSCORE_SCORE_X = 200;
 	
-    String lines[] = new String[5];
+    String nameLines[] = new String[5];
+    String scoreLines[] = new String[5];
 
     public HighscoreScreen(Game game) {
         super(game);
 
         for (int i = 0; i < 5; i++) {
-            lines[i] = "" + (i + 1) + ". " + Settings.playerNames[i] + " " + Settings.highscores[i];
+        	nameLines[i] = (i + 1) + ". " + Settings.playerNames[i];
+        	scoreLines[i] = "" + Settings.highscores[i];
         }
     }
 
@@ -69,7 +72,8 @@ public class HighscoreScreen extends Screen {
 
         int y = HIGHSCORE_ITEM_INIT_Y;
         for (int i = 0; i < 5; i++) {
-            g.drawText(g, lines[i], HIGHSCORE_ITEM_X, y);
+            g.drawText(g, nameLines[i], HIGHSCORE_ITEM_X, y);
+            g.drawText(g, scoreLines[i], HIGHSCORE_SCORE_X, y);
             y += HIGHSCORE_ITEM_SPACING;
         }
 

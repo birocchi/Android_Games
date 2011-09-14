@@ -1,18 +1,12 @@
 package com.androidgames.mrmunch;
 
-import java.security.acl.LastOwnerException;
 import java.util.ArrayList;
 import java.util.List;
 
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
-import android.os.Handler;
-import android.os.Message;
-import android.text.Editable;
 import android.text.InputFilter;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.androidgames.framework.Game;
 import com.androidgames.framework.Graphics;

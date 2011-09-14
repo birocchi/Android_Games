@@ -6,8 +6,8 @@ import java.util.List;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.androidgames.framework.Pool;
 import com.androidgames.framework.Input.TouchEvent;
+import com.androidgames.framework.Pool;
 import com.androidgames.framework.Pool.PoolObjectFactory;
 
 public class MultiTouchHandler implements TouchHandler {
