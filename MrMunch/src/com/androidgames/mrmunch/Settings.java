@@ -70,16 +70,18 @@ public class Settings {
     }
 
     public static void addScore(int score, String playerName) {
-        for (int i = 0; i < 5; i++) {
-            if (highscores[i] < score) {
-                for (int j = 4; j > i; j--){
-                    highscores[j] = highscores[j - 1];
-                    playerNames[j] = playerNames[j - 1];
-                }
-                highscores[i] = score;
-                playerNames[i] = playerName;
-                break;
-            }
-        }
+    	if(playerName != null){
+    		for (int i = 0; i < 5; i++) {
+    			if (highscores[i] < score) {
+    				for (int j = 4; j > i; j--){
+    					highscores[j] = highscores[j - 1];
+    					playerNames[j] = playerNames[j - 1];
+    				}
+    				highscores[i] = score;
+    				playerNames[i] = playerName;
+    				break;
+    			}
+    		}
+    	}
     }
 }
