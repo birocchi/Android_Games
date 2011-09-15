@@ -23,17 +23,6 @@ public class GameScreen extends Screen {
 	private final int BUTTON_PAUSE_X = 0;
 	private final int BUTTON_PAUSE_Y = 0;
 	
-	/* NOT USED
-	private final int BUTTON_LEFT_X = 0;
-	private final int BUTTON_LEFT_Y = 416;
-	
-	private final int BUTTON_RIGHT_X = 256;
-	private final int BUTTON_RIGHT_Y = 416;
-	
-	private final int BUTTON_SPEEDUP_X = 256;
-	private final int BUTTON_SPEEDUP_Y = 350;
-	*/
-	
 	private final int BUTTON_CANCEL_X = 128;
 	private final int BUTTON_CANCEL_Y = 200;
 	
@@ -50,6 +39,21 @@ public class GameScreen extends Screen {
 	
 	private final int MAX_BUFFER = 1;
 	
+	private final int CLICK_NO_EVENT = -1;
+	
+	private List<Bounds> mBoundsRunning;
+	
+	private final int CLICK_PAUSE = 0;
+	private final int CLICK_TURN_RIGHT = 1;
+	private final int CLICK_TURN_LEFT = 2;
+	private final int CLICK_TURN_UP = 3;
+	private final int CLICK_TURN_DOWN = 4;
+	
+	private List<Bounds> mBoundsPaused;
+	
+	private final int CLICK_RESUME = 0;
+	private final int CLICK_QUIT = 1;
+
     enum GameState {
         Ready,
         Running,
@@ -63,13 +67,27 @@ public class GameScreen extends Screen {
     String score = "0";
     boolean speedingUp = false;
     String playerName;
-    private ArrayList<Integer> bufferTurns;
-
+    private List<Integer> bufferTurns;
     
     public GameScreen(Game game) {
         super(game);
         world = new World();
         bufferTurns = new ArrayList<Integer>();
+        Graphics g = game.getGraphics();
+        
+        //Clicks Bounds of the Running state
+        mBoundsRunning = new ArrayList<Bounds>();
+        mBoundsRunning.add(new Bounds(CLICK_PAUSE, 0, 0, Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT));
+        mBoundsRunning.add(new Bounds(CLICK_TURN_LEFT, g.getWidth() - 3*Assets.BUTTON_WIDTH, g.getHeight() - Assets.BUTTON_HEIGHT - Assets.BUTTON_HEIGHT/2 -32/2, Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT));
+        mBoundsRunning.add(new Bounds(CLICK_TURN_RIGHT, g.getWidth() - Assets.BUTTON_WIDTH, g.getHeight() - Assets.BUTTON_HEIGHT - Assets.BUTTON_HEIGHT/2 -32/2, Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT));
+        mBoundsRunning.add(new Bounds(CLICK_TURN_UP, g.getWidth() - 2*Assets.BUTTON_WIDTH, g.getHeight() - 2*Assets.BUTTON_HEIGHT -32, Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT));
+        mBoundsRunning.add(new Bounds(CLICK_TURN_DOWN, g.getWidth() - 2*Assets.BUTTON_WIDTH, g.getHeight() - Assets.BUTTON_HEIGHT, Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT));
+
+        //Clicks Bounds of the Paused state
+        mBoundsPaused = new ArrayList<Bounds>();
+        mBoundsPaused.add(new Bounds(CLICK_RESUME, PAUSE_IMAGE_X, PAUSE_IMAGE_Y, Assets.PAUSE_MENU_ITEM_WIDTH, Assets.PAUSE_MENU_ITEM_HEIGHT));
+        mBoundsPaused.add(new Bounds(CLICK_QUIT, PAUSE_IMAGE_X, PAUSE_IMAGE_Y + Assets.PAUSE_MENU_ITEM_HEIGHT, Assets.PAUSE_MENU_ITEM_WIDTH, Assets.PAUSE_MENU_ITEM_HEIGHT));
+
     }
 
     @Override
@@ -88,7 +106,7 @@ public class GameScreen extends Screen {
 
 	        }
         }
-        
+
         if(state == GameState.Ready)
             updateReady(touchEvents);
         if(state == GameState.Running)
@@ -106,13 +124,15 @@ public class GameScreen extends Screen {
     }
     
     private void updateRunning(List<TouchEvent> touchEvents, List<Input.KeyEvent> keyEvents, float deltaTime) {
+    	int clickEvent;
     	
-    	Graphics g = game.getGraphics();
+    	//Deal with Touch events
         int len = touchEvents.size();
         for(int i = 0; i < len; i++) {
             TouchEvent event = touchEvents.get(i);
+            clickEvent = eventInBounds(mBoundsRunning, event);
             if(event.type == TouchEvent.TOUCH_UP) {
-                if(event.x < Assets.BUTTON_WIDTH && event.y < Assets.BUTTON_HEIGHT) {
+                if(clickEvent == CLICK_PAUSE) {
                     if(Settings.soundEnabled)
                         Assets.click.play(1);
                     state = GameState.Paused;
@@ -120,22 +140,27 @@ public class GameScreen extends Screen {
                 }
             }
             if(event.type == TouchEvent.TOUCH_DOWN && bufferTurns.size()<MAX_BUFFER) {
-                if(inBounds(event, g.getWidth() - 3*Assets.BUTTON_WIDTH, g.getHeight() - Assets.BUTTON_HEIGHT - Assets.BUTTON_HEIGHT/2 -32/2, Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT)) {
+            	switch(clickEvent){
+            	case CLICK_TURN_LEFT:
                 	bufferTurns.add(Snake.LEFT);
-                }
-                if(inBounds(event, g.getWidth() - Assets.BUTTON_WIDTH, g.getHeight() - Assets.BUTTON_HEIGHT - Assets.BUTTON_HEIGHT/2 -32/2, Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT)) {
+                	break;
+
+            	case CLICK_TURN_RIGHT:
                 	bufferTurns.add(Snake.RIGHT);
-                }
-                if(inBounds(event,g.getWidth() - 2*Assets.BUTTON_WIDTH, g.getHeight() - 2*Assets.BUTTON_HEIGHT -32, Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT)) {
+                	break;
+
+            	case CLICK_TURN_UP:
                 	bufferTurns.add(Snake.UP);
-                }
-                if(inBounds(event,g.getWidth() - 2*Assets.BUTTON_WIDTH, g.getHeight() - Assets.BUTTON_HEIGHT, Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT)) {
+                	break;
+
+            	case CLICK_TURN_DOWN:
                 	bufferTurns.add(Snake.DOWN);
-                }
-                
+                	break;
+            	}
             }
         }
         
+        //Deal with Key events
         len = keyEvents.size();
         for(int i = 0; i < len; i++) {
         	KeyEvent kevent = keyEvents.get(i);
@@ -161,6 +186,7 @@ public class GameScreen extends Screen {
         	}
         }
         
+        //Turn the snake based on the buffer
         if(world.snake.already_turned!=true && bufferTurns.size()>0){
         	world.snake.turn(bufferTurns.remove(0));
         }
@@ -182,23 +208,23 @@ public class GameScreen extends Screen {
     
     private void updatePaused(List<TouchEvent> touchEvents) {
         int len = touchEvents.size();
+
         for(int i = 0; i < len; i++) {
             TouchEvent event = touchEvents.get(i);
+            int clickEvent = eventInBounds(mBoundsPaused, event);
+            
             if(event.type == TouchEvent.TOUCH_UP) {
-                if(event.x > PAUSE_IMAGE_X && event.x <= PAUSE_IMAGE_X + Assets.PAUSE_MENU_ITEM_WIDTH) {
-                    if(event.y > PAUSE_IMAGE_Y && event.y <= PAUSE_IMAGE_Y + Assets.PAUSE_MENU_ITEM_HEIGHT) {
-                        if(Settings.soundEnabled)
-                            Assets.click.play(1);
-                        state = GameState.Running;
-                        return;
-                    }                    
-                    if(event.y > PAUSE_IMAGE_Y + Assets.PAUSE_MENU_ITEM_HEIGHT && event.y < PAUSE_IMAGE_Y + 2*Assets.PAUSE_MENU_ITEM_HEIGHT) {
-                        if(Settings.soundEnabled)
-                            Assets.click.play(1);
-                        game.setScreen(new MainMenuScreen(game));                        
-                        return;
-                    }
-                }
+            	switch(clickEvent){
+            	case CLICK_RESUME:
+            		state = GameState.Running;
+            		break;
+            	case CLICK_QUIT:
+            		game.setScreen(new MainMenuScreen(game));
+            		break;
+             	}
+            	
+                if(clickEvent!=CLICK_NO_EVENT && Settings.soundEnabled)
+                    Assets.click.play(1);
             }
         }
     }
@@ -344,6 +370,10 @@ public class GameScreen extends Screen {
         g.drawPixmap(Assets.buttons, g.getWidth() - Assets.BUTTON_WIDTH, g.getHeight() - Assets.BUTTON_HEIGHT - Assets.BUTTON_HEIGHT/2 -32/2, Assets.BUTTON_RIGHT_SCRX, Assets.BUTTON_RIGHT_SCRY, Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT);
         g.drawPixmap(Assets.buttons, g.getWidth() - 2*Assets.BUTTON_WIDTH, g.getHeight() - 2*Assets.BUTTON_HEIGHT -32, Assets.BUTTON_UP_SCRX, Assets.BUTTON_UP_SCRY, Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT);
         g.drawPixmap(Assets.buttons, g.getWidth() - 2*Assets.BUTTON_WIDTH, g.getHeight() - Assets.BUTTON_HEIGHT, Assets.BUTTON_DOWN_SCRX, Assets.BUTTON_DOWN_SCRY, Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT);
+        
+        if(debugBounds == true){
+        	drawDebugBounds(g, mBoundsRunning);
+        }
     }
     
     private void drawPausedUI() {
@@ -351,6 +381,10 @@ public class GameScreen extends Screen {
         
         g.drawPixmap(Assets.pause, PAUSE_IMAGE_X, PAUSE_IMAGE_Y);
         g.drawPixmap(Assets.rectangle, 0 ,g.getHeight() - 2*Assets.BUTTON_HEIGHT -32);
+        
+        if(debugBounds == true){
+        	drawDebugBounds(g, mBoundsPaused);
+        }
     }
 
     private void drawGameOverUI() {
