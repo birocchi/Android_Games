@@ -18,7 +18,7 @@ public class Settings {
         BufferedReader in = null;
         try {
             in = new BufferedReader(new InputStreamReader(
-                    files.readFile(".mrnom")));
+                    files.readFile(".mrmunch")));
             soundEnabled = Boolean.parseBoolean(in.readLine());
             for (int i = 0; i < 5; i++) {
                 highscores[i] = Integer.parseInt(in.readLine());
@@ -45,7 +45,7 @@ public class Settings {
         BufferedWriter out = null;
         try {
             out = new BufferedWriter(new OutputStreamWriter(
-                    files.writeFile(".mrnom")));
+                    files.writeFile(".mrmunch")));
             out.write(Boolean.toString(soundEnabled));
             out.write("\n");
             for (int i = 0; i < 5; i++) {
@@ -86,6 +86,9 @@ public class Settings {
     }
     
     public static void resetScore() {
-    	
+    	for (int i = 0; i < 5; i++) {
+    		highscores[i] = 0;
+    		playerNames[i] = ".....";
+    	}
     }
 }
