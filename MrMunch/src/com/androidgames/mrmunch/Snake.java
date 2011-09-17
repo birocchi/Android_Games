@@ -21,9 +21,9 @@ public class Snake {
     
     public Snake() {        
         direction = UP;
-        parts.add(new SnakePart(5, 6));
-        parts.add(new SnakePart(5, 7));
-        parts.add(new SnakePart(5, 8));
+        parts.add(new SnakePart(8, 8));
+        parts.add(new SnakePart(8, 9));
+        parts.add(new SnakePart(8, 10));
         already_turned= false;
         
     }
