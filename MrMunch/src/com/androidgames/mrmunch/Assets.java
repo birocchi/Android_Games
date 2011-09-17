@@ -31,6 +31,8 @@ public class Assets {
 	public static int BUTTON_CANCEL_SCRY = 192;
 	public static int BUTTON_PAUSE_SCRX = 0;
 	public static int BUTTON_PAUSE_SCRY = 192;
+	public static int BUTTON_RESET_SCRX = 0;
+	public static int BUTTON_RESET_SCRY = 256;
 	
     public static Pixmap numbers;
     public static int NUMBER_WIDTH = 20;

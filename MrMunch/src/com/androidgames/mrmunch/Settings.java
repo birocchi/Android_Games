@@ -11,7 +11,7 @@ import com.androidgames.framework.FileIO;
 public class Settings {
     public static boolean soundEnabled = true;
     public static int[] highscores = new int[] { 0, 0, 0, 0, 0 };
-    public static String[] playerNames = new String[] { "AAA", "AAA", "AAA", "AAA", "AAA" };
+    public static String[] playerNames = new String[] { ".....", ".....", ".....", ".....", "....." };
     public static int gameSpeed = 1;
 
     public static void load(FileIO files) {
@@ -83,5 +83,9 @@ public class Settings {
     			}
     		}
     	}
+    }
+    
+    public static void resetScore() {
+    	
     }
 }

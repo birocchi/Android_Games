@@ -1,9 +1,9 @@
 package com.androidgames.mrmunch;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import android.graphics.Color;
-
 import com.androidgames.framework.Game;
 import com.androidgames.framework.Graphics;
 import com.androidgames.framework.Input.KeyEvent;
@@ -15,19 +15,35 @@ public class SettingsScreen extends Screen {
 	private final int BUTTON_PREV_X = 0;
 	private final int BUTTON_PREV_Y = 416;
 	
+	private final int BUTTON_RESET_X = 100;
+	private final int BUTTON_RESET_Y = 416;
+	
 	private final int SETTINGS_IMAGE_X = 64;
 	private final int SETTINGS_IMAGE_Y = 20;
 	
+    private List<Bounds> mBounds;
+	
+	private final int CLICK_NO_EVENT = -1;
+	private final int CLICK_BACK = 0;
+	private final int CLICK_RESET = 1;
+	
 	public SettingsScreen(Game game) {
 		super(game);
-	}
+        Graphics g = game.getGraphics();
+        
+        //Defining the BOUNDS where some CLICK_EVENT should happen
+        mBounds = new ArrayList<Bounds>();
+        mBounds.add(new Bounds(CLICK_BACK, BUTTON_PREV_X, g.getHeight() - Assets.BUTTON_HEIGHT, Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT));
+        mBounds.add(new Bounds(CLICK_RESET, BUTTON_RESET_X, BUTTON_RESET_Y, 2*Assets.BUTTON_WIDTH, 2*Assets.BUTTON_HEIGHT));        
+    }
 	
 	@Override
 	public void update(float deltaTime) {
-		int len;
+		int len, clickEvent;
 		List<TouchEvent> events = game.getInput().getTouchEvents();
 		List<KeyEvent> keyEvents = game.getInput().getKeyEvents();
         
+		//Dealing with KEY EVENTS
         len = keyEvents.size();
         for(int i=0; i<len; i++){
         	KeyEvent kevent = keyEvents.get(i);
@@ -35,18 +51,26 @@ public class SettingsScreen extends Screen {
 	    		game.setScreen(new MainMenuScreen(game));
         }
         
+        //Dealing with TOUCH EVENTS
         Graphics g = game.getGraphics();
         len = events.size();
         for(int i=0; i<len; i++) {
         	TouchEvent event = events.get(i);
-        	
         	if (event.type == TouchEvent.TOUCH_UP) {
-                if (event.x < Assets.BUTTON_WIDTH && event.y > g.getHeight() - Assets.BUTTON_HEIGHT ) {
-                    if(Settings.soundEnabled)
-                        Assets.click.play(1);
-                    game.setScreen(new MainMenuScreen(game));
-                    return;
-                }
+        		
+        		clickEvent = eventInBounds(mBounds, event);
+        		
+        		switch(clickEvent){
+            	case CLICK_BACK:
+            		game.setScreen(new MainMenuScreen(game));
+            		break;
+            	case CLICK_RESET:
+            		Settings.resetScore();
+            		break;
+        		}
+        		//play sound if clicked a item and sound is enabled
+            	if(clickEvent != CLICK_NO_EVENT && Settings.soundEnabled)
+            		Assets.click.play(1);
             }
         	
         	int y = g.getHeight()/2;
@@ -78,6 +102,11 @@ public class SettingsScreen extends Screen {
         	g.drawText(g, ""+i, i * (g.getWidth()-30)/5 - Assets.NUMBER_WIDTH , g.getHeight()/2);
         }
         g.drawPixmap(Assets.buttons, BUTTON_PREV_X, BUTTON_PREV_Y, Assets.BUTTON_LEFT_SCRX, Assets.BUTTON_LEFT_SCRY, Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT);
+        g.drawPixmap(Assets.buttons, BUTTON_RESET_X, BUTTON_RESET_Y, Assets.BUTTON_RESET_SCRX, Assets.BUTTON_RESET_SCRY, 2*Assets.BUTTON_WIDTH, 2*Assets.BUTTON_HEIGHT);
+        
+        if(DEBUG_BOUNDS == true){
+        	drawDebugBounds(g, mBounds);
+        }
 	}
 	
 	@Override

@@ -371,7 +371,7 @@ public class GameScreen extends Screen {
         g.drawPixmap(Assets.buttons, g.getWidth() - 2*Assets.BUTTON_WIDTH, g.getHeight() - 2*Assets.BUTTON_HEIGHT -32, Assets.BUTTON_UP_SCRX, Assets.BUTTON_UP_SCRY, Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT);
         g.drawPixmap(Assets.buttons, g.getWidth() - 2*Assets.BUTTON_WIDTH, g.getHeight() - Assets.BUTTON_HEIGHT, Assets.BUTTON_DOWN_SCRX, Assets.BUTTON_DOWN_SCRY, Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT);
         
-        if(debugBounds == true){
+        if(DEBUG_BOUNDS == true){
         	drawDebugBounds(g, mBoundsRunning);
         }
     }
@@ -382,7 +382,7 @@ public class GameScreen extends Screen {
         g.drawPixmap(Assets.pause, PAUSE_IMAGE_X, PAUSE_IMAGE_Y);
         g.drawPixmap(Assets.rectangle, 0 ,g.getHeight() - 2*Assets.BUTTON_HEIGHT -32);
         
-        if(debugBounds == true){
+        if(DEBUG_BOUNDS == true){
         	drawDebugBounds(g, mBoundsPaused);
         }
     }

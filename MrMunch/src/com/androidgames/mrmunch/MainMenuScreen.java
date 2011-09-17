@@ -108,7 +108,7 @@ public class MainMenuScreen extends Screen {
         else
             g.drawPixmap(Assets.buttons, BUTTON_SOUND_X, BUTTON_SOUND_Y, Assets.BUTTON_SOUND_OFF_SCRX, Assets.BUTTON_SOUND_OFF_SCRY, Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT);
         
-        if(debugBounds == true){
+        if(DEBUG_BOUNDS == true){
         	drawDebugBounds(g, mBounds);
         }
     }
