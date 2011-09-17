@@ -67,6 +67,10 @@ public class MainMenuScreen extends Screen {
             if(event.type == TouchEvent.TOUCH_UP) {
             	
             	clickEvent = eventInBounds(mBounds, event);
+            	
+            	//play sound if clicked a item and sound is enabled
+            	if(clickEvent != CLICK_NO_EVENT && Settings.soundEnabled)
+            		Assets.click.play(1);
 
             	switch(clickEvent){
             	case CLICK_SOUND:
@@ -88,10 +92,6 @@ public class MainMenuScreen extends Screen {
             		((MrMunchGame)game).finish();
             		break;
             	}
-            	
-            	//play sound if clicked a item and sound is enabled
-            	if(clickEvent != CLICK_NO_EVENT && Settings.soundEnabled)
-            		Assets.click.play(1);
             }
         }
     }

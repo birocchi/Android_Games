@@ -213,6 +213,10 @@ public class GameScreen extends Screen {
             TouchEvent event = touchEvents.get(i);
             int clickEvent = eventInBounds(mBoundsPaused, event);
             
+            //play sound if clicked a item and sound is enabled
+        	if(clickEvent != CLICK_NO_EVENT && Settings.soundEnabled)
+        		Assets.click.play(1);
+            
             if(event.type == TouchEvent.TOUCH_UP) {
             	switch(clickEvent){
             	case CLICK_RESUME:
@@ -222,9 +226,6 @@ public class GameScreen extends Screen {
             		game.setScreen(new MainMenuScreen(game));
             		break;
              	}
-            	
-                if(clickEvent!=CLICK_NO_EVENT && Settings.soundEnabled)
-                    Assets.click.play(1);
             }
         }
     }

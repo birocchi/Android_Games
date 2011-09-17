@@ -72,6 +72,10 @@ public class HighscoreScreen extends Screen {
             if (event.type == TouchEvent.TOUCH_UP) {
             	
                 clickEvent = eventInBounds(mBounds, event);
+                
+                //play sound if clicked a item and sound is enabled
+            	if(clickEvent != CLICK_NO_EVENT && Settings.soundEnabled)
+            		Assets.click.play(1);
         		
         		switch(clickEvent){
             	case CLICK_BACK:
@@ -81,9 +85,6 @@ public class HighscoreScreen extends Screen {
             		confirmReset();
             		break;
         		}
-        		//play sound if clicked a item and sound is enabled
-            	if(clickEvent != CLICK_NO_EVENT && Settings.soundEnabled)
-            		Assets.click.play(1);
             }
         }
     }
