@@ -35,7 +35,7 @@ public class GameScreen extends Screen {
 	private final int GAME_OVER_IMAGE_X = 62;
 	private final int GAME_OVER_IMAGE_Y = 100;
 	
-	private final int SCALING_FACTOR = 32;
+	private final int SCALING_FACTOR = 20;
 	
 	private final int MAX_BUFFER = 1;
 	
@@ -213,19 +213,21 @@ public class GameScreen extends Screen {
             TouchEvent event = touchEvents.get(i);
             int clickEvent = eventInBounds(mBoundsPaused, event);
             
-            //play sound if clicked a item and sound is enabled
-        	if(clickEvent != CLICK_NO_EVENT && Settings.soundEnabled)
-        		Assets.click.play(1);
-            
             if(event.type == TouchEvent.TOUCH_UP) {
-            	switch(clickEvent){
-            	case CLICK_RESUME:
-            		state = GameState.Running;
-            		break;
-            	case CLICK_QUIT:
-            		game.setScreen(new MainMenuScreen(game));
-            		break;
-             	}
+            	//play sound if clicked a item and sound is enabled
+            	if(clickEvent != CLICK_NO_EVENT && Settings.soundEnabled)
+            		Assets.click.play(1);
+
+            	if(event.type == TouchEvent.TOUCH_UP) {
+            		switch(clickEvent){
+            		case CLICK_RESUME:
+            			state = GameState.Running;
+            			break;
+            		case CLICK_QUIT:
+            			game.setScreen(new MainMenuScreen(game));
+            			break;
+            		}
+            	}
             }
         }
     }
@@ -350,8 +352,8 @@ public class GameScreen extends Screen {
             headPixmap = Assets.headDown;
         if(snake.direction == Snake.RIGHT) 
             headPixmap = Assets.headRight;        
-        x = head.x * SCALING_FACTOR + 16;
-        y = head.y * SCALING_FACTOR + 16;
+        x = head.x * SCALING_FACTOR + 10;
+        y = head.y * SCALING_FACTOR + 10;
         g.drawPixmap(headPixmap, x - headPixmap.getWidth() / 2, y - headPixmap.getHeight() / 2);
     }
     

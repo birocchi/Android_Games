@@ -10,9 +10,9 @@ public class Snake {
     public static final int DOWN = 2;
     public static final int RIGHT = 3;
     
-    private static final int WORLD_HORIZONTAL_UPPER_LIMIT = 9;
+    private static final int WORLD_HORIZONTAL_UPPER_LIMIT = 15;
     private static final int WORLD_HORIZONTAL_LOWER_LIMIT = 0;
-    private static final int WORLD_VERTICAL_UPPER_LIMIT = 9;
+    private static final int WORLD_VERTICAL_UPPER_LIMIT = 15;
     private static final int WORLD_VERTICAL_LOWER_LIMIT = 0;
     
     public List<SnakePart> parts = new ArrayList<SnakePart>();

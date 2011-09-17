@@ -3,8 +3,8 @@ package com.androidgames.mrmunch;
 import java.util.Random;
 
 public class World {
-    static final int WORLD_WIDTH = 10;
-    static final int WORLD_HEIGHT = 10;
+    static final int WORLD_WIDTH = 16;
+    static final int WORLD_HEIGHT = 16;
     
     static final int FRUIT_SCORE= 2;
     
