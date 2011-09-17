@@ -69,7 +69,7 @@ public class MainMenuScreen extends Screen {
             	clickEvent = eventInBounds(mBounds, event);
             	
             	//play sound if clicked a item and sound is enabled
-            	if(clickEvent != CLICK_NO_EVENT && Settings.soundEnabled)
+            	if(clickEvent != CLICK_NO_EVENT && clickEvent != CLICK_SOUND && Settings.soundEnabled)
             		Assets.click.play(1);
 
             	switch(clickEvent){
