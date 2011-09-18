@@ -13,8 +13,8 @@ public class Assets {
 	public static int SETTINGS_SCRY = 86;
     
     public static Pixmap buttons;
-    public static int BUTTON_HEIGHT = 64;
-    public static int BUTTON_WIDTH = 64;
+    public static int BUTTON_HEIGHT = 65;
+    public static int BUTTON_WIDTH = 65;
     public static int BUTTON_SOUND_ON_SCRX = 0;
 	public static int BUTTON_SOUND_ON_SCRY = 0;
 	public static int BUTTON_SOUND_OFF_SCRX = 64;

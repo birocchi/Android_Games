@@ -11,7 +11,7 @@ public class World {
     static final int FRUITS_FOR_ACCELERATE = 5;
     
     static final int FRUITS_FOR_EXTRA_FRUIT = 10;
-    static final int EXTRA_FRUIT_DURATION = 20;
+    static final int EXTRA_FRUIT_DURATION = 25;
     
     static final float TICK_INITIAL = 0.5f;
     static final float TICK_DECREMENT = 0.2f;
