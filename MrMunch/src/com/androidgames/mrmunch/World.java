@@ -8,13 +8,13 @@ public class World {
     
     static final int FRUIT_SCORE= 2;
     
-    static final int FRUITS_FOR_ACCELERATE = 5;
+    static final int FRUITS_FOR_ACCELERATE = 1;
     
     static final int FRUITS_FOR_EXTRA_FRUIT = 10;
     static final int EXTRA_FRUIT_DURATION = 25;
     
-    static final float TICK_INITIAL = 0.5f;
-    static final float TICK_DECREMENT = 0.2f;
+    static final float TICK_INITIAL = 0.45f;
+    static final float TICK_DECREMENT = 0.04f;
 
     public Snake snake;
     public Fruit fruit;
@@ -33,7 +33,7 @@ public class World {
 
     public World() {
         snake = new Snake();
-        v = (Settings.gameSpeed-1)*3; //The gameSpeed 1 is the v0
+        v = (Settings.gameSpeed-1)*(3*(5/FRUITS_FOR_ACCELERATE)); //The gameSpeed 1 is the v0
         calculateTick();
         placeFruit();
     }

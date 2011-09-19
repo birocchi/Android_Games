@@ -36,9 +36,7 @@ public class GameScreen extends Screen {
 	private final int GAME_OVER_IMAGE_Y = 100;
 	
 	private final int SCALING_FACTOR = 20;
-	
-	private final int MAX_BUFFER = 1;
-	
+
 	private final int CLICK_NO_EVENT = -1;
 	
 	private List<Bounds> mBoundsRunning;
@@ -67,12 +65,11 @@ public class GameScreen extends Screen {
     String score = "0";
     boolean speedingUp = false;
     String playerName;
-    private List<Integer> bufferTurns;
+    private int bufferTurns=-1;
     
     public GameScreen(Game game) {
         super(game);
         world = new World();
-        bufferTurns = new ArrayList<Integer>();
         Graphics g = game.getGraphics();
         
         //Clicks Bounds of the Running state
@@ -139,22 +136,26 @@ public class GameScreen extends Screen {
                     return;
                 }
             }
-            if(event.type == TouchEvent.TOUCH_DOWN && bufferTurns.size()<MAX_BUFFER) {
+            if(bufferTurns == -1) {
             	switch(clickEvent){
             	case CLICK_TURN_LEFT:
-                	bufferTurns.add(Snake.LEFT);
+            		if(bufferTurns != Snake.LEFT && world.snake.direction != Snake.LEFT)
+            			bufferTurns=Snake.LEFT;
                 	break;
 
             	case CLICK_TURN_RIGHT:
-                	bufferTurns.add(Snake.RIGHT);
+            		if(bufferTurns != Snake.RIGHT && world.snake.direction != Snake.RIGHT)
+            			bufferTurns=Snake.RIGHT;
                 	break;
 
             	case CLICK_TURN_UP:
-                	bufferTurns.add(Snake.UP);
+            		if(bufferTurns != Snake.UP && world.snake.direction != Snake.UP)
+            			bufferTurns=Snake.UP;
                 	break;
 
             	case CLICK_TURN_DOWN:
-                	bufferTurns.add(Snake.DOWN);
+            		if(bufferTurns != Snake.DOWN && world.snake.direction != Snake.DOWN)
+            			bufferTurns = Snake.DOWN;
                 	break;
             	}
             }
@@ -165,30 +166,31 @@ public class GameScreen extends Screen {
         for(int i = 0; i < len; i++) {
         	KeyEvent kevent = keyEvents.get(i);
         	
-        	if(bufferTurns.size()<MAX_BUFFER){
+        	if(bufferTurns==-1){
         		switch(kevent.keyCode){
 	        	case android.view.KeyEvent.KEYCODE_DPAD_LEFT:
-	        		bufferTurns.add(Snake.LEFT);
+	        		bufferTurns=Snake.LEFT;
 	            	break;
 	
 	        	case android.view.KeyEvent.KEYCODE_DPAD_RIGHT:
-	        		bufferTurns.add(Snake.RIGHT);
+	        		bufferTurns=Snake.RIGHT;
 	            	break;
 	
 	        	case android.view.KeyEvent.KEYCODE_DPAD_UP:
-	        		bufferTurns.add(Snake.UP);
+	        		bufferTurns=Snake.UP;
 	            	break;
 	
 	        	case android.view.KeyEvent.KEYCODE_DPAD_DOWN:
-	        		bufferTurns.add(Snake.DOWN);
+	        		bufferTurns=Snake.DOWN;
 	            	break;
 	        	}
         	}
         }
         
         //Turn the snake based on the buffer
-        if(world.snake.already_turned!=true && bufferTurns.size()>0){
-        	world.snake.turn(bufferTurns.remove(0));
+        if(world.snake.already_turned!=true && bufferTurns!=-1){
+        	world.snake.turn(bufferTurns);
+        	bufferTurns=-1;
         }
         
         
