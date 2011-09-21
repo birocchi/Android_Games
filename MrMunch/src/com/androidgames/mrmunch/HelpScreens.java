@@ -1,5 +1,6 @@
 package com.androidgames.mrmunch;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import android.graphics.Color;
@@ -29,16 +30,28 @@ public class HelpScreens extends Screen {
 	private final int HELP_IMAGE_X = 64;
 	private final int HELP_IMAGE_Y = 100;
 	
+	private List<Bounds> mBounds;
+	
+	private final int CLICK_NO_EVENT = -1;
+	private final int CLICK_LEFT = 0;
+	private final int CLICK_RIGHT = 1;
+	
     public HelpScreens(Game game) {
         super(game);
+        
+        //Defining the BOUNDS where some CLICK_EVENT should happen
+        mBounds = new ArrayList<Bounds>();
+        mBounds.add(new Bounds(CLICK_LEFT, BUTTON_PREV_X, BUTTON_PREV_Y, Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT));
+        mBounds.add(new Bounds(CLICK_RIGHT, BUTTON_NEXT_X, BUTTON_NEXT_Y, Assets.BUTTON_WIDTH, Assets.BUTTON_WIDTH));
     }
 
     @Override
     public void update(float deltaTime) {
-    	int len;
+    	int len, clickEvent;
         List<TouchEvent> touchEvents = game.getInput().getTouchEvents();
         List<KeyEvent> keyEvents = game.getInput().getKeyEvents();
         
+        //Dealing with KEY EVENTS
         len = keyEvents.size();
         for(int i=0; i<len; i++){
         	KeyEvent kevent = keyEvents.get(i);
@@ -46,29 +59,31 @@ public class HelpScreens extends Screen {
 	        	game.setScreen(new MainMenuScreen(game));
         }
         
-        Graphics g = game.getGraphics();
+        //Dealing with TOUCH EVENTS
         len = touchEvents.size();
         for(int i = 0; i < len; i++) {
             TouchEvent event = touchEvents.get(i);
             if(event.type == TouchEvent.TOUCH_UP) {
-                	            	
-                if(event.x > g.getWidth() - Assets.BUTTON_WIDTH && event.y > g.getHeight() - Assets.BUTTON_HEIGHT ) {
-                	screenNumber++;
-                	if(screenNumber>3){
-                		game.setScreen(new MainMenuScreen(game));
-                	}
-                    if(Settings.soundEnabled)
-                        Assets.click.play(1);
-                    return;
-                }
-                if(event.x < Assets.BUTTON_WIDTH && event.y > g.getHeight() - Assets.BUTTON_HEIGHT ) {
-                	screenNumber--;
+            	
+            	clickEvent = eventInBounds(mBounds, event);
+
+            	//play sound if clicked a item and sound is enabled
+            	if(clickEvent != CLICK_NO_EVENT && Settings.soundEnabled)
+            		Assets.click.play(1);
+
+            	switch(clickEvent){
+            	case CLICK_LEFT:
+            		screenNumber--;
                 	if(screenNumber<1){
                 		game.setScreen(new MainMenuScreen(game));
                 	}
-                    if(Settings.soundEnabled)
-                        Assets.click.play(1);
-                    return;
+            		break;
+            	case CLICK_RIGHT:
+            		screenNumber++;
+                	if(screenNumber>3){
+                		game.setScreen(new MainMenuScreen(game));
+                	}
+            		break;
                 }
             }
         }
@@ -96,6 +111,10 @@ public class HelpScreens extends Screen {
             g.drawPixmap(Assets.buttons, BUTTON_PREV_X, BUTTON_PREV_Y, Assets.BUTTON_LEFT_SCRX, Assets.BUTTON_LEFT_SCRY, Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT);
     		break;
     	}
+    	
+    	if(DEBUG_BOUNDS == true){
+        	drawDebugBounds(g, mBounds);
+        }
 
     }
 

@@ -48,7 +48,7 @@ public class HighscoreScreen extends Screen {
         //Defining the BOUNDS where some CLICK_EVENT should happen
         mBounds = new ArrayList<Bounds>();
         mBounds.add(new Bounds(CLICK_BACK, BUTTON_PREV_X, g.getHeight() - Assets.BUTTON_HEIGHT, Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT));
-        mBounds.add(new Bounds(CLICK_RESET, BUTTON_RESET_X, BUTTON_RESET_Y, 2*Assets.BUTTON_WIDTH, 2*Assets.BUTTON_HEIGHT));
+        mBounds.add(new Bounds(CLICK_RESET, BUTTON_RESET_X, BUTTON_RESET_Y, 2*Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT));
     }
 
     @Override
@@ -104,7 +104,7 @@ public class HighscoreScreen extends Screen {
         }
 
         g.drawPixmap(Assets.buttons, BUTTON_PREV_X, BUTTON_PREV_Y, Assets.BUTTON_LEFT_SCRX, Assets.BUTTON_LEFT_SCRY, Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT);
-        g.drawPixmap(Assets.buttons, BUTTON_RESET_X, BUTTON_RESET_Y, Assets.BUTTON_RESET_SCRX, Assets.BUTTON_RESET_SCRY, 2*Assets.BUTTON_WIDTH, 2*Assets.BUTTON_HEIGHT);
+        g.drawPixmap(Assets.buttons, BUTTON_RESET_X, BUTTON_RESET_Y, Assets.BUTTON_RESET_SCRX, Assets.BUTTON_RESET_SCRY, 2*Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT);
         
         if(DEBUG_BOUNDS == true){
         	drawDebugBounds(g, mBounds);
