@@ -12,8 +12,8 @@ import com.androidgames.framework.Screen;
 
 public class SettingsScreen extends Screen {
 	
-	private final int BUTTON_PREV_X = 0;
-	private final int BUTTON_PREV_Y = 416;
+	private final int BUTTON_OK_X = 0;
+	private final int BUTTON_OK_Y = 416;
 	
 	private final int SETTINGS_IMAGE_X = 64;
 	private final int SETTINGS_IMAGE_Y = 20;
@@ -77,7 +77,7 @@ public class SettingsScreen extends Screen {
         for(int i = 1; i <= 5; i++) {
         	g.drawText(g, ""+i, i * (g.getWidth()-30)/5 - Assets.NUMBER_WIDTH , g.getHeight()/2);
         }
-        g.drawPixmap(Assets.buttons, BUTTON_PREV_X, BUTTON_PREV_Y, Assets.BUTTON_LEFT_SCRX, Assets.BUTTON_LEFT_SCRY, Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT);
+        g.drawPixmap(Assets.buttons, BUTTON_OK_X, BUTTON_OK_Y, Assets.BUTTON_OK_SCRX, Assets.BUTTON_OK_SCRY, Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT);
 	}
 	
 	@Override
