@@ -372,6 +372,8 @@ public class GameScreen extends Screen {
         	//Asks for the player name if his score is higher than the last one
         	if(world.score > Settings.highscores[4]){
         		Settings.addScore(world.score, playerName);
+        		world.score = 0;
+        		playerName = null;
         	}
         	
             Settings.save(game.getFileIO());
