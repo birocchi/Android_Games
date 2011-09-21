@@ -19,7 +19,7 @@ public interface Graphics {
     
     public void drawCircle(int x, int y, int radius, int color);
     
-    public void drawText(Graphics g, String line, int x, int y);
+    public void drawText(Graphics g, Pixmap characters, String line, int x, int y);
 
     public void drawPixmap(Pixmap pixmap, int x, int y, int srcX, int srcY,
             int srcWidth, int srcHeight);

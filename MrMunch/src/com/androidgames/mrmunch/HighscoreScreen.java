@@ -98,8 +98,8 @@ public class HighscoreScreen extends Screen {
 
         int y = HIGHSCORE_ITEM_INIT_Y;
         for (int i = 0; i < 5; i++) {
-            g.drawText(g, nameLines[i], HIGHSCORE_ITEM_X, y);
-            g.drawText(g, scoreLines[i], HIGHSCORE_SCORE_X, y);
+            g.drawText(g, Assets.characters, nameLines[i], HIGHSCORE_ITEM_X, y);
+            g.drawText(g, Assets.characters, scoreLines[i], HIGHSCORE_SCORE_X, y);
             y += HIGHSCORE_ITEM_SPACING;
         }
 

@@ -53,8 +53,8 @@ public class SettingsScreen extends Screen {
         	
         	for (int j=1; j<=5; j++) {
 	        	if (event.type == TouchEvent.TOUCH_UP) {
-	        		int x = j*(g.getWidth()-30)/5 - Assets.NUMBER_WIDTH;
-	                if (event.x > x - 6 && event.x < x + Assets.NUMBER_WIDTH + 6 && event.y > y - 4 && event.y < y + Assets.NUMBER_HEIGHT + 4) {
+	        		int x = j*(g.getWidth()-30)/5 - Assets.CHARACTER_WIDTH;
+	                if (event.x > x - 6 && event.x < x + Assets.CHARACTER_WIDTH + 6 && event.y > y - 4 && event.y < y + Assets.CHARACTER_HEIGHT + 4) {
 	                    if(Settings.soundEnabled)
 	                        Assets.click.play(1);
 	                    Settings.gameSpeed = j;
@@ -72,10 +72,10 @@ public class SettingsScreen extends Screen {
         g.clear(Color.BLACK);
         g.drawPixmap(Assets.mainMenu, SETTINGS_IMAGE_X, SETTINGS_IMAGE_Y, Assets.SETTINGS_SCRX, Assets.SETTINGS_SCRY, Assets.MENU_ITEM_WIDTH, Assets.MENU_ITEM_HEIGHT);
         g.drawPixmap(Assets.initialspeed, g.getWidth()/2 - Assets.initialspeed.getWidth()/2, g.getHeight()/2 - Assets.initialspeed.getHeight());
-        g.drawRect(Settings.gameSpeed * (g.getWidth()-30)/5 - Assets.NUMBER_WIDTH - 6, g.getHeight()/2 - 4, Assets.NUMBER_WIDTH + 12, Assets.NUMBER_HEIGHT + 8, Color.WHITE);
-        g.drawRect(Settings.gameSpeed * (g.getWidth()-30)/5 - Assets.NUMBER_WIDTH - 4, g.getHeight()/2 - 2, Assets.NUMBER_WIDTH + 8, Assets.NUMBER_HEIGHT + 4, Color.BLACK);
+        g.drawRect(Settings.gameSpeed * (g.getWidth()-30)/5 - Assets.CHARACTER_WIDTH - 6, g.getHeight()/2 - 4, Assets.CHARACTER_WIDTH + 12, Assets.CHARACTER_HEIGHT + 8, Color.WHITE);
+        g.drawRect(Settings.gameSpeed * (g.getWidth()-30)/5 - Assets.CHARACTER_WIDTH - 4, g.getHeight()/2 - 2, Assets.CHARACTER_WIDTH + 8, Assets.CHARACTER_HEIGHT + 4, Color.BLACK);
         for(int i = 1; i <= 5; i++) {
-        	g.drawText(g, ""+i, i * (g.getWidth()-30)/5 - Assets.NUMBER_WIDTH , g.getHeight()/2);
+        	g.drawText(g, Assets.characters, ""+i, i * (g.getWidth()-30)/5 - Assets.CHARACTER_WIDTH , g.getHeight()/2);
         }
         g.drawPixmap(Assets.buttons, BUTTON_OK_X, BUTTON_OK_Y, Assets.BUTTON_OK_SCRX, Assets.BUTTON_OK_SCRY, Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT);
 	}

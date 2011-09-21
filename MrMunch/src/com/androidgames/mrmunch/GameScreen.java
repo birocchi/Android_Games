@@ -268,8 +268,8 @@ public class GameScreen extends Screen {
             drawPausedUI();
         if(state == GameState.GameOver)
             drawGameOverUI();
-        g.drawText(g, "Score", g.getWidth() / 4 - "Score".length()*Assets.LETTERS_WIDTH / 2, g.getHeight() - 2*Assets.BUTTON_HEIGHT- 28);
-        g.drawText(g, score, g.getWidth() / 4 - score.length()*Assets.NUMBER_WIDTH / 2, g.getHeight() - Assets.BUTTON_HEIGHT - Assets.NUMBER_HEIGHT/2 -32/2);
+        g.drawText(g, Assets.characters, "Score", g.getWidth() / 4 - "Score".length()*Assets.CHARACTER_WIDTH / 2, g.getHeight() - 2*Assets.BUTTON_HEIGHT- 28);
+        g.drawText(g, Assets.characters, score, g.getWidth() / 4 - score.length()*Assets.CHARACTER_WIDTH / 2, g.getHeight() - Assets.BUTTON_HEIGHT - Assets.CHARACTER_HEIGHT/2 -32/2);
     }
     
     private void drawWorld(World world) {

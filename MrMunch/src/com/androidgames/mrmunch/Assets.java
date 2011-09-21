@@ -36,18 +36,14 @@ public class Assets {
 	public static int BUTTON_OK_SCRX = 0;
 	public static int BUTTON_OK_SCRY = 320;
 	
-    public static Pixmap numbers;
-    public static int NUMBER_WIDTH = 20;
-    public static int NUMBER_HEIGHT = 32;
+    public static Pixmap characters;
+    public static int CHARACTER_WIDTH = 20;
+    public static int CHARACTER_HEIGHT = 32;
     public static int DOT_WIDTH = 10;
 
     public static Pixmap pause;
     public static int PAUSE_MENU_ITEM_WIDTH = 160;
     public static int PAUSE_MENU_ITEM_HEIGHT = 48;
-    
-    public static Pixmap letters;
-    public static int LETTERS_WIDTH = 20;
-    public static int LETTERS_HEIGHT = 32;
     
 	public static Pixmap initialspeed;
     public static Pixmap background;
