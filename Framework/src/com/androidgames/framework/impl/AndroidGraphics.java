@@ -115,6 +115,13 @@ public class AndroidGraphics implements Graphics {
     }
     
     @Override
+    public void drawText(String text, int x, int y, int color, float textSize){
+    	paint.setColor(color);
+    	paint.setTextSize(textSize);
+    	canvas.drawText(text, x, y, paint);
+    }
+    
+    @Override
     public void drawText(Graphics g, Pixmap characters,String line, int x, int y) {
     	
 		final int NUMBERS_SRC_Y = 32;

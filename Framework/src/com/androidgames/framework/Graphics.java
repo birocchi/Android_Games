@@ -19,6 +19,8 @@ public interface Graphics {
     
     public void drawCircle(int x, int y, int radius, int color);
     
+    public void drawText(String text, int x, int y, int color, float textSize);
+    
     public void drawText(Graphics g, Pixmap characters, String line, int x, int y);
 
     public void drawPixmap(Pixmap pixmap, int x, int y, int srcX, int srcY,
