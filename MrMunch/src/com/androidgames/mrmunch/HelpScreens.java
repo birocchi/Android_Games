@@ -42,7 +42,7 @@ public class HelpScreens extends Screen {
         //Defining the BOUNDS where some CLICK_EVENT should happen
         mBounds = new ArrayList<Bounds>();
         mBounds.add(new Bounds(CLICK_LEFT, BUTTON_PREV_X, BUTTON_PREV_Y, Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT));
-        mBounds.add(new Bounds(CLICK_RIGHT, BUTTON_NEXT_X, BUTTON_NEXT_Y, Assets.BUTTON_WIDTH, Assets.BUTTON_WIDTH));
+        mBounds.add(new Bounds(CLICK_RIGHT, BUTTON_NEXT_X, BUTTON_NEXT_Y, Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT));
     }
 
     @Override

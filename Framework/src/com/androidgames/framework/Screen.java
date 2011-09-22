@@ -9,7 +9,7 @@ import com.androidgames.framework.Input.TouchEvent;
 public abstract class Screen {
     protected final Game game;
     
-    protected boolean DEBUG_BOUNDS = false;
+    protected boolean DEBUG_BOUNDS = true;
     
     public Screen(Game game) {
         this.game = game;

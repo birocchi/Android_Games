@@ -1,5 +1,6 @@
 package com.androidgames.mrmunch;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import android.graphics.Color;
@@ -14,20 +15,44 @@ public class SettingsScreen extends Screen {
 	
 	private final int BUTTON_OK_X = 0;
 	private final int BUTTON_OK_Y = 416;
-	
+
 	private final int SETTINGS_IMAGE_X = 64;
 	private final int SETTINGS_IMAGE_Y = 20;
-	
+
+	private List<Bounds> mBounds;
+
+	private final int CLICK_NO_EVENT = -1;
+	private final int CLICK_1 = 1;
+	private final int CLICK_2 = 2;
+	private final int CLICK_3 = 3;
+	private final int CLICK_4 = 4;
+	private final int CLICK_5 = 5;
+	private final int CLICK_OK = 6;
+
 	public SettingsScreen(Game game) {
 		super(game);
+		
+		//Defining the BOUNDS where some CLICK_EVENT should happen
+		Graphics g = game.getGraphics();
+        mBounds = new ArrayList<Bounds>();
+        for(int i = 1; i <= 5; i++) {
+        	mBounds.add(new Bounds(i,
+        			               i * (g.getWidth()-30)/5 - Assets.CHARACTER_WIDTH - 6,
+        			               g.getHeight()/2 - 4,
+        			               Assets.CHARACTER_WIDTH + 12,
+        			               Assets.CHARACTER_HEIGHT + 8
+        			               ));
+        }
+        mBounds.add(new Bounds(CLICK_OK, BUTTON_OK_X, BUTTON_OK_Y, Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT));
 	}
 	
 	@Override
 	public void update(float deltaTime) {
-		int len;
+		int len, clickEvent;
 		List<TouchEvent> events = game.getInput().getTouchEvents();
 		List<KeyEvent> keyEvents = game.getInput().getKeyEvents();
         
+		//Dealing with KEY EVENTS
         len = keyEvents.size();
         for(int i=0; i<len; i++){
         	KeyEvent kevent = keyEvents.get(i);
@@ -35,33 +60,39 @@ public class SettingsScreen extends Screen {
 	    		game.setScreen(new MainMenuScreen(game));
         }
         
-        Graphics g = game.getGraphics();
+        //Dealing with TOUCH EVENTS
         len = events.size();
         for(int i=0; i<len; i++) {
         	TouchEvent event = events.get(i);
-        	
         	if (event.type == TouchEvent.TOUCH_UP) {
-                if (event.x < Assets.BUTTON_WIDTH && event.y > g.getHeight() - Assets.BUTTON_HEIGHT ) {
-                    if(Settings.soundEnabled)
-                        Assets.click.play(1);
-                    game.setScreen(new MainMenuScreen(game));
-                    return;
-                }
-            }
-        	
-        	int y = g.getHeight()/2;
-        	
-        	for (int j=1; j<=5; j++) {
-	        	if (event.type == TouchEvent.TOUCH_UP) {
-	        		int x = j*(g.getWidth()-30)/5 - Assets.CHARACTER_WIDTH;
-	                if (event.x > x - 6 && event.x < x + Assets.CHARACTER_WIDTH + 6 && event.y > y - 4 && event.y < y + Assets.CHARACTER_HEIGHT + 4) {
-	                    if(Settings.soundEnabled)
-	                        Assets.click.play(1);
-	                    Settings.gameSpeed = j;
-	                    return;
-	                }
-	            }
-	        }
+        		
+        		clickEvent = eventInBounds(mBounds, event);
+
+            	//play sound if clicked a item and sound is enabled
+            	if(clickEvent != CLICK_NO_EVENT && Settings.soundEnabled)
+            		Assets.click.play(1);
+
+            	switch(clickEvent){
+            	case CLICK_1:
+            		Settings.gameSpeed = 1;
+            		break;
+            	case CLICK_2:
+            		Settings.gameSpeed = 2;
+            		break;
+            	case CLICK_3:
+            		Settings.gameSpeed = 3;
+            		break;
+            	case CLICK_4:
+            		Settings.gameSpeed = 4;
+            		break;
+            	case CLICK_5:
+            		Settings.gameSpeed = 5;
+            		break;
+            	case CLICK_OK:
+            		game.setScreen(new MainMenuScreen(game));
+            		break;
+            	}
+        	}
         }
 	}
 
@@ -78,6 +109,10 @@ public class SettingsScreen extends Screen {
         	g.drawText(g, Assets.characters, ""+i, i * (g.getWidth()-30)/5 - Assets.CHARACTER_WIDTH , g.getHeight()/2);
         }
         g.drawPixmap(Assets.buttons, BUTTON_OK_X, BUTTON_OK_Y, Assets.BUTTON_OK_SCRX, Assets.BUTTON_OK_SCRY, Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT);
+        
+        if(DEBUG_BOUNDS == true){
+        	drawDebugBounds(g, mBounds);
+        }
 	}
 	
 	@Override
