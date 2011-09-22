@@ -326,6 +326,10 @@ public class GameScreen extends Screen {
         
         g.drawPixmap(Assets.ready, READY_IMAGE_X, READY_IMAGE_Y);
         g.drawPixmap(Assets.rectangle, 0 ,g.getHeight() - 2*Assets.BUTTON_HEIGHT -32);
+        g.drawPixmap(Assets.buttons, g.getWidth() - 3*Assets.BUTTON_WIDTH, g.getHeight() - Assets.BUTTON_HEIGHT - Assets.BUTTON_HEIGHT/2 -32/2, Assets.BUTTON_LEFT_SCRX, Assets.BUTTON_LEFT_SCRY, Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT);
+        g.drawPixmap(Assets.buttons, g.getWidth() - Assets.BUTTON_WIDTH, g.getHeight() - Assets.BUTTON_HEIGHT - Assets.BUTTON_HEIGHT/2 -32/2, Assets.BUTTON_RIGHT_SCRX, Assets.BUTTON_RIGHT_SCRY, Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT);
+        g.drawPixmap(Assets.buttons, g.getWidth() - 2*Assets.BUTTON_WIDTH, g.getHeight() - 2*Assets.BUTTON_HEIGHT -32, Assets.BUTTON_UP_SCRX, Assets.BUTTON_UP_SCRY, Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT);
+        g.drawPixmap(Assets.buttons, g.getWidth() - 2*Assets.BUTTON_WIDTH, g.getHeight() - Assets.BUTTON_HEIGHT, Assets.BUTTON_DOWN_SCRX, Assets.BUTTON_DOWN_SCRY, Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT);
     }
     
     private void drawRunningUI() {
@@ -348,6 +352,10 @@ public class GameScreen extends Screen {
         
         g.drawPixmap(Assets.pause, PAUSE_IMAGE_X, PAUSE_IMAGE_Y);
         g.drawPixmap(Assets.rectangle, 0 ,g.getHeight() - 2*Assets.BUTTON_HEIGHT -32);
+        g.drawPixmap(Assets.buttons, g.getWidth() - 3*Assets.BUTTON_WIDTH, g.getHeight() - Assets.BUTTON_HEIGHT - Assets.BUTTON_HEIGHT/2 -32/2, Assets.BUTTON_LEFT_SCRX, Assets.BUTTON_LEFT_SCRY, Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT);
+        g.drawPixmap(Assets.buttons, g.getWidth() - Assets.BUTTON_WIDTH, g.getHeight() - Assets.BUTTON_HEIGHT - Assets.BUTTON_HEIGHT/2 -32/2, Assets.BUTTON_RIGHT_SCRX, Assets.BUTTON_RIGHT_SCRY, Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT);
+        g.drawPixmap(Assets.buttons, g.getWidth() - 2*Assets.BUTTON_WIDTH, g.getHeight() - 2*Assets.BUTTON_HEIGHT -32, Assets.BUTTON_UP_SCRX, Assets.BUTTON_UP_SCRY, Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT);
+        g.drawPixmap(Assets.buttons, g.getWidth() - 2*Assets.BUTTON_WIDTH, g.getHeight() - Assets.BUTTON_HEIGHT, Assets.BUTTON_DOWN_SCRX, Assets.BUTTON_DOWN_SCRY, Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT);
         
         if(DEBUG_BOUNDS == true){
         	drawDebugBounds(g, mBoundsPaused);
