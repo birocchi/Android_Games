@@ -12,7 +12,7 @@ public class Settings {
     public static boolean soundEnabled = true;
     public static int[] highscores = new int[] { 0, 0, 0, 0, 0 };
     public static String[] playerNames = new String[] { ".....", ".....", ".....", ".....", "....." };
-    public static int gameSpeed = 1;
+    public static int gameSpeed = 3;
 
     public static void load(FileIO files) {
         BufferedReader in = null;
