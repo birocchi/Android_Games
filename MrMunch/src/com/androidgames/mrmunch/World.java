@@ -9,6 +9,7 @@ public class World {
     static final int FRUIT_SCORE= 2;
     
     static final int FRUITS_FOR_ACCELERATE = 1;
+    static final float ALMOST_TO_DIE_TOLERANCE = 1.8f;
     
     static final int FRUITS_FOR_EXTRA_FRUIT = 10;
     static final int EXTRA_FRUIT_DURATION = 25;
@@ -93,7 +94,13 @@ public class World {
             return;
 
         tickTime += deltaTime;
-
+        
+        if(snake.isAlmostToDie() && !snake.already_turned){
+        	tick = ALMOST_TO_DIE_TOLERANCE*calculateTick();
+        } else {
+        	tick = calculateTick();
+        }
+        
         while (tickTime > tick) {
             tickTime -= tick;
             snake.advance();
@@ -113,7 +120,7 @@ public class World {
                 } else {
                 	if (fruitsEaten != 0 && (fruitsEaten % FRUITS_FOR_ACCELERATE)==0) {
                 		v++;
-                		calculateTick();
+                		tick = calculateTick();
                     }
                     placeFruit();
                 }
@@ -136,7 +143,7 @@ public class World {
         }
     }
     
-    static public void calculateTick(){
-    		tick = TICK_INITIAL/(1+v*TICK_DECREMENT);
+    static public float calculateTick(){
+    		return TICK_INITIAL/(1+v*TICK_DECREMENT);
     }
 }
