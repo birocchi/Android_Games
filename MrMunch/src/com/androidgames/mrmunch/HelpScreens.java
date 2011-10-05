@@ -1,9 +1,9 @@
 package com.androidgames.mrmunch;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import android.graphics.Color;
+import android.util.SparseArray;
 
 import com.androidgames.framework.Game;
 import com.androidgames.framework.Graphics;
@@ -30,7 +30,7 @@ public class HelpScreens extends Screen {
 	private final int HELP_IMAGE_X = 64;
 	private final int HELP_IMAGE_Y = 100;
 	
-	private List<Bounds> mBounds;
+	private SparseArray<Bounds> mBounds;
 	
 	private final int CLICK_NO_EVENT = -1;
 	private final int CLICK_LEFT = 0;
@@ -40,9 +40,9 @@ public class HelpScreens extends Screen {
         super(game);
         
         //Defining the BOUNDS where some CLICK_EVENT should happen
-        mBounds = new ArrayList<Bounds>();
-        mBounds.add(new Bounds(CLICK_LEFT, BUTTON_PREV_X, BUTTON_PREV_Y, Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT));
-        mBounds.add(new Bounds(CLICK_RIGHT, BUTTON_NEXT_X, BUTTON_NEXT_Y, Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT));
+        mBounds = new SparseArray<Bounds>();
+        mBounds.append(0,new Bounds(CLICK_LEFT, BUTTON_PREV_X, BUTTON_PREV_Y, Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT));
+        mBounds.append(1,new Bounds(CLICK_RIGHT, BUTTON_NEXT_X, BUTTON_NEXT_Y, Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT));
     }
 
     @Override

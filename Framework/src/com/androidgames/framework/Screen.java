@@ -1,8 +1,7 @@
 package com.androidgames.framework;
 
-import java.util.List;
-
 import android.graphics.Color;
+import android.util.SparseArray;
 
 import com.androidgames.framework.Input.TouchEvent;
 
@@ -36,10 +35,11 @@ public abstract class Screen {
     	}
     }
     
-    protected int eventInBounds(List<Bounds> bounds, TouchEvent event){
-    	for(Bounds b : bounds){
-    		if(inBounds(event, b)==true){
-    			return b.clickEvent;
+    protected int eventInBounds(SparseArray<Bounds> bounds, TouchEvent event){
+    	int len = bounds.size();
+    	for(int i=0; i<len; i++){
+    		if(inBounds(event, bounds.get(i))==true){
+    			return bounds.get(i).clickEvent;
     		}
     	}
     	return -1;
@@ -53,8 +53,10 @@ public abstract class Screen {
             return false;
     }
     
-    protected void drawDebugBounds(Graphics g, List<Bounds> Bounds){
-    	for(Bounds b : Bounds){
+    protected void drawDebugBounds(Graphics g, SparseArray<Bounds> bounds){
+    	int len = bounds.size();
+    	for(int i=0; i<len; i++){
+    		Bounds b = bounds.get(i);
     		g.drawRect(b.x, b.y, b.width, b.height, Color.GREEN, 130);
     		g.drawRect(b.x+1, b.y+1, b.width-2, b.height-2, Color.RED, 130);
     	}

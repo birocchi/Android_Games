@@ -1,9 +1,9 @@
 package com.androidgames.mrmunch;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import android.graphics.Color;
+import android.util.SparseArray;
 
 import com.androidgames.framework.Game;
 import com.androidgames.framework.Graphics;
@@ -19,31 +19,31 @@ public class SettingsScreen extends Screen {
 	private final int SETTINGS_IMAGE_X = 64;
 	private final int SETTINGS_IMAGE_Y = 20;
 
-	private List<Bounds> mBounds;
+	private SparseArray<Bounds> mBounds;
 
 	private final int CLICK_NO_EVENT = -1;
-	private final int CLICK_1 = 1;
-	private final int CLICK_2 = 2;
-	private final int CLICK_3 = 3;
-	private final int CLICK_4 = 4;
-	private final int CLICK_5 = 5;
-	private final int CLICK_OK = 6;
+	private final int CLICK_1 = 0;
+	private final int CLICK_2 = 1;
+	private final int CLICK_3 = 2;
+	private final int CLICK_4 = 3;
+	private final int CLICK_5 = 4;
+	private final int CLICK_OK = 5;
 
 	public SettingsScreen(Game game) {
 		super(game);
 		
 		//Defining the BOUNDS where some CLICK_EVENT should happen
 		Graphics g = game.getGraphics();
-        mBounds = new ArrayList<Bounds>();
-        for(int i = 1; i <= 5; i++) {
-        	mBounds.add(new Bounds(i,
-        			               i * (g.getWidth()-30)/5 - Assets.CHARACTER_WIDTH - 6,
+        mBounds = new SparseArray<Bounds>();
+        for(int i = 0; i < 5; i++) {
+        	mBounds.append(i,new Bounds(i,
+        			               (i+1) * (g.getWidth()-30)/5 - Assets.CHARACTER_WIDTH - 6,
         			               g.getHeight()/2 - 4,
         			               Assets.CHARACTER_WIDTH + 12,
         			               Assets.CHARACTER_HEIGHT + 8
         			               ));
         }
-        mBounds.add(new Bounds(CLICK_OK, BUTTON_OK_X, BUTTON_OK_Y, Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT));
+        mBounds.append(CLICK_OK,new Bounds(CLICK_OK, BUTTON_OK_X, BUTTON_OK_Y, Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT));
 	}
 	
 	@Override

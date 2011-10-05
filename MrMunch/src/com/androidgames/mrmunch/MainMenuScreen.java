@@ -1,9 +1,9 @@
 package com.androidgames.mrmunch;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import android.graphics.Color;
+import android.util.SparseArray;
 
 import com.androidgames.framework.Game;
 import com.androidgames.framework.Graphics;
@@ -22,7 +22,7 @@ public class MainMenuScreen extends Screen {
 	private final int BUTTON_SOUND_X = 0;
 	private final int BUTTON_SOUND_Y = 416;
 	
-	private List<Bounds> mBounds;
+	private SparseArray<Bounds> mBounds;
 	
 	private final int CLICK_NO_EVENT = -1;
 	private final int CLICK_SOUND = 0;
@@ -37,13 +37,13 @@ public class MainMenuScreen extends Screen {
         Graphics g = game.getGraphics();
         
         //Defining the BOUNDS where some CLICK_EVENT should happen
-        mBounds = new ArrayList<Bounds>();
-        mBounds.add(new Bounds(CLICK_SOUND, BUTTON_SOUND_X, g.getHeight() - Assets.BUTTON_HEIGHT, Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT));
-        mBounds.add(new Bounds(CLICK_PLAY, MENU_IMAGE_X, MENU_IMAGE_Y, Assets.MENU_ITEM_WIDTH, Assets.MENU_ITEM_HEIGHT));
-        mBounds.add(new Bounds(CLICK_HIGHSCORES, MENU_IMAGE_X, MENU_IMAGE_Y + Assets.MENU_ITEM_HEIGHT, Assets.MENU_ITEM_WIDTH, Assets.MENU_ITEM_HEIGHT));
-        mBounds.add(new Bounds(CLICK_SETTINGS, MENU_IMAGE_X, MENU_IMAGE_Y + 2 * Assets.MENU_ITEM_HEIGHT, Assets.MENU_ITEM_WIDTH, Assets.MENU_ITEM_HEIGHT));
-        mBounds.add(new Bounds(CLICK_HELP, MENU_IMAGE_X, MENU_IMAGE_Y + 3 * Assets.MENU_ITEM_HEIGHT, Assets.MENU_ITEM_WIDTH, Assets.MENU_ITEM_HEIGHT));
-        mBounds.add(new Bounds(CLICK_QUIT, MENU_IMAGE_X, MENU_IMAGE_Y + 4 * Assets.MENU_ITEM_HEIGHT, Assets.MENU_ITEM_WIDTH, Assets.MENU_ITEM_HEIGHT));
+        mBounds = new SparseArray<Bounds>();
+        mBounds.append(0,new Bounds(CLICK_SOUND, BUTTON_SOUND_X, g.getHeight() - Assets.BUTTON_HEIGHT, Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT));
+        mBounds.append(1,new Bounds(CLICK_PLAY, MENU_IMAGE_X, MENU_IMAGE_Y, Assets.MENU_ITEM_WIDTH, Assets.MENU_ITEM_HEIGHT));
+        mBounds.append(2,new Bounds(CLICK_HIGHSCORES, MENU_IMAGE_X, MENU_IMAGE_Y + Assets.MENU_ITEM_HEIGHT, Assets.MENU_ITEM_WIDTH, Assets.MENU_ITEM_HEIGHT));
+        mBounds.append(3,new Bounds(CLICK_SETTINGS, MENU_IMAGE_X, MENU_IMAGE_Y + 2 * Assets.MENU_ITEM_HEIGHT, Assets.MENU_ITEM_WIDTH, Assets.MENU_ITEM_HEIGHT));
+        mBounds.append(4,new Bounds(CLICK_HELP, MENU_IMAGE_X, MENU_IMAGE_Y + 3 * Assets.MENU_ITEM_HEIGHT, Assets.MENU_ITEM_WIDTH, Assets.MENU_ITEM_HEIGHT));
+        mBounds.append(5,new Bounds(CLICK_QUIT, MENU_IMAGE_X, MENU_IMAGE_Y + 4 * Assets.MENU_ITEM_HEIGHT, Assets.MENU_ITEM_WIDTH, Assets.MENU_ITEM_HEIGHT));
     }
 
     @Override

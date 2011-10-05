@@ -1,11 +1,11 @@
 package com.androidgames.mrmunch;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.graphics.Color;
+import android.util.SparseArray;
 
 import com.androidgames.framework.Game;
 import com.androidgames.framework.Graphics;
@@ -30,7 +30,7 @@ public class HighscoreScreen extends Screen {
 	private final int HIGHSCORE_ITEM_X = 20;
 	private final int HIGHSCORE_SCORE_X = 200;
 	
-    private List<Bounds> mBounds;
+    private SparseArray<Bounds> mBounds;
 	
 	private final int CLICK_NO_EVENT = -1;
 	private final int CLICK_BACK = 0;
@@ -46,9 +46,9 @@ public class HighscoreScreen extends Screen {
         
         Graphics g = game.getGraphics();
         //Defining the BOUNDS where some CLICK_EVENT should happen
-        mBounds = new ArrayList<Bounds>();
-        mBounds.add(new Bounds(CLICK_BACK, BUTTON_PREV_X, g.getHeight() - Assets.BUTTON_HEIGHT, Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT));
-        mBounds.add(new Bounds(CLICK_RESET, BUTTON_RESET_X, BUTTON_RESET_Y, 2*Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT));
+        mBounds = new SparseArray<Bounds>();
+        mBounds.append(0,new Bounds(CLICK_BACK, BUTTON_PREV_X, g.getHeight() - Assets.BUTTON_HEIGHT, Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT));
+        mBounds.append(1,new Bounds(CLICK_RESET, BUTTON_RESET_X, BUTTON_RESET_Y, 2*Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT));
     }
 
     @Override

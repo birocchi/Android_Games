@@ -1,11 +1,11 @@
 package com.androidgames.mrmunch;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.text.InputFilter;
+import android.util.SparseArray;
 import android.widget.EditText;
 
 import com.androidgames.framework.Game;
@@ -39,7 +39,7 @@ public class GameScreen extends Screen {
 
 	private final int CLICK_NO_EVENT = -1;
 	
-	private List<Bounds> mBoundsRunning;
+	private SparseArray<Bounds> mBoundsRunning;
 	
 	private final int CLICK_PAUSE = 0;
 	private final int CLICK_TURN_RIGHT = 1;
@@ -47,7 +47,7 @@ public class GameScreen extends Screen {
 	private final int CLICK_TURN_UP = 3;
 	private final int CLICK_TURN_DOWN = 4;
 	
-	private List<Bounds> mBoundsPaused;
+	private SparseArray<Bounds> mBoundsPaused;
 	
 	private final int CLICK_RESUME = 0;
 	private final int CLICK_QUIT = 1;
@@ -72,17 +72,17 @@ public class GameScreen extends Screen {
         Graphics g = game.getGraphics();
         
         //Clicks Bounds of the Running state
-        mBoundsRunning = new ArrayList<Bounds>();
-        mBoundsRunning.add(new Bounds(CLICK_PAUSE, 0, 0, Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT));
-        mBoundsRunning.add(new Bounds(CLICK_TURN_LEFT, g.getWidth() - 3*Assets.BUTTON_WIDTH, g.getHeight() - Assets.BUTTON_HEIGHT - Assets.BUTTON_HEIGHT/2 -32/2, Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT));
-        mBoundsRunning.add(new Bounds(CLICK_TURN_RIGHT, g.getWidth() - Assets.BUTTON_WIDTH, g.getHeight() - Assets.BUTTON_HEIGHT - Assets.BUTTON_HEIGHT/2 -32/2, Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT));
-        mBoundsRunning.add(new Bounds(CLICK_TURN_UP, g.getWidth() - 2*Assets.BUTTON_WIDTH, g.getHeight() - 2*Assets.BUTTON_HEIGHT -32, Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT));
-        mBoundsRunning.add(new Bounds(CLICK_TURN_DOWN, g.getWidth() - 2*Assets.BUTTON_WIDTH, g.getHeight() - Assets.BUTTON_HEIGHT, Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT));
+        mBoundsRunning = new SparseArray<Bounds>();
+        mBoundsRunning.append(0,new Bounds(CLICK_PAUSE, 0, 0, Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT));
+        mBoundsRunning.append(1,new Bounds(CLICK_TURN_LEFT, g.getWidth() - 3*Assets.BUTTON_WIDTH, g.getHeight() - Assets.BUTTON_HEIGHT - Assets.BUTTON_HEIGHT/2 -32/2, Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT));
+        mBoundsRunning.append(2,new Bounds(CLICK_TURN_RIGHT, g.getWidth() - Assets.BUTTON_WIDTH, g.getHeight() - Assets.BUTTON_HEIGHT - Assets.BUTTON_HEIGHT/2 -32/2, Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT));
+        mBoundsRunning.append(3,new Bounds(CLICK_TURN_UP, g.getWidth() - 2*Assets.BUTTON_WIDTH, g.getHeight() - 2*Assets.BUTTON_HEIGHT -32, Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT));
+        mBoundsRunning.append(4,new Bounds(CLICK_TURN_DOWN, g.getWidth() - 2*Assets.BUTTON_WIDTH, g.getHeight() - Assets.BUTTON_HEIGHT, Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT));
 
         //Clicks Bounds of the Paused state
-        mBoundsPaused = new ArrayList<Bounds>();
-        mBoundsPaused.add(new Bounds(CLICK_RESUME, PAUSE_IMAGE_X, PAUSE_IMAGE_Y, Assets.PAUSE_MENU_ITEM_WIDTH, Assets.PAUSE_MENU_ITEM_HEIGHT));
-        mBoundsPaused.add(new Bounds(CLICK_QUIT, PAUSE_IMAGE_X, PAUSE_IMAGE_Y + Assets.PAUSE_MENU_ITEM_HEIGHT, Assets.PAUSE_MENU_ITEM_WIDTH, Assets.PAUSE_MENU_ITEM_HEIGHT));
+        mBoundsPaused = new SparseArray<Bounds>();
+        mBoundsPaused.append(0,new Bounds(CLICK_RESUME, PAUSE_IMAGE_X, PAUSE_IMAGE_Y, Assets.PAUSE_MENU_ITEM_WIDTH, Assets.PAUSE_MENU_ITEM_HEIGHT));
+        mBoundsPaused.append(1,new Bounds(CLICK_QUIT, PAUSE_IMAGE_X, PAUSE_IMAGE_Y + Assets.PAUSE_MENU_ITEM_HEIGHT, Assets.PAUSE_MENU_ITEM_WIDTH, Assets.PAUSE_MENU_ITEM_HEIGHT));
 
     }
 
