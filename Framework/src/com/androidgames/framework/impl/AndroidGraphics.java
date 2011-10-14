@@ -5,13 +5,13 @@ import java.io.InputStream;
 
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
-import android.graphics.Bitmap.Config;
 import android.graphics.BitmapFactory;
-import android.graphics.BitmapFactory.Options;
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.graphics.Paint.Style;
 import android.graphics.Rect;
+import android.graphics.Bitmap.Config;
+import android.graphics.BitmapFactory.Options;
+import android.graphics.Paint.Style;
 
 import com.androidgames.framework.Graphics;
 import com.androidgames.framework.Pixmap;
@@ -50,11 +50,9 @@ public class AndroidGraphics implements Graphics {
             in = assets.open(fileName);
             bitmap = BitmapFactory.decodeStream(in);
             if (bitmap == null)
-                throw new RuntimeException("Couldn't load bitmap from asset '"
-                        + fileName + "'");
+                throw new RuntimeException("Couldn't load bitmap from asset '" + fileName + "'");
         } catch (IOException e) {
-            throw new RuntimeException("Couldn't load bitmap from asset '"
-                    + fileName + "'");
+            throw new RuntimeException("Couldn't load bitmap from asset '" + fileName + "'");
         } finally {
             if (in != null) {
                 try {
@@ -76,8 +74,7 @@ public class AndroidGraphics implements Graphics {
 
     @Override
     public void clear(int color) {
-        canvas.drawRGB((color & 0xff0000) >> 16, (color & 0xff00) >> 8,
-                (color & 0xff));
+        canvas.drawRGB((color & 0xff0000) >> 16, (color & 0xff00) >> 8, (color & 0xff));
     }
 
     @Override
@@ -122,7 +119,21 @@ public class AndroidGraphics implements Graphics {
     }
     
     @Override
-    public void drawText(Graphics g, Pixmap characters,String line, int x, int y) {
+    public void drawText(String text, int x, int y, int color, float textSize, int alpha){
+    	paint.setColor(color);
+    	paint.setTextSize(textSize);
+    	paint.setAlpha(alpha);
+    	canvas.drawText(text, x, y, paint);
+    }
+    
+    @Override
+    public void drawText(Graphics g, Pixmap characters, String line, int x, int y) {
+    	drawText(g, characters, line, x, y, null);
+		
+    }
+    
+    @Override
+    public void drawText(Graphics g, Pixmap characters, String line, int x, int y, Paint paint) {
     	
 		final int NUMBERS_SRC_Y = 32;
     	final int LETTERS_SRC_Y = 0;
@@ -141,28 +152,27 @@ public class AndroidGraphics implements Graphics {
             if (character == '.') {
                 srcX = 200;
                 srcWidth = 10;
-                g.drawPixmap(characters, x, y, srcX, NUMBERS_SRC_Y, srcWidth, 32);
+                g.drawPixmap(characters, x, y, srcX, NUMBERS_SRC_Y, srcWidth, 32, paint);
             } else if (character >='0' && character <= '9') {
                 srcX = (character - '0') * 20;
                 srcWidth = 20;
-                g.drawPixmap(characters, x, y, srcX, NUMBERS_SRC_Y, srcWidth, 32);
+                g.drawPixmap(characters, x, y, srcX, NUMBERS_SRC_Y, srcWidth, 32, paint);
             } else if (character >='a' && character <= 'z') { 
             	srcX = (character - 'a') * 20;
                 srcWidth = 20;
-                g.drawPixmap(characters, x, y, srcX, LETTERS_SRC_Y, srcWidth, 32);
+                g.drawPixmap(characters, x, y, srcX, LETTERS_SRC_Y, srcWidth, 32, paint);
             } else if (character >='A' && character <= 'Z') {
             	srcX = (character - 'A') * 20;
                 srcWidth = 20;
-                g.drawPixmap(characters, x, y, srcX, LETTERS_SRC_Y, srcWidth, 32);
+                g.drawPixmap(characters, x, y, srcX, LETTERS_SRC_Y, srcWidth, 32, paint);
             }
 
             x += srcWidth;
         }
     }
-
+    
     @Override
-    public void drawPixmap(Pixmap pixmap, int x, int y, int srcX, int srcY,
-            int srcWidth, int srcHeight) {
+    public void drawPixmap(Pixmap pixmap, int x, int y, int srcX, int srcY, int srcWidth, int srcHeight, Paint paint) {
         srcRect.left = srcX;
         srcRect.top = srcY;
         srcRect.right = srcX + srcWidth - 1;
@@ -172,14 +182,24 @@ public class AndroidGraphics implements Graphics {
         dstRect.top = y;
         dstRect.right = x + srcWidth - 1;
         dstRect.bottom = y + srcHeight - 1;
-
-        canvas.drawBitmap(((AndroidPixmap) pixmap).bitmap, srcRect, dstRect,
-                null);
+        
+        canvas.drawBitmap(((AndroidPixmap) pixmap).bitmap, srcRect, dstRect, paint);
+    }
+    
+    @Override
+    public void drawPixmap(Pixmap pixmap, int x, int y, int srcX, int srcY, int srcWidth, int srcHeight) {
+    	drawPixmap(pixmap, x, y, srcX, srcY, srcWidth, srcHeight, null);
+    }
+    
+    
+    @Override
+    public void drawPixmap(Pixmap pixmap, int x, int y, Paint paint) {
+        canvas.drawBitmap(((AndroidPixmap)pixmap).bitmap, x, y, paint);
     }
     
     @Override
     public void drawPixmap(Pixmap pixmap, int x, int y) {
-        canvas.drawBitmap(((AndroidPixmap)pixmap).bitmap, x, y, null);
+    	drawPixmap(pixmap, x, y, null);
     }
 
     @Override
