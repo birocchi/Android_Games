@@ -88,7 +88,7 @@ public class MainMenuScreen extends Screen {
             		game.setScreen(new SettingsScreen(game));
             		break;
             	case CLICK_BADGES:
-            		game.setScreen(new AchievementsScreen(game));
+            		game.setScreen(new AchievementsListScreen(game));
             		break;
             	case CLICK_HELP:
             		game.setScreen(new HelpScreens(game));

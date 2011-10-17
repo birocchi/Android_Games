@@ -11,6 +11,8 @@ public class Assets {
 	public static int HIGHSCORE_SCRY = 43;
 	public static int SETTINGS_SCRX = 0;
 	public static int SETTINGS_SCRY = 86;
+	public static int ACHIEVEMENTS_SCRX = 0;
+	public static int ACHIEVEMENTS_SCRY = 129;
     
     public static Pixmap buttons;
     public static int BUTTON_HEIGHT = 64;
@@ -63,6 +65,8 @@ public class Assets {
     public static Pixmap fruit3;  
     public static Pixmap candy;  
     public static Pixmap rectangle;
+    
+    public static Pixmap achievement0;
     
     public static Sound click;
     public static Sound eat;
