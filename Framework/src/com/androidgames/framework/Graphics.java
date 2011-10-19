@@ -16,7 +16,6 @@ public interface Graphics {
     public void drawLine(int x, int y, int x2, int y2, int color);
 
     public void drawRect(int x, int y, int width, int height, int color);
-    
     public void drawRect(int x, int y, int width, int height, int color, int alpha);
     
     public void drawCircle(int x, int y, int radius, int color);

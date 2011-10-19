@@ -44,10 +44,9 @@ public class HighscoreScreen extends Screen {
 
         getSettingsData();
         
-        Graphics g = game.getGraphics();
         //Defining the BOUNDS where some CLICK_EVENT should happen
         mBounds = new SparseArray<Bounds>();
-        mBounds.append(0,new Bounds(CLICK_BACK, BUTTON_PREV_X, g.getHeight() - Assets.BUTTON_HEIGHT, Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT));
+        mBounds.append(0,new Bounds(CLICK_BACK, BUTTON_PREV_X, BUTTON_PREV_Y, Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT));
         mBounds.append(1,new Bounds(CLICK_RESET, BUTTON_RESET_X, BUTTON_RESET_Y, 2*Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT));
     }
 

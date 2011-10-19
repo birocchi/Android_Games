@@ -53,12 +53,17 @@ public abstract class Screen {
             return false;
     }
     
+    protected void updateBound(Bounds bound, int newX, int newY){
+    	bound.x = newX;
+    	bound.y = newY;
+    }
+    
     protected void drawDebugBounds(Graphics g, SparseArray<Bounds> bounds){
     	int len = bounds.size();
     	for(int i=0; i<len; i++){
     		Bounds b = bounds.get(i);
-    		g.drawRect(b.x, b.y, b.width, b.height, Color.GREEN, 130);
-    		g.drawRect(b.x+1, b.y+1, b.width-2, b.height-2, Color.RED, 130);
+    		g.drawRect(b.x, b.y, b.width, b.height, Color.GREEN, 50);
+    		g.drawRect(b.x+1, b.y+1, b.width-2, b.height-2, Color.RED, 50);
     	}
     }
 }

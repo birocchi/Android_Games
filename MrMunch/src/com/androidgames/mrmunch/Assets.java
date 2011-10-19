@@ -67,6 +67,9 @@ public class Assets {
     public static Pixmap rectangle;
     
     public static Pixmap achievement0;
+    public static int ACHIEVEMENT_ICON_WIDTH = 150;
+    public static int ACHIEVEMENT_ICON_HEIGHT = 150;
+
     
     public static Sound click;
     public static Sound eat;
