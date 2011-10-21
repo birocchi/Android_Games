@@ -4,11 +4,16 @@ import java.util.List;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.ColorMatrix;
 import android.graphics.ColorMatrixColorFilter;
 import android.graphics.Paint;
 import android.util.SparseArray;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
+import android.widget.TextView;
 
 import com.androidgames.framework.Game;
 import com.androidgames.framework.Graphics;
@@ -16,6 +21,7 @@ import com.androidgames.framework.Screen;
 import com.androidgames.framework.Input.KeyEvent;
 import com.androidgames.framework.Input.TouchEvent;
 import com.androidgames.framework.impl.AndroidGame;
+import com.androidgames.framework.impl.AndroidPixmap;
 
 public class AchievementsListScreen extends Screen {
 	
@@ -43,7 +49,9 @@ public class AchievementsListScreen extends Screen {
 
 	private int screenTopPosition;
 	private int screenBottomPosition;
-	private int fingerPosition;
+	private int fingerXPosition, fingerYPosition;
+	private int fingerXVariation, fingerYVariation;
+	private boolean isClick;
 	private int listSize;
 	
 	
@@ -80,7 +88,10 @@ public class AchievementsListScreen extends Screen {
 
     @Override
     public void update(float deltaTime) {
-    	int fingerDelta, screenDelta;
+    	
+    	int fingerDeltaX, fingerDeltaY;
+    	int screenDelta;
+    	
     	int len, clickEvent;
     	List<TouchEvent> touchEvents = game.getInput().getTouchEvents();
     	List<KeyEvent> keyEvents = game.getInput().getKeyEvents();
@@ -96,11 +107,14 @@ public class AchievementsListScreen extends Screen {
     	len = touchEvents.size();
     	for (int i = 0; i < len; i++) {
     		TouchEvent event = touchEvents.get(i);
-    		clickEvent = eventInBounds(mBounds, event);
     		
     		//TOUCH DOWN
     		if (event.type == TouchEvent.TOUCH_DOWN && event.pointer == 0) {
-    			fingerPosition = event.y;
+    			fingerXPosition = event.x;
+    			fingerYPosition = event.y;
+    			fingerXVariation = 0;
+    			fingerYVariation = 0;
+    			isClick = true;
     		}
     		
     		//TOUCH UP
@@ -118,7 +132,9 @@ public class AchievementsListScreen extends Screen {
     				//Nothing is done
     				break;
     			default:
-    				showAchievementDetail(achievementsList.get(clickEvent));
+    				//Show details only if the click was inside the list view
+    				if(event.y < ACHIEVEMENTS_SCREEN_END && event.y > ACHIEVEMENTS_SCREEN_INIT && isClick)
+    					showAchievementDetail(achievementsList.get(clickEvent));
     				break;
     			}
     		}
@@ -126,12 +142,22 @@ public class AchievementsListScreen extends Screen {
     		//TOUCH DRAGGED
     		if (event.type == TouchEvent.TOUCH_DRAGGED && event.pointer == 0) {
 
-    			fingerDelta = fingerPosition - event.y;
+    			fingerDeltaX = fingerXPosition - event.x;
+    			fingerDeltaY = fingerYPosition - event.y;
     			
+    			//Calculate if it was a click or not
+    			if(fingerXVariation < 10 && fingerYVariation < 10){
+    				fingerXVariation += Math.abs(fingerDeltaX);
+        			fingerYVariation += Math.abs(fingerDeltaY);
+    			}
+    			else {
+    				isClick = false;
+    			}
+
     			int oldScreenTopPosition = screenTopPosition;
     			
-    			screenTopPosition -= fingerDelta;
-    			screenBottomPosition -= fingerDelta;
+    			screenTopPosition -= fingerDeltaY;
+    			screenBottomPosition -= fingerDeltaY;
     			
     			if(screenBottomPosition <= ACHIEVEMENTS_SCREEN_END){
     				screenTopPosition = ACHIEVEMENTS_SCREEN_END - listSize;
@@ -144,7 +170,8 @@ public class AchievementsListScreen extends Screen {
     			
     			screenDelta = oldScreenTopPosition - screenTopPosition;
     			
-    			fingerPosition = event.y;
+    			fingerXPosition = event.x;
+    			fingerYPosition = event.y;
 
     			for(int j=1; j < mBounds.size(); j++){
     				Bounds newBound = mBounds.get(j);
@@ -185,17 +212,35 @@ public class AchievementsListScreen extends Screen {
 		g.drawPixmap(Assets.buttons, BUTTON_BACK_X, BUTTON_BACK_Y, Assets.BUTTON_LEFT_SCRX, Assets.BUTTON_LEFT_SCRY, Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT);
 		//g.drawLine(0, screenTopPosition, g.getWidth(), screenTopPosition, Color.WHITE);
 		//g.drawLine(0, screenBottomPosition, g.getWidth(), screenBottomPosition, Color.WHITE);
-		drawDebugBounds(g, mBounds);
+		//drawDebugBounds(g, mBounds);
 	}
 
 	private void showAchievementDetail(Achievement achievement) {
+		
+		final Achievement currentAchievement = achievement;
+		
 		((AndroidGame)game).runOnUiThread(new Runnable() {
     		@Override
     		public void run() {
+    			int ScreenWidth = game.getGraphics().getWidth();
     			final AlertDialog.Builder alert = new AlertDialog.Builder((MrMunchGame)game);
-    			alert.setTitle("Title");
-    			alert.setMessage("Description");
     			
+    			ScrollView scrollView = new ScrollView((MrMunchGame)game);
+    			
+    			LinearLayout ll = new LinearLayout((MrMunchGame)game);
+    			ll.setOrientation(LinearLayout.VERTICAL);
+    			scrollView.addView(ll);
+    			
+    			ImageView iv = new ImageView((MrMunchGame)game);
+    			iv.setImageBitmap(Bitmap.createScaledBitmap(((AndroidPixmap)(currentAchievement.logo)).getBitmap(), ScreenWidth, ScreenWidth, true));
+    			ll.addView(iv);
+    			
+    			TextView tv = new TextView((MrMunchGame)game);
+    			tv.setTextSize(35);
+    			tv.setText("\n" + currentAchievement.description);
+    			ll.addView(tv);
+    			
+    			alert.setView(scrollView);
     			alert.setNeutralButton("Back", new DialogInterface.OnClickListener() {
     				public void onClick(DialogInterface dialog, int whichButton) {
     					//Do nothing

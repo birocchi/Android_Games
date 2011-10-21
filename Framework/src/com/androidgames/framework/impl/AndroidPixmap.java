@@ -15,6 +15,11 @@ public class AndroidPixmap implements Pixmap {
     }
 
     @Override
+    public Bitmap getBitmap(){
+    	return bitmap;
+    }
+    
+    @Override
     public int getWidth() {
         return bitmap.getWidth();
     }
@@ -23,7 +28,7 @@ public class AndroidPixmap implements Pixmap {
     public int getHeight() {
         return bitmap.getHeight();
     }
-
+    
     @Override
     public PixmapFormat getFormat() {
         return format;
