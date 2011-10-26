@@ -35,7 +35,10 @@ public class LoadingScreen extends Screen {
         Assets.fruit3 = g.newPixmap("fruit3.png", PixmapFormat.ARGB4444);
         Assets.candy = g.newPixmap("candy.png", PixmapFormat.ARGB4444);
         Assets.rectangle = g.newPixmap("rectangle.png", PixmapFormat.ARGB4444);
-        Assets.achievement0 = g.newPixmap("tetris_S_achievement.png", PixmapFormat.ARGB4444);
+        Assets.achievement5 = g.newPixmap("tetris_square_achievement.png", PixmapFormat.ARGB4444);
+        Assets.achievement6 = g.newPixmap("tetris_line_achievement.png", PixmapFormat.ARGB4444);
+        Assets.achievement7 = g.newPixmap("tetris_L_achievement.png", PixmapFormat.ARGB4444);
+        Assets.achievement8 = g.newPixmap("tetris_S_achievement.png", PixmapFormat.ARGB4444);
         Assets.click = game.getAudio().newSound("click.ogg");
         Assets.eat = game.getAudio().newSound("eat.ogg");
         Assets.bitten = game.getAudio().newSound("bitten.ogg");

@@ -66,7 +66,10 @@ public class Assets {
     public static Pixmap candy;  
     public static Pixmap rectangle;
     
-    public static Pixmap achievement0;
+    public static Pixmap achievement5;
+    public static Pixmap achievement6;
+    public static Pixmap achievement7;
+    public static Pixmap achievement8;
     public static int ACHIEVEMENT_ICON_WIDTH = 150;
     public static int ACHIEVEMENT_ICON_HEIGHT = 150;
 
