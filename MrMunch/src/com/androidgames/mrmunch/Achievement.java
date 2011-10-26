@@ -14,8 +14,4 @@ public class Achievement {
 		this.description = description;
 		this.logo = logo;
 	}
-	
-	public void AchievementCompleted() {
-		isCompleted = true;
-	}
 }

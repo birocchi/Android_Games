@@ -7,14 +7,15 @@ import android.content.DialogInterface;
 import android.text.InputFilter;
 import android.util.SparseArray;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.androidgames.framework.Game;
 import com.androidgames.framework.Graphics;
 import com.androidgames.framework.Input;
-import com.androidgames.framework.Input.KeyEvent;
-import com.androidgames.framework.Input.TouchEvent;
 import com.androidgames.framework.Pixmap;
 import com.androidgames.framework.Screen;
+import com.androidgames.framework.Input.KeyEvent;
+import com.androidgames.framework.Input.TouchEvent;
 import com.androidgames.framework.impl.AndroidGame;
 
 
@@ -202,6 +203,8 @@ public class GameScreen extends Screen {
         	if (world.score > Settings.highscores[4]){
         		getPlayerName();
         	}
+        	//Check for possible completed achievements
+        	checkCompletedAchievements();
         }
         if(oldScore != world.score) {
             oldScore = world.score;
@@ -434,4 +437,77 @@ public class GameScreen extends Screen {
 
 		});
     }
+    
+    public void checkCompletedAchievements(){
+    	
+    	//Achievement 1
+    	if(world.score >= 100){
+    		Achievement achievement = Settings.achievementsList.get(1);
+    		if(!achievement.isCompleted){
+    			achievement.isCompleted = true;
+    			showAchievementCompletedToast("Achievement \"" + achievement.title + "\" Completed!");
+    		}
+    	}
+
+    	//Achievement 2
+    	if(world.score >= 500){
+    		Achievement achievement = Settings.achievementsList.get(2);
+    		if(!achievement.isCompleted){
+    			achievement.isCompleted = true;
+    			showAchievementCompletedToast("Achievement \"" + achievement.title + "\" Completed!");
+    		}
+    	}
+
+    	//Achievement 3
+    	if(world.score >= 1000){
+    		Achievement achievement = Settings.achievementsList.get(3);
+    		if(!achievement.isCompleted){
+    			achievement.isCompleted = true;
+    			showAchievementCompletedToast("Achievement \"" + achievement.title + "\" Completed!");
+    		}
+    	}
+
+    	//Achievement 4
+    	if(world.score >= 1500){
+    		Achievement achievement = Settings.achievementsList.get(4);
+    		if(!achievement.isCompleted){
+    			achievement.isCompleted = true;
+    			showAchievementCompletedToast("Achievement \"" + achievement.title + "\" Completed!");
+    		}
+    	}
+    	
+    	//Achievement 5
+    	//TODO: implement
+    	
+    	//Achievement 6
+    	//TODO: implement
+    	
+    	//Achievement 7
+    	//TODO: implement
+    	
+    	//Achievement 8
+    	//TODO: implement
+    	
+    	//Achievement 9
+    	//TODO: implement
+    	
+    	//Achievement 10
+    	//TODO: implement
+    }
+
+	private void showAchievementCompletedToast(String message) {
+		
+		final String CompletionMessage = message;
+		
+		((AndroidGame)game).runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				Toast t = Toast.makeText((MrMunchGame)game, CompletionMessage, Toast.LENGTH_LONG);
+				Assets.click.play(1);
+				t.show();
+			}
+		});
+		
+	}
+    
 }

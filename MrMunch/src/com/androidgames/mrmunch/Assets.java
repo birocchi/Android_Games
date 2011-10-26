@@ -6,7 +6,7 @@ import com.androidgames.framework.Sound;
 public class Assets {
     public static Pixmap mainMenu;
     public static int MENU_ITEM_HEIGHT = 43;
-    public static int MENU_ITEM_WIDTH = 192;
+    public static int MENU_ITEM_WIDTH = 210;
     public static int HIGHSCORE_SCRX = 0;
 	public static int HIGHSCORE_SCRY = 43;
 	public static int SETTINGS_SCRX = 0;

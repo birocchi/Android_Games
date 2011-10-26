@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 
+import android.util.SparseArray;
+
 import com.androidgames.framework.FileIO;
 
 public class Settings {
@@ -13,6 +15,20 @@ public class Settings {
     public static int[] highscores = new int[] { 0, 0, 0, 0, 0 };
     public static String[] playerNames = new String[] { ".....", ".....", ".....", ".....", "....." };
     public static int gameSpeed = 3;
+	public static SparseArray<Achievement> achievementsList;
+	static{
+		achievementsList = new SparseArray<Achievement>();
+    	achievementsList.append(1, new Achievement("Begginer", "Got 100 points", Assets.achievement0));
+    	achievementsList.append(2, new Achievement("Intermediate", "Got 500 points", Assets.achievement0));
+    	achievementsList.append(3, new Achievement("Expert", "Got 1000 points", Assets.achievement0));
+    	achievementsList.append(4, new Achievement("Master", "Got 1500 points", Assets.achievement0));
+    	achievementsList.append(5, new Achievement("Tetris Square", "Finish like the Square Tetris piece", Assets.achievement0));
+    	achievementsList.append(6, new Achievement("Tetris Stick", "Finish like the Stick Tetris piece", Assets.achievement0));
+    	achievementsList.append(7, new Achievement("Tetris L", "Finish like the L Tetris piece", Assets.achievement0));
+    	achievementsList.append(8, new Achievement("Tetris S", "Finish like the S Tetris piece", Assets.achievement0));
+    	achievementsList.append(9, new Achievement("Tetris T", "Finish like the T Tetris piece", Assets.achievement0));
+    	achievementsList.append(10,new Achievement("Pursuer", "Follow your tail for 20 steps", Assets.achievement0));
+	}
 
     public static void load(FileIO files) {
         BufferedReader in = null;
@@ -27,6 +43,9 @@ public class Settings {
                 playerNames[i] = in.readLine();
             }
             gameSpeed = Integer.parseInt(in.readLine());
+            for (int i = 1; i <= achievementsList.size(); i++) {
+                achievementsList.get(i).isCompleted = Boolean.parseBoolean(in.readLine());
+            }
             
         } catch (IOException e) {
             // :( It's ok we have defaults
@@ -58,6 +77,10 @@ public class Settings {
             }
             out.write(Integer.toString(gameSpeed));
             out.write("\n");
+            for (int i = 1; i <= achievementsList.size(); i++) {
+                out.write(Boolean.toString(achievementsList.get(i).isCompleted));
+                out.write("\n");
+            }
 
         } catch (IOException e) {
         } finally {
