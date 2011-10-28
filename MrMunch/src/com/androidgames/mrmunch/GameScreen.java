@@ -445,7 +445,7 @@ public class GameScreen extends Screen {
     		Achievement achievement = Settings.achievementsList.get(1);
     		if(!achievement.isCompleted){
     			achievement.isCompleted = true;
-    			showAchievementCompletedToast("Achievement \"" + achievement.title + "\" Completed!");
+    			showAchievementCompletedToast(achievement.title);
     		}
     	}
 
@@ -454,25 +454,25 @@ public class GameScreen extends Screen {
     		Achievement achievement = Settings.achievementsList.get(2);
     		if(!achievement.isCompleted){
     			achievement.isCompleted = true;
-    			showAchievementCompletedToast("Achievement \"" + achievement.title + "\" Completed!");
+    			showAchievementCompletedToast(achievement.title);
     		}
     	}
 
     	//Achievement 3
-    	if(world.score >= 1000){
+    	if(world.score >= 800){
     		Achievement achievement = Settings.achievementsList.get(3);
     		if(!achievement.isCompleted){
     			achievement.isCompleted = true;
-    			showAchievementCompletedToast("Achievement \"" + achievement.title + "\" Completed!");
+    			showAchievementCompletedToast(achievement.title);
     		}
     	}
 
     	//Achievement 4
-    	if(world.score >= 1500){
+    	if(world.score >= 1000){
     		Achievement achievement = Settings.achievementsList.get(4);
     		if(!achievement.isCompleted){
     			achievement.isCompleted = true;
-    			showAchievementCompletedToast("Achievement \"" + achievement.title + "\" Completed!");
+    			showAchievementCompletedToast(achievement.title);
     		}
     	}
     	
@@ -497,13 +497,12 @@ public class GameScreen extends Screen {
 
 	private void showAchievementCompletedToast(String message) {
 		
-		final String CompletionMessage = message;
+		final String CompletionMessage = "Achievement \"" + message + "\" Completed!";
 		
 		((AndroidGame)game).runOnUiThread(new Runnable() {
 			@Override
 			public void run() {
 				Toast t = Toast.makeText((MrMunchGame)game, CompletionMessage, Toast.LENGTH_LONG);
-				Assets.click.play(1);
 				t.show();
 			}
 		});

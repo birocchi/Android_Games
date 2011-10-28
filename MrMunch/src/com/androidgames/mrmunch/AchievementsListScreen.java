@@ -117,6 +117,8 @@ public class AchievementsListScreen extends Screen {
     				break;
     			case CLICK_NO_EVENT:
     				//Nothing is done
+    				for(int j=1;j<=10;j++)
+    					Settings.achievementsList.get(j).isCompleted = true;
     				break;
     			default:
     				//Show details only if the click was inside the list view

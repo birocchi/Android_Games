@@ -2,6 +2,8 @@ package com.androidgames.mrmunch;
 
 import java.util.Random;
 
+import android.util.Log;
+
 public class World {
     static final int WORLD_WIDTH = 16;
     static final int WORLD_HEIGHT = 16;
@@ -27,7 +29,7 @@ public class World {
     boolean fields[][] = new boolean[WORLD_WIDTH][WORLD_HEIGHT];
     Random random = new Random();
     float tickTime = 0;
-    static int v;
+    static float v;
     static float tick;
     	
     int deltaTick = 0;
@@ -35,7 +37,6 @@ public class World {
     public World() {
         snake = new Snake();
         v = (Settings.gameSpeed-1)*(3*(5/FRUITS_FOR_ACCELERATE)); //The gameSpeed 1 is the v0
-        calculateTick();
         placeFruit();
     }
 
@@ -114,12 +115,13 @@ public class World {
                 score += Settings.gameSpeed*FRUIT_SCORE;
                 fruitsEaten++;
                 snake.eat();
+            	Log.v("MUNCH","Gamespeed: = " + Settings.gameSpeed+ ", tick = " + tick + ", Points = " + score + " ,v = "+ v);
                 if (snake.parts.size() == WORLD_WIDTH * WORLD_HEIGHT) {
                     gameOver = true;
                     return;
                 } else {
                 	if (fruitsEaten != 0 && (fruitsEaten % FRUITS_FOR_ACCELERATE)==0) {
-                		v++;
+                		v += Settings.gameSpeed/5f;
                 		tick = calculateTick();
                     }
                     placeFruit();

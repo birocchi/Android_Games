@@ -35,10 +35,15 @@ public class LoadingScreen extends Screen {
         Assets.fruit3 = g.newPixmap("fruit3.png", PixmapFormat.ARGB4444);
         Assets.candy = g.newPixmap("candy.png", PixmapFormat.ARGB4444);
         Assets.rectangle = g.newPixmap("rectangle.png", PixmapFormat.ARGB4444);
+        Assets.achievement1 = g.newPixmap("points_100_achievement.png", PixmapFormat.ARGB4444);
+        Assets.achievement2 = g.newPixmap("points_500_achievement.png", PixmapFormat.ARGB4444);
+        Assets.achievement3 = g.newPixmap("points_800_achievement.png", PixmapFormat.ARGB4444);
+        Assets.achievement4 = g.newPixmap("points_1000_achievement.png", PixmapFormat.ARGB4444);
         Assets.achievement5 = g.newPixmap("tetris_square_achievement.png", PixmapFormat.ARGB4444);
         Assets.achievement6 = g.newPixmap("tetris_line_achievement.png", PixmapFormat.ARGB4444);
         Assets.achievement7 = g.newPixmap("tetris_L_achievement.png", PixmapFormat.ARGB4444);
         Assets.achievement8 = g.newPixmap("tetris_S_achievement.png", PixmapFormat.ARGB4444);
+        Assets.achievement9 = g.newPixmap("tetris_T_achievement.png", PixmapFormat.ARGB4444);
         Assets.click = game.getAudio().newSound("click.ogg");
         Assets.eat = game.getAudio().newSound("eat.ogg");
         Assets.bitten = game.getAudio().newSound("bitten.ogg");
