@@ -195,7 +195,7 @@ public class AchievementsListScreen extends Screen {
 			}
 			
 			x = (i-1)%2;
-			g.drawPixmap(achievement.logo, 5 + x*(10 + Assets.ACHIEVEMENT_ICON_WIDTH), screenTopPosition + y,paint);
+			g.drawPixmap(achievement.logo, 10 + x*(5 + Assets.ACHIEVEMENT_ICON_WIDTH), screenTopPosition + y,paint);
 			if(x == 1)
 				y += Assets.ACHIEVEMENT_ICON_HEIGHT + 5;
 		}
@@ -233,7 +233,7 @@ public class AchievementsListScreen extends Screen {
     			ll.addView(iv);
     			
     			TextView tv = new TextView((MrMunchGame)game);
-    			tv.setTextSize(35);
+    			tv.setTextSize(30);
     			tv.setText("\n" + currentAchievement.description);
     			ll.addView(tv);
     			
