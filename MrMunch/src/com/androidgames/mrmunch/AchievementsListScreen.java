@@ -117,8 +117,8 @@ public class AchievementsListScreen extends Screen {
     				break;
     			case CLICK_NO_EVENT:
     				//Nothing is done
-    				for(int j=1;j<=10;j++)
-    					Settings.achievementsList.get(j).isCompleted = true;
+    				//for(int j=1;j<=9;j++)
+    				//	Settings.achievementsList.get(j).isCompleted = false;
     				break;
     			default:
     				//Show details only if the click was inside the list view
@@ -205,9 +205,6 @@ public class AchievementsListScreen extends Screen {
 		g.drawRect(0, ACHIEVEMENTS_SCREEN_END, g.getWidth(), g.getHeight(), Color.BLACK);
 		g.drawPixmap(Assets.buttons, BUTTON_BACK_X, BUTTON_BACK_Y, Assets.BUTTON_LEFT_SCRX, Assets.BUTTON_LEFT_SCRY, Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT);
 		
-		if(DEBUG_BOUNDS == true){
-        	drawDebugBounds(g, mBounds);
-        }
 	}
 
 	private void showAchievementDetail(Achievement achievement) {

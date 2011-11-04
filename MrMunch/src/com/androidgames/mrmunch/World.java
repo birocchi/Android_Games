@@ -2,8 +2,6 @@ package com.androidgames.mrmunch;
 
 import java.util.Random;
 
-import android.util.Log;
-
 public class World {
     static final int WORLD_WIDTH = 16;
     static final int WORLD_HEIGHT = 16;
@@ -115,7 +113,6 @@ public class World {
                 score += Settings.gameSpeed*FRUIT_SCORE;
                 fruitsEaten++;
                 snake.eat();
-            	Log.v("MUNCH","Gamespeed: = " + Settings.gameSpeed+ ", tick = " + tick + ", Points = " + score + " ,v = "+ v);
                 if (snake.parts.size() == WORLD_WIDTH * WORLD_HEIGHT) {
                     gameOver = true;
                     return;

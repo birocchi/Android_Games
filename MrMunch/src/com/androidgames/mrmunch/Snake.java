@@ -15,7 +15,7 @@ public class Snake {
     private static final int WORLD_VERTICAL_UPPER_LIMIT = 15;
     private static final int WORLD_VERTICAL_LOWER_LIMIT = 0;
     
-    private static final int SNAKE_INITIAL_SIZE = 3; //MAX 8
+    private static final int SNAKE_INITIAL_SIZE = 8; //MAX 8
     
     public List<SnakePart> parts = new ArrayList<SnakePart>();
     public int direction;
