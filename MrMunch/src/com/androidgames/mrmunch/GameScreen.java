@@ -5,7 +5,6 @@ import java.util.List;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.graphics.Color;
 import android.text.InputFilter;
 import android.util.SparseArray;
 import android.widget.EditText;
@@ -50,8 +49,6 @@ public class GameScreen extends Screen {
 	private final int CLICK_TURN_LEFT = 2;
 	private final int CLICK_TURN_UP = 3;
 	private final int CLICK_TURN_DOWN = 4;
-
-	public Position centerPosition = new Position(); //remove this from class attribute and take it to the check achievements method
 
 	private SparseArray<Bounds> mBoundsPaused;
 
@@ -376,7 +373,6 @@ public class GameScreen extends Screen {
 		g.drawPixmap(Assets.gameOver, GAME_OVER_IMAGE_X, GAME_OVER_IMAGE_Y);
 		g.drawPixmap(Assets.buttons, BUTTON_CANCEL_X, BUTTON_CANCEL_Y,  Assets.BUTTON_CANCEL_SCRX,  Assets.BUTTON_CANCEL_SCRY, Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT);
 		g.drawPixmap(Assets.rectangle, 0 ,g.getHeight() - 2*Assets.BUTTON_HEIGHT -32);
-		game.getGraphics().drawRect(centerPosition.x*SCALING_FACTOR, centerPosition.y*SCALING_FACTOR, Assets.tail.getWidth() , Assets.tail.getHeight() , Color.BLUE);
 	}
 
 	@Override
@@ -497,7 +493,8 @@ public class GameScreen extends Screen {
 		}
 
 		//Achievement 5 - 9
-		checkTetrisPieceAchievements();
+		if(Settings.gameSpeed > 1)
+			checkTetrisPieceAchievements();
 
 		//Achievement 10
 		//TODO: implement
@@ -507,6 +504,7 @@ public class GameScreen extends Screen {
 
 		Position snakePart = new Position();
 		Position PositionsSum = new Position();
+		Position centerPosition = new Position();
 		int snakeSize = world.snake.parts.size();
 		int cicleSize = 0;
 		SnakePart head = world.snake.parts.get(0);

@@ -18,15 +18,15 @@ public class Settings {
 	public static SparseArray<Achievement> achievementsList;
 	static{
 		achievementsList = new SparseArray<Achievement>();
-    	achievementsList.append(1, new Achievement("Beginner", "Got 100 points", Assets.achievement1));
-    	achievementsList.append(2, new Achievement("Intermediate", "Got 500 points", Assets.achievement2));
-    	achievementsList.append(3, new Achievement("Expert", "Got 800 points", Assets.achievement3));
-    	achievementsList.append(4, new Achievement("Master", "Got 1000 points", Assets.achievement4));
-    	achievementsList.append(5, new Achievement("Tetris Square", "Finish like the Square Tetris piece", Assets.achievement5));
-    	achievementsList.append(6, new Achievement("Tetris Line", "Finish like the Line Tetris piece", Assets.achievement6));
-    	achievementsList.append(7, new Achievement("Tetris L", "Finish like the L Tetris piece", Assets.achievement7));
-    	achievementsList.append(8, new Achievement("Tetris S", "Finish like the S Tetris piece", Assets.achievement8));
-    	achievementsList.append(9, new Achievement("Tetris T", "Finish like the T Tetris piece", Assets.achievement9));
+    	achievementsList.append(1, new Achievement("Beginner", "Get 100 points", Assets.achievement1));
+    	achievementsList.append(2, new Achievement("Intermediate", "Get 500 points", Assets.achievement2));
+    	achievementsList.append(3, new Achievement("Expert", "Get 800 points", Assets.achievement3));
+    	achievementsList.append(4, new Achievement("Master", "Get 1000 points", Assets.achievement4));
+    	achievementsList.append(5, new Achievement("Tetris Square", "Finish like the Square Tetris piece, using at least the speed 2", Assets.achievement5));
+    	achievementsList.append(6, new Achievement("Tetris Line", "Finish like the Line Tetris piece, using at least the speed 2", Assets.achievement6));
+    	achievementsList.append(7, new Achievement("Tetris L", "Finish like the L Tetris piece, using at least the speed 2", Assets.achievement7));
+    	achievementsList.append(8, new Achievement("Tetris S", "Finish like the S Tetris piece, using at least the speed 2", Assets.achievement8));
+    	achievementsList.append(9, new Achievement("Tetris T", "Finish like the T Tetris piece, using at least the speed 2", Assets.achievement9));
     	//achievementsList.append(10,new Achievement("Pursuer", "Follow your tail for 20 steps", Assets.achievement5));
 	}
 
@@ -113,5 +113,7 @@ public class Settings {
     		highscores[i] = 0;
     		playerNames[i] = ".....";
     	}
+    	for(int j=1;j<=9;j++)
+    		Settings.achievementsList.get(j).isCompleted = false;
     }
 }

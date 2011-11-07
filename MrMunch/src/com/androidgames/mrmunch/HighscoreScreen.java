@@ -2,25 +2,19 @@ package com.androidgames.mrmunch;
 
 import java.util.List;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.graphics.Color;
 import android.util.SparseArray;
 
 import com.androidgames.framework.Game;
 import com.androidgames.framework.Graphics;
+import com.androidgames.framework.Screen;
 import com.androidgames.framework.Input.KeyEvent;
 import com.androidgames.framework.Input.TouchEvent;
-import com.androidgames.framework.Screen;
-import com.androidgames.framework.impl.AndroidGame;
 
 public class HighscoreScreen extends Screen {
 	
 	private final int BUTTON_PREV_X = 0;
 	private final int BUTTON_PREV_Y = 416;
-	
-	private final int BUTTON_RESET_X = 100;
-	private final int BUTTON_RESET_Y = 416;
 	
 	private final int HIGHSCORE_IMAGE_X = 64;
 	private final int HIGHSCORE_IMAGE_Y = 20;
@@ -34,7 +28,6 @@ public class HighscoreScreen extends Screen {
 	
 	private final int CLICK_NO_EVENT = -1;
 	private final int CLICK_BACK = 0;
-	private final int CLICK_RESET = 1;
 	
     String nameLines[] = new String[5];
     String scoreLines[] = new String[5];
@@ -47,7 +40,6 @@ public class HighscoreScreen extends Screen {
         //Defining the BOUNDS where some CLICK_EVENT should happen
         mBounds = new SparseArray<Bounds>();
         mBounds.append(0,new Bounds(CLICK_BACK, BUTTON_PREV_X, BUTTON_PREV_Y, Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT));
-        mBounds.append(1,new Bounds(CLICK_RESET, BUTTON_RESET_X, BUTTON_RESET_Y, 2*Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT));
     }
 
     @Override
@@ -80,8 +72,8 @@ public class HighscoreScreen extends Screen {
             	case CLICK_BACK:
             		game.setScreen(new MainMenuScreen(game));
             		break;
-            	case CLICK_RESET:
-            		confirmReset();
+            	default:
+            		//do nothing
             		break;
         		}
             }
@@ -103,7 +95,6 @@ public class HighscoreScreen extends Screen {
         }
 
         g.drawPixmap(Assets.buttons, BUTTON_PREV_X, BUTTON_PREV_Y, Assets.BUTTON_LEFT_SCRX, Assets.BUTTON_LEFT_SCRY, Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT);
-        g.drawPixmap(Assets.buttons, BUTTON_RESET_X, BUTTON_RESET_Y, Assets.BUTTON_RESET_SCRX, Assets.BUTTON_RESET_SCRY, 2*Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT);
         
         if(DEBUG_BOUNDS == true){
         	drawDebugBounds(g, mBounds);
@@ -132,31 +123,4 @@ public class HighscoreScreen extends Screen {
         }
     }
     
-    public void confirmReset() {
-    	((AndroidGame)game).runOnUiThread(new Runnable() {
-    		@Override
-    		public void run() {
-    			final AlertDialog.Builder alert = new AlertDialog.Builder((MrMunchGame)game);
-    			alert.setTitle("Highscores reset!!!");
-    			alert.setMessage("Do you really want to reset all scores stored?");
-    			
-    			alert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-    				public void onClick(DialogInterface dialog, int whichButton) {
-    					Settings.resetScore();
-                		Settings.save(game.getFileIO());
-                		getSettingsData();
-    				}
-    			});
-
-    			alert.setNegativeButton("No", new DialogInterface.OnClickListener() {
-    				public void onClick(DialogInterface dialog, int whichButton) {
-    					//Do nothing
-    				}
-    			});
-
-    			alert.show();
-    		}
-
-    	});
-    }
 }

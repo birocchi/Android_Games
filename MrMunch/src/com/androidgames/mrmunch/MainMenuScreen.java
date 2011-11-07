@@ -29,7 +29,7 @@ public class MainMenuScreen extends Screen {
 	private final int CLICK_PLAY = 1;
 	private final int CLICK_HIGHSCORES = 2;
 	private final int CLICK_SETTINGS = 3;
-	private final int CLICK_BADGES = 4;
+	private final int CLICK_ACHIEVEMENTS = 4;
 	private final int CLICK_HELP = 5;
 	private final int CLICK_QUIT = 6;
 	
@@ -43,7 +43,7 @@ public class MainMenuScreen extends Screen {
         mBounds.append(1,new Bounds(CLICK_PLAY, MENU_IMAGE_X, MENU_IMAGE_Y, Assets.MENU_ITEM_WIDTH, Assets.MENU_ITEM_HEIGHT));
         mBounds.append(2,new Bounds(CLICK_HIGHSCORES, MENU_IMAGE_X, MENU_IMAGE_Y + Assets.MENU_ITEM_HEIGHT, Assets.MENU_ITEM_WIDTH, Assets.MENU_ITEM_HEIGHT));
         mBounds.append(3,new Bounds(CLICK_SETTINGS, MENU_IMAGE_X, MENU_IMAGE_Y + 2 * Assets.MENU_ITEM_HEIGHT, Assets.MENU_ITEM_WIDTH, Assets.MENU_ITEM_HEIGHT));
-        mBounds.append(4,new Bounds(CLICK_BADGES, MENU_IMAGE_X, MENU_IMAGE_Y + 3 * Assets.MENU_ITEM_HEIGHT, Assets.MENU_ITEM_WIDTH, Assets.MENU_ITEM_HEIGHT));        
+        mBounds.append(4,new Bounds(CLICK_ACHIEVEMENTS, MENU_IMAGE_X, MENU_IMAGE_Y + 3 * Assets.MENU_ITEM_HEIGHT, Assets.MENU_ITEM_WIDTH, Assets.MENU_ITEM_HEIGHT));        
         mBounds.append(5,new Bounds(CLICK_HELP, MENU_IMAGE_X, MENU_IMAGE_Y + 4 * Assets.MENU_ITEM_HEIGHT, Assets.MENU_ITEM_WIDTH, Assets.MENU_ITEM_HEIGHT));
         mBounds.append(6,new Bounds(CLICK_QUIT, MENU_IMAGE_X, MENU_IMAGE_Y + 5 * Assets.MENU_ITEM_HEIGHT, Assets.MENU_ITEM_WIDTH, Assets.MENU_ITEM_HEIGHT));
     }
@@ -87,7 +87,7 @@ public class MainMenuScreen extends Screen {
             	case CLICK_SETTINGS:
             		game.setScreen(new SettingsScreen(game));
             		break;
-            	case CLICK_BADGES:
+            	case CLICK_ACHIEVEMENTS:
             		game.setScreen(new AchievementsListScreen(game));
             		break;
             	case CLICK_HELP:
