@@ -7,7 +7,6 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.text.InputFilter;
-import android.util.Log;
 import android.util.SparseArray;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -15,11 +14,11 @@ import android.widget.Toast;
 import com.androidgames.framework.Game;
 import com.androidgames.framework.Graphics;
 import com.androidgames.framework.Input;
-import com.androidgames.framework.Input.KeyEvent;
-import com.androidgames.framework.Input.TouchEvent;
 import com.androidgames.framework.Pixmap;
 import com.androidgames.framework.Position;
 import com.androidgames.framework.Screen;
+import com.androidgames.framework.Input.KeyEvent;
+import com.androidgames.framework.Input.TouchEvent;
 import com.androidgames.framework.impl.AndroidGame;
 
 
@@ -520,17 +519,15 @@ public class GameScreen extends Screen {
 			PositionsSum.x += snakePart.x;
 			PositionsSum.y += snakePart.y;
 
-			Log.v("MUNCH"," Part X: " + world.snake.parts.get(i).x + ", Part Y: " + world.snake.parts.get(i).y);
-
 			if(snakePart.x == head.x && snakePart.y == head.y){
 				//Trims the rest of the snake to calculate the center position
 				cicleSize = i;
 				break;
 			}
 		}
-		centerPosition.x = PositionsSum.x/cicleSize;
-		centerPosition.y = PositionsSum.y/cicleSize;
-
+		centerPosition.x = (int)Math.round((float)PositionsSum.x/(float)cicleSize);
+		centerPosition.y = (int)Math.round((float)PositionsSum.y/(float)cicleSize);
+		
 		//Checks if the center collides with the body
 		for(int i = 0; i < snakeSize; i++){
 			if( centerPosition.equals(world.snake.parts.get(i)) ) return;    		

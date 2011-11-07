@@ -14,27 +14,107 @@ public class TetrisPiece {
 	
 	public static boolean match(int pieceType, ArrayList<Position> nodes){
 
+		Position startPos = nodes.get(0);
+		
 		switch(pieceType){
+		
 		case SQUARE:
-			Position startPos = nodes.get(0);
-			if( alreadyHave(new Position(startPos.x+1,startPos.y), nodes) &&
-				alreadyHave(new Position(startPos.x,startPos.y+1), nodes) &&
-				alreadyHave(new Position(startPos.x+1,startPos.y+1), nodes) )
+			if( alreadyHave(new Position(startPos.x-1,startPos.y), nodes) &&		//□ □
+				alreadyHave(new Position(startPos.x-1,startPos.y-1), nodes) &&		//□ ■
+				alreadyHave(new Position(startPos.x,startPos.y-1), nodes) )			//
 				return true;
 			else
 				return false;
 			
-		case LINE:
-			return false;
-			
+		case LINE:																	//□
+			if( alreadyHave(new Position(startPos.x,startPos.y-1), nodes) &&		//□
+				alreadyHave(new Position(startPos.x,startPos.y-2), nodes) &&		//■
+				alreadyHave(new Position(startPos.x,startPos.y+1), nodes) )			//□
+				return true;
+			else if(alreadyHave(new Position(startPos.x-1,startPos.y), nodes) &&	//
+					alreadyHave(new Position(startPos.x-2,startPos.y), nodes) &&	//□ □ ■ □
+					alreadyHave(new Position(startPos.x+1,startPos.y), nodes) )		//
+				return true;
+			else
+				return false;
+
 		case L:
-			return false;
+			if( alreadyHave(new Position(startPos.x,startPos.y-1), nodes) &&			//□
+				alreadyHave(new Position(startPos.x,startPos.y+1), nodes) &&			//■
+				alreadyHave(new Position(startPos.x+1,startPos.y+1), nodes) )			//□ □
+					return true;
+				else if(alreadyHave(new Position(startPos.x-1,startPos.y), nodes) &&	//    □
+						alreadyHave(new Position(startPos.x+1,startPos.y), nodes) &&	//□ ■ □
+						alreadyHave(new Position(startPos.x+1,startPos.y-1), nodes) )	//  
+					return true;
+				else if(alreadyHave(new Position(startPos.x,startPos.y+1), nodes) &&	//□ □
+						alreadyHave(new Position(startPos.x,startPos.y-1), nodes) &&	//  ■
+						alreadyHave(new Position(startPos.x-1,startPos.y-1), nodes) )	//  □
+					return true;
+				else if(alreadyHave(new Position(startPos.x+1,startPos.y), nodes) &&	//□ ■ □
+						alreadyHave(new Position(startPos.x-1,startPos.y), nodes) &&	//□
+						alreadyHave(new Position(startPos.x-1,startPos.y+1), nodes) )	//
+					return true;
+			    //Inverted L
+				else if( alreadyHave(new Position(startPos.x,startPos.y-1), nodes) &&	//  □
+						alreadyHave(new Position(startPos.x,startPos.y+1), nodes) &&	//  ■
+						alreadyHave(new Position(startPos.x-1,startPos.y+1), nodes) )	//□ □
+					return true;
+				else if(alreadyHave(new Position(startPos.x-1,startPos.y), nodes) &&	//□ ■ □
+						alreadyHave(new Position(startPos.x+1,startPos.y), nodes) &&	//    □
+						alreadyHave(new Position(startPos.x+1,startPos.y+1), nodes) )	//  
+					return true;
+				else if(alreadyHave(new Position(startPos.x,startPos.y+1), nodes) &&	//□ □
+						alreadyHave(new Position(startPos.x,startPos.y-1), nodes) &&	//■
+						alreadyHave(new Position(startPos.x+1,startPos.y-1), nodes) )	//□
+					return true;
+				else if(alreadyHave(new Position(startPos.x+1,startPos.y), nodes) &&	//□
+						alreadyHave(new Position(startPos.x-1,startPos.y), nodes) &&	//□ ■ □
+						alreadyHave(new Position(startPos.x-1,startPos.y-1), nodes) )	//
+					return true;
+				else
+					return false;
 			
 		case S:
-			return false;
-			
+			if( alreadyHave(new Position(startPos.x-1,startPos.y), nodes) &&		//  □ □
+				alreadyHave(new Position(startPos.x,startPos.y-1), nodes) &&		//□ ■
+				alreadyHave(new Position(startPos.x+1,startPos.y-1), nodes) )		//
+				return true;
+			else if(alreadyHave(new Position(startPos.x,startPos.y+1), nodes) &&	//□
+					alreadyHave(new Position(startPos.x-1,startPos.y), nodes) &&	//□ ■
+					alreadyHave(new Position(startPos.x-1,startPos.y-1), nodes) )	//  □
+				return true;
+			//Inverted S
+			else if(alreadyHave(new Position(startPos.x+1,startPos.y), nodes) &&	//□ □
+					alreadyHave(new Position(startPos.x,startPos.y-1), nodes) &&	//  ■ □
+					alreadyHave(new Position(startPos.x-1,startPos.y-1), nodes) )	//
+				return true;
+			else if(alreadyHave(new Position(startPos.x,startPos.y-1), nodes) &&	//  □
+					alreadyHave(new Position(startPos.x-1,startPos.y), nodes) &&	//□ ■
+					alreadyHave(new Position(startPos.x-1,startPos.y+1), nodes) )	//□
+				return true;
+			else
+				return false;
+
 		case T:
-			return false;
+			if( alreadyHave(new Position(startPos.x,startPos.y-1), nodes) &&		//□
+				alreadyHave(new Position(startPos.x+1,startPos.y), nodes) &&		//■ □
+				alreadyHave(new Position(startPos.x,startPos.y+1), nodes) )			//□
+				return true;
+			else if(alreadyHave(new Position(startPos.x-1,startPos.y), nodes) &&	//  □
+					alreadyHave(new Position(startPos.x,startPos.y-1), nodes) &&	//□ ■
+					alreadyHave(new Position(startPos.x,startPos.y+1), nodes) )		//  □
+				return true;
+			else if(alreadyHave(new Position(startPos.x-1,startPos.y), nodes) &&	//  □
+					alreadyHave(new Position(startPos.x+1,startPos.y), nodes) &&	//□ ■ □
+					alreadyHave(new Position(startPos.x,startPos.y-1), nodes) )		//
+				return true;
+			else if(alreadyHave(new Position(startPos.x-1,startPos.y), nodes) &&	//□ ■ □
+					alreadyHave(new Position(startPos.x+1,startPos.y), nodes) &&	//  □
+					alreadyHave(new Position(startPos.x,startPos.y+1), nodes) )		//
+				return true;
+			else
+				return false;
 			
 		default:
 			return false;
