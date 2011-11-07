@@ -120,7 +120,7 @@ public class SettingsScreen extends Screen {
         	g.drawText(g, Assets.characters, ""+i, i * (g.getWidth()-30)/5 - Assets.CHARACTER_WIDTH , g.getHeight()/3);
         }
         g.drawPixmap(Assets.buttons, BUTTON_OK_X, BUTTON_OK_Y, Assets.BUTTON_OK_SCRX, Assets.BUTTON_OK_SCRY, Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT);
-        g.drawPixmap(Assets.initialspeed, g.getWidth()/2 - Assets.initialspeed.getWidth()/2, g.getHeight()/2);
+        g.drawPixmap(Assets.textreset, g.getWidth()/2 - Assets.textreset.getWidth()/2, g.getHeight()/2);
         g.drawPixmap(Assets.buttons, BUTTON_RESET_X, BUTTON_RESET_Y, Assets.BUTTON_RESET_SCRX, Assets.BUTTON_RESET_SCRY, 2*Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT);
         
         if(DEBUG_BOUNDS == true){

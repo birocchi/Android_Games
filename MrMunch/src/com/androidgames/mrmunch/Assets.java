@@ -48,6 +48,7 @@ public class Assets {
     public static int PAUSE_MENU_ITEM_HEIGHT = 48;
     
 	public static Pixmap initialspeed;
+	public static Pixmap textreset;
     public static Pixmap background;
     public static Pixmap logo;
     public static Pixmap help1;
