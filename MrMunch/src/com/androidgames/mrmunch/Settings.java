@@ -11,11 +11,17 @@ import android.util.SparseArray;
 import com.androidgames.framework.FileIO;
 
 public class Settings {
+	
+	public static final int BUTTON_CONFIG_RIGHT = 0;
+	public static final int BUTTON_CONFIG_LEFT = 1;
+	
     public static boolean soundEnabled = true;
     public static int[] highscores = new int[] { 0, 0, 0, 0, 0 };
     public static String[] playerNames = new String[] { ".....", ".....", ".....", ".....", "....." };
     public static int gameSpeed = 3;
 	public static SparseArray<Achievement> achievementsList;
+	public static int buttonConfig = BUTTON_CONFIG_RIGHT;
+	
 	static{
 		achievementsList = new SparseArray<Achievement>();
     	achievementsList.append(1, new Achievement("Beginner", "Get 100 points", Assets.achievement1));
@@ -46,7 +52,7 @@ public class Settings {
             for (int i = 1; i <= achievementsList.size(); i++) {
                 achievementsList.get(i).isCompleted = Boolean.parseBoolean(in.readLine());
             }
-            
+            buttonConfig = Integer.parseInt(in.readLine());
         } catch (IOException e) {
             // :( It's ok we have defaults
         } catch (NumberFormatException e) {
@@ -81,7 +87,8 @@ public class Settings {
                 out.write(Boolean.toString(achievementsList.get(i).isCompleted));
                 out.write("\n");
             }
-
+            out.write(Integer.toString(buttonConfig));
+            out.write("\n");
         } catch (IOException e) {
         } finally {
             try {

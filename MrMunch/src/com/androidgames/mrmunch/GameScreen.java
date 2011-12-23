@@ -76,11 +76,19 @@ public class GameScreen extends Screen {
 
 		//Clicks Bounds of the Running state
 		mBoundsRunning = new SparseArray<Bounds>();
-		mBoundsRunning.append(0,new Bounds(CLICK_PAUSE, 0, 0, Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT));
-		mBoundsRunning.append(1,new Bounds(CLICK_TURN_LEFT, g.getWidth() - 3*Assets.BUTTON_WIDTH, g.getHeight() - Assets.BUTTON_HEIGHT - Assets.BUTTON_HEIGHT/2 -32/2, Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT));
-		mBoundsRunning.append(2,new Bounds(CLICK_TURN_RIGHT, g.getWidth() - Assets.BUTTON_WIDTH, g.getHeight() - Assets.BUTTON_HEIGHT - Assets.BUTTON_HEIGHT/2 -32/2, Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT));
-		mBoundsRunning.append(3,new Bounds(CLICK_TURN_UP, g.getWidth() - 2*Assets.BUTTON_WIDTH, g.getHeight() - 2*Assets.BUTTON_HEIGHT -32, Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT));
-		mBoundsRunning.append(4,new Bounds(CLICK_TURN_DOWN, g.getWidth() - 2*Assets.BUTTON_WIDTH, g.getHeight() - Assets.BUTTON_HEIGHT, Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT));
+		if(Settings.buttonConfig==Settings.BUTTON_CONFIG_RIGHT){
+			mBoundsRunning.append(0,new Bounds(CLICK_PAUSE, 0, 0, Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT));
+			mBoundsRunning.append(1,new Bounds(CLICK_TURN_LEFT, g.getWidth() - 3*Assets.BUTTON_WIDTH, g.getHeight() - Assets.BUTTON_HEIGHT - Assets.BUTTON_HEIGHT/2 -32/2, Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT));
+			mBoundsRunning.append(2,new Bounds(CLICK_TURN_RIGHT, g.getWidth() - Assets.BUTTON_WIDTH, g.getHeight() - Assets.BUTTON_HEIGHT - Assets.BUTTON_HEIGHT/2 -32/2, Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT));
+			mBoundsRunning.append(3,new Bounds(CLICK_TURN_UP, g.getWidth() - 2*Assets.BUTTON_WIDTH, g.getHeight() - 2*Assets.BUTTON_HEIGHT -32, Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT));
+			mBoundsRunning.append(4,new Bounds(CLICK_TURN_DOWN, g.getWidth() - 2*Assets.BUTTON_WIDTH, g.getHeight() - Assets.BUTTON_HEIGHT, Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT));
+		} else if(Settings.buttonConfig==Settings.BUTTON_CONFIG_LEFT) {
+			mBoundsRunning.append(0,new Bounds(CLICK_PAUSE, 0, 0, Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT));
+			mBoundsRunning.append(1,new Bounds(CLICK_TURN_LEFT, 0, g.getHeight() - Assets.BUTTON_HEIGHT - Assets.BUTTON_HEIGHT/2 -32/2, Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT));
+			mBoundsRunning.append(2,new Bounds(CLICK_TURN_RIGHT, 2*Assets.BUTTON_WIDTH, g.getHeight() - Assets.BUTTON_HEIGHT - Assets.BUTTON_HEIGHT/2 -32/2, Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT));
+			mBoundsRunning.append(3,new Bounds(CLICK_TURN_UP, Assets.BUTTON_WIDTH, g.getHeight() - 2*Assets.BUTTON_HEIGHT -32, Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT));
+			mBoundsRunning.append(4,new Bounds(CLICK_TURN_DOWN, Assets.BUTTON_WIDTH, g.getHeight() - Assets.BUTTON_HEIGHT, Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT));	
+		}
 
 		//Clicks Bounds of the Paused state
 		mBoundsPaused = new SparseArray<Bounds>();
@@ -265,6 +273,8 @@ public class GameScreen extends Screen {
 
 		g.drawPixmap(Assets.background, 0, 0);
 		drawWorld(world);
+		drawButtonsPanel();
+		
 		if(state == GameState.Ready) 
 			drawReadyUI();
 		if(state == GameState.Running)
@@ -273,8 +283,27 @@ public class GameScreen extends Screen {
 			drawPausedUI();
 		if(state == GameState.GameOver)
 			drawGameOverUI();
-		g.drawText(g, Assets.characters, "Score", g.getWidth() / 4 - "Score".length()*Assets.CHARACTER_WIDTH / 2, g.getHeight() - 2*Assets.BUTTON_HEIGHT- 28);
-		g.drawText(g, Assets.characters, score, g.getWidth() / 4 - score.length()*Assets.CHARACTER_WIDTH / 2, g.getHeight() - Assets.BUTTON_HEIGHT - Assets.CHARACTER_HEIGHT/2 -32/2);
+		
+
+	}
+	
+	private void drawButtonsPanel() {
+		Graphics g = game.getGraphics();
+		g.drawPixmap(Assets.rectangle, 0 ,g.getHeight() - 2*Assets.BUTTON_HEIGHT -32);
+		if(Settings.buttonConfig==Settings.BUTTON_CONFIG_RIGHT){
+			g.drawPixmap(Assets.buttons, g.getWidth() - 3*Assets.BUTTON_WIDTH, g.getHeight() - Assets.BUTTON_HEIGHT - Assets.BUTTON_HEIGHT/2 -32/2, Assets.BUTTON_LEFT_SCRX, Assets.BUTTON_LEFT_SCRY, Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT);
+			g.drawPixmap(Assets.buttons, g.getWidth() - Assets.BUTTON_WIDTH, g.getHeight() - Assets.BUTTON_HEIGHT - Assets.BUTTON_HEIGHT/2 -32/2, Assets.BUTTON_RIGHT_SCRX, Assets.BUTTON_RIGHT_SCRY, Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT);
+			g.drawPixmap(Assets.buttons, g.getWidth() - 2*Assets.BUTTON_WIDTH, g.getHeight() - 2*Assets.BUTTON_HEIGHT -32, Assets.BUTTON_UP_SCRX, Assets.BUTTON_UP_SCRY, Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT);
+			g.drawPixmap(Assets.buttons, g.getWidth() - 2*Assets.BUTTON_WIDTH, g.getHeight() - Assets.BUTTON_HEIGHT, Assets.BUTTON_DOWN_SCRX, Assets.BUTTON_DOWN_SCRY, Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT);
+			g.drawText(g, Assets.characters, "Score", g.getWidth() / 4 - "Score".length()*Assets.CHARACTER_WIDTH / 2 - 10, g.getHeight() - 2*Assets.BUTTON_HEIGHT);
+			g.drawText(g, Assets.characters, score, g.getWidth() / 4 - score.length()*Assets.CHARACTER_WIDTH / 2 - 10, g.getHeight() - Assets.BUTTON_HEIGHT - Assets.CHARACTER_HEIGHT/2 -32/2);
+		} else if(Settings.buttonConfig==Settings.BUTTON_CONFIG_LEFT){
+			g.drawPixmap(Assets.buttons, 0, g.getHeight() - Assets.BUTTON_HEIGHT - Assets.BUTTON_HEIGHT/2 -32/2, Assets.BUTTON_LEFT_SCRX, Assets.BUTTON_LEFT_SCRY, Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT);
+			g.drawPixmap(Assets.buttons, 2*Assets.BUTTON_WIDTH, g.getHeight() - Assets.BUTTON_HEIGHT - Assets.BUTTON_HEIGHT/2 -32/2, Assets.BUTTON_RIGHT_SCRX, Assets.BUTTON_RIGHT_SCRY, Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT);
+			g.drawPixmap(Assets.buttons, Assets.BUTTON_WIDTH, g.getHeight() - 2*Assets.BUTTON_HEIGHT -32, Assets.BUTTON_UP_SCRX, Assets.BUTTON_UP_SCRY, Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT);
+			g.drawPixmap(Assets.buttons, Assets.BUTTON_WIDTH, g.getHeight() - Assets.BUTTON_HEIGHT, Assets.BUTTON_DOWN_SCRX, Assets.BUTTON_DOWN_SCRY, Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT);
+			g.drawText(g, Assets.characters, "Score", g.getWidth() / 2 + 40, g.getHeight() - 2*Assets.BUTTON_HEIGHT);
+			g.drawText(g, Assets.characters, score, 3*g.getWidth() / 4 + 10 - score.length()*Assets.CHARACTER_WIDTH / 2, g.getHeight() - Assets.BUTTON_HEIGHT - Assets.CHARACTER_HEIGHT/2 -32/2);		}	
 	}
 
 	private void drawWorld(World world) {
@@ -330,22 +359,12 @@ public class GameScreen extends Screen {
 		Graphics g = game.getGraphics();
 
 		g.drawPixmap(Assets.ready, READY_IMAGE_X, READY_IMAGE_Y);
-		g.drawPixmap(Assets.rectangle, 0 ,g.getHeight() - 2*Assets.BUTTON_HEIGHT -32);
-		g.drawPixmap(Assets.buttons, g.getWidth() - 3*Assets.BUTTON_WIDTH, g.getHeight() - Assets.BUTTON_HEIGHT - Assets.BUTTON_HEIGHT/2 -32/2, Assets.BUTTON_LEFT_SCRX, Assets.BUTTON_LEFT_SCRY, Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT);
-		g.drawPixmap(Assets.buttons, g.getWidth() - Assets.BUTTON_WIDTH, g.getHeight() - Assets.BUTTON_HEIGHT - Assets.BUTTON_HEIGHT/2 -32/2, Assets.BUTTON_RIGHT_SCRX, Assets.BUTTON_RIGHT_SCRY, Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT);
-		g.drawPixmap(Assets.buttons, g.getWidth() - 2*Assets.BUTTON_WIDTH, g.getHeight() - 2*Assets.BUTTON_HEIGHT -32, Assets.BUTTON_UP_SCRX, Assets.BUTTON_UP_SCRY, Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT);
-		g.drawPixmap(Assets.buttons, g.getWidth() - 2*Assets.BUTTON_WIDTH, g.getHeight() - Assets.BUTTON_HEIGHT, Assets.BUTTON_DOWN_SCRX, Assets.BUTTON_DOWN_SCRY, Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT);
 	}
 
 	private void drawRunningUI() {
 		Graphics g = game.getGraphics();
 
 		g.drawPixmap(Assets.buttons, BUTTON_PAUSE_X, BUTTON_PAUSE_Y, Assets.BUTTON_PAUSE_SCRX, Assets.BUTTON_PAUSE_SCRY, Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT);
-		g.drawPixmap(Assets.rectangle, 0 ,g.getHeight() - 2*Assets.BUTTON_HEIGHT -32);
-		g.drawPixmap(Assets.buttons, g.getWidth() - 3*Assets.BUTTON_WIDTH, g.getHeight() - Assets.BUTTON_HEIGHT - Assets.BUTTON_HEIGHT/2 -32/2, Assets.BUTTON_LEFT_SCRX, Assets.BUTTON_LEFT_SCRY, Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT);
-		g.drawPixmap(Assets.buttons, g.getWidth() - Assets.BUTTON_WIDTH, g.getHeight() - Assets.BUTTON_HEIGHT - Assets.BUTTON_HEIGHT/2 -32/2, Assets.BUTTON_RIGHT_SCRX, Assets.BUTTON_RIGHT_SCRY, Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT);
-		g.drawPixmap(Assets.buttons, g.getWidth() - 2*Assets.BUTTON_WIDTH, g.getHeight() - 2*Assets.BUTTON_HEIGHT -32, Assets.BUTTON_UP_SCRX, Assets.BUTTON_UP_SCRY, Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT);
-		g.drawPixmap(Assets.buttons, g.getWidth() - 2*Assets.BUTTON_WIDTH, g.getHeight() - Assets.BUTTON_HEIGHT, Assets.BUTTON_DOWN_SCRX, Assets.BUTTON_DOWN_SCRY, Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT);
 
 		if(DEBUG_BOUNDS == true){
 			drawDebugBounds(g, mBoundsRunning);
@@ -356,11 +375,6 @@ public class GameScreen extends Screen {
 		Graphics g = game.getGraphics();
 
 		g.drawPixmap(Assets.pause, PAUSE_IMAGE_X, PAUSE_IMAGE_Y);
-		g.drawPixmap(Assets.rectangle, 0 ,g.getHeight() - 2*Assets.BUTTON_HEIGHT -32);
-		g.drawPixmap(Assets.buttons, g.getWidth() - 3*Assets.BUTTON_WIDTH, g.getHeight() - Assets.BUTTON_HEIGHT - Assets.BUTTON_HEIGHT/2 -32/2, Assets.BUTTON_LEFT_SCRX, Assets.BUTTON_LEFT_SCRY, Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT);
-		g.drawPixmap(Assets.buttons, g.getWidth() - Assets.BUTTON_WIDTH, g.getHeight() - Assets.BUTTON_HEIGHT - Assets.BUTTON_HEIGHT/2 -32/2, Assets.BUTTON_RIGHT_SCRX, Assets.BUTTON_RIGHT_SCRY, Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT);
-		g.drawPixmap(Assets.buttons, g.getWidth() - 2*Assets.BUTTON_WIDTH, g.getHeight() - 2*Assets.BUTTON_HEIGHT -32, Assets.BUTTON_UP_SCRX, Assets.BUTTON_UP_SCRY, Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT);
-		g.drawPixmap(Assets.buttons, g.getWidth() - 2*Assets.BUTTON_WIDTH, g.getHeight() - Assets.BUTTON_HEIGHT, Assets.BUTTON_DOWN_SCRX, Assets.BUTTON_DOWN_SCRY, Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT);
 
 		if(DEBUG_BOUNDS == true){
 			drawDebugBounds(g, mBoundsPaused);
@@ -372,7 +386,7 @@ public class GameScreen extends Screen {
 
 		g.drawPixmap(Assets.gameOver, GAME_OVER_IMAGE_X, GAME_OVER_IMAGE_Y);
 		g.drawPixmap(Assets.buttons, BUTTON_CANCEL_X, BUTTON_CANCEL_Y,  Assets.BUTTON_CANCEL_SCRX,  Assets.BUTTON_CANCEL_SCRY, Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT);
-		g.drawPixmap(Assets.rectangle, 0 ,g.getHeight() - 2*Assets.BUTTON_HEIGHT -32);
+
 	}
 
 	@Override
