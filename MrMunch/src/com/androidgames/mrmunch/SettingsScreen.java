@@ -20,7 +20,7 @@ public class SettingsScreen extends Screen {
 	private final int BUTTON_OK_Y = 416;
 	
 	private final int BUTTON_RESET_X = game.getGraphics().getWidth()/2 - Assets.BUTTON_WIDTH;
-	private final int BUTTON_RESET_Y = game.getGraphics().getHeight()/2 + Assets.initialspeed.getHeight()+10;
+	private final int BUTTON_RESET_Y = game.getGraphics().getHeight()/2 + Assets.textreset.getHeight()+30;
 	
 	private final int SETTINGS_IMAGE_X = 64;
 	private final int SETTINGS_IMAGE_Y = 20;
@@ -28,13 +28,17 @@ public class SettingsScreen extends Screen {
 	private SparseArray<Bounds> mBounds;
 
 	private final int CLICK_NO_EVENT = -1;
+	//Don't change the order...
 	private final int CLICK_1 = 0;
 	private final int CLICK_2 = 1;
 	private final int CLICK_3 = 2;
 	private final int CLICK_4 = 3;
 	private final int CLICK_5 = 4;
+	//... until here.
 	private final int CLICK_OK = 5;
-	private final int CLICK_RESET = 6;
+	private final int CLICK_LEFT = 6;
+	private final int CLICK_RIGHT = 7;
+	private final int CLICK_RESET = 8;
 
 	public SettingsScreen(Game game) {
 		super(game);
@@ -45,13 +49,15 @@ public class SettingsScreen extends Screen {
         for(int i = 0; i < 5; i++) {
         	mBounds.append(i,new Bounds(i,
         			               (i+1) * (g.getWidth()-30)/5 - Assets.CHARACTER_WIDTH - 6,
-        			               g.getHeight()/3 - 4,
+        			               g.getHeight()/4 - 4,
         			               Assets.CHARACTER_WIDTH + 12,
         			               Assets.CHARACTER_HEIGHT + 8
         			               ));
         }
-        mBounds.append(CLICK_OK,new Bounds(CLICK_OK, BUTTON_OK_X, BUTTON_OK_Y, Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT));
-        mBounds.append(CLICK_RESET,new Bounds(CLICK_RESET, BUTTON_RESET_X, BUTTON_RESET_Y, 2*Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT));
+        mBounds.append(CLICK_LEFT, new Bounds(CLICK_LEFT, g.getWidth()/3 - 2*Assets.CHARACTER_WIDTH, g.getHeight()/2 - Assets.CHARACTER_HEIGHT+5, 4*Assets.CHARACTER_WIDTH, Assets.CHARACTER_HEIGHT));
+        mBounds.append(CLICK_RIGHT, new Bounds(CLICK_RIGHT, 2*g.getWidth()/3 - 2*Assets.CHARACTER_WIDTH, g.getHeight()/2 - Assets.CHARACTER_HEIGHT+5, 5*Assets.CHARACTER_WIDTH, Assets.CHARACTER_HEIGHT));
+        mBounds.append(CLICK_OK, new Bounds(CLICK_OK, BUTTON_OK_X, BUTTON_OK_Y, Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT));
+        mBounds.append(CLICK_RESET, new Bounds(CLICK_RESET, BUTTON_RESET_X, BUTTON_RESET_Y, 2*Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT));
 	}
 	
 	@Override
@@ -96,6 +102,12 @@ public class SettingsScreen extends Screen {
             	case CLICK_5:
             		Settings.gameSpeed = 5;
             		break;
+            	case CLICK_LEFT:
+            		Settings.buttonConfig = Settings.BUTTON_CONFIG_LEFT;
+            		break;
+            	case CLICK_RIGHT:
+            		Settings.buttonConfig = Settings.BUTTON_CONFIG_RIGHT;
+            		break;
             	case CLICK_OK:
             		game.setScreen(new MainMenuScreen(game));
             		break;
@@ -113,14 +125,19 @@ public class SettingsScreen extends Screen {
 		
         g.clear(Color.BLACK);
         g.drawPixmap(Assets.mainMenu, SETTINGS_IMAGE_X, SETTINGS_IMAGE_Y, Assets.SETTINGS_SCRX, Assets.SETTINGS_SCRY, Assets.MENU_ITEM_WIDTH, Assets.MENU_ITEM_HEIGHT);
-        g.drawPixmap(Assets.initialspeed, g.getWidth()/2 - Assets.initialspeed.getWidth()/2, g.getHeight()/3 - Assets.initialspeed.getHeight());
-        g.drawRect(Settings.gameSpeed * (g.getWidth()-30)/5 - Assets.CHARACTER_WIDTH - 6, g.getHeight()/3 - 4, Assets.CHARACTER_WIDTH + 12, Assets.CHARACTER_HEIGHT + 8, Color.WHITE);
-        g.drawRect(Settings.gameSpeed * (g.getWidth()-30)/5 - Assets.CHARACTER_WIDTH - 4, g.getHeight()/3 - 2, Assets.CHARACTER_WIDTH + 8, Assets.CHARACTER_HEIGHT + 4, Color.BLACK);
+        g.drawPixmap(Assets.initialspeed, g.getWidth()/2 - Assets.initialspeed.getWidth()/2, g.getHeight()/4 - Assets.initialspeed.getHeight());
+        g.drawRect(Settings.gameSpeed * (g.getWidth()-30)/5 - Assets.CHARACTER_WIDTH - 6, g.getHeight()/4 - 4, Assets.CHARACTER_WIDTH + 12, Assets.CHARACTER_HEIGHT + 8, Color.WHITE);
+        g.drawRect(Settings.gameSpeed * (g.getWidth()-30)/5 - Assets.CHARACTER_WIDTH - 4, g.getHeight()/4 - 2, Assets.CHARACTER_WIDTH + 8, Assets.CHARACTER_HEIGHT + 4, Color.BLACK);
         for(int i = 1; i <= 5; i++) {
-        	g.drawText(g, Assets.characters, ""+i, i * (g.getWidth()-30)/5 - Assets.CHARACTER_WIDTH , g.getHeight()/3);
+        	g.drawText(g, Assets.characters, ""+i, i * (g.getWidth()-30)/5 - Assets.CHARACTER_WIDTH , g.getHeight()/4);
         }
+        g.drawPixmap(Assets.initialspeed, g.getWidth()/2 - Assets.initialspeed.getWidth()/2, g.getHeight()/2 - 3*Assets.initialspeed.getHeight()/2 -10);
+        g.drawRect(Settings.buttonConfig*g.getWidth()/3 - 2*Assets.CHARACTER_WIDTH - 6, g.getHeight()/2 - Assets.CHARACTER_HEIGHT+5 - 4, (3+Settings.buttonConfig)*Assets.CHARACTER_WIDTH + 12, Assets.CHARACTER_HEIGHT + 8, Color.WHITE);
+        g.drawRect(Settings.buttonConfig*g.getWidth()/3 - 2*Assets.CHARACTER_WIDTH - 4, g.getHeight()/2 - Assets.CHARACTER_HEIGHT+5 - 2, (3+Settings.buttonConfig)*Assets.CHARACTER_WIDTH + 8, Assets.CHARACTER_HEIGHT + 4, Color.BLACK);
+    	g.drawText(g, Assets.characters, "Left", g.getWidth()/3 - 2*Assets.CHARACTER_WIDTH , g.getHeight()/2 - Assets.CHARACTER_HEIGHT+5);
+    	g.drawText(g, Assets.characters, "Right", 2*g.getWidth()/3 - 2*Assets.CHARACTER_WIDTH , g.getHeight()/2 - Assets.CHARACTER_HEIGHT+5);
         g.drawPixmap(Assets.buttons, BUTTON_OK_X, BUTTON_OK_Y, Assets.BUTTON_OK_SCRX, Assets.BUTTON_OK_SCRY, Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT);
-        g.drawPixmap(Assets.textreset, g.getWidth()/2 - Assets.textreset.getWidth()/2, g.getHeight()/2);
+        g.drawPixmap(Assets.textreset, g.getWidth()/2 - Assets.textreset.getWidth()/2, g.getHeight()/2+25);
         g.drawPixmap(Assets.buttons, BUTTON_RESET_X, BUTTON_RESET_Y, Assets.BUTTON_RESET_SCRX, Assets.BUTTON_RESET_SCRY, 2*Assets.BUTTON_WIDTH, Assets.BUTTON_HEIGHT);
         
         if(DEBUG_BOUNDS == true){

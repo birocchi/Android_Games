@@ -12,8 +12,8 @@ import com.androidgames.framework.FileIO;
 
 public class Settings {
 	
-	public static final int BUTTON_CONFIG_RIGHT = 0;
 	public static final int BUTTON_CONFIG_LEFT = 1;
+	public static final int BUTTON_CONFIG_RIGHT = 2;
 	
     public static boolean soundEnabled = true;
     public static int[] highscores = new int[] { 0, 0, 0, 0, 0 };
