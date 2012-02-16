@@ -12,6 +12,7 @@ import android.graphics.ColorMatrixColorFilter;
 import android.graphics.Paint;
 import android.util.SparseArray;
 import android.view.Display;
+import android.view.Gravity;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
@@ -229,11 +230,14 @@ public class AchievementsListScreen extends Screen {
     			
     			ImageView iv = new ImageView((MrMunchGame)game);
     			iv.setImageBitmap(Bitmap.createScaledBitmap(((AndroidPixmap)(currentAchievement.logo)).getBitmap(), (3*realScreenWidth)/5, (3*realScreenWidth)/5, true));
+    			iv.setPadding(15, 15, 15, 15);
     			ll.addView(iv);
     			
     			TextView tv = new TextView((MrMunchGame)game);
     			tv.setTextSize(30);
-    			tv.setText("\n" + currentAchievement.description);
+    			tv.setText(currentAchievement.description);
+    			tv.setPadding(15, 15, 15, 15);
+    			tv.setGravity(Gravity.CENTER);
     			ll.addView(tv);
     			
     			alert.setView(scrollView);
