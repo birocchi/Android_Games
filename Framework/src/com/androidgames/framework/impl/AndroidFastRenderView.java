@@ -2,6 +2,7 @@ package com.androidgames.framework.impl;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.PixelFormat;
 import android.graphics.Rect;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -18,6 +19,7 @@ public class AndroidFastRenderView extends SurfaceView implements Runnable {
         this.game = game;
         this.framebuffer = framebuffer;
         this.holder = getHolder();
+        this.holder.setFormat(PixelFormat.RGBA_8888);
     }
 
     public void resume() { 

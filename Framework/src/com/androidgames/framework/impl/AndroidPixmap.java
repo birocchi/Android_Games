@@ -20,6 +20,11 @@ public class AndroidPixmap implements Pixmap {
     }
     
     @Override
+    public void setBitmap(Bitmap bmp){
+    	bitmap = bmp;
+    }
+    
+    @Override
     public int getWidth() {
         return bitmap.getWidth();
     }

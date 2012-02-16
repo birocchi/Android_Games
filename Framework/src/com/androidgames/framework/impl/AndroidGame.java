@@ -46,7 +46,7 @@ public abstract class AndroidGame extends Activity implements Game {
          * 640 x 960
          */
         Bitmap frameBuffer = Bitmap.createBitmap(frameBufferWidth,
-                frameBufferHeight, Config.RGB_565);
+                frameBufferHeight, Config.ARGB_8888);
         
         float scaleX = (float) frameBufferWidth
                 / getWindowManager().getDefaultDisplay().getWidth();
